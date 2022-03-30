@@ -1,11 +1,11 @@
-import { Contexts} from './components/Contexts';
+import { ContextWrapper} from './components/ContextWrapper';
 import { Pages} from './pages/Pages'
 
 function App() {
   return (
-    <Contexts>
+    <ContextWrapper theme='dark'>
     <Pages/>
-    </Contexts>
+    </ContextWrapper>
   );
 }
 

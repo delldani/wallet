@@ -3,7 +3,6 @@ import { Formik, Form, useField,useFormikContext } from "formik";
 import * as Yup from "yup";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -13,6 +12,8 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
+
+import { UserContext} from '../components/ContextWrapper'
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -78,9 +79,12 @@ const PasswordInput = ({ label, ...props }) => {
 };
 
 export const RegistrationPage = () => {
+
+  const value = React.useContext(UserContext);  
+
   return (
     <Box sx={mainStyle}>
-      <h1>Subscribe</h1>
+      <h1>{value.theme}</h1>
       <Formik
         initialValues={{
           username: "",
