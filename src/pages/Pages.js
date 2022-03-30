@@ -1,3 +1,4 @@
+import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 
 import { LoginPage} from './LoginPage';
@@ -8,8 +9,6 @@ import { WalletPage} from './WalletPage';
 
 export const Pages = ()=>{
 
-
-
     return(
        <Routes>
         <Route path="/login" element={<LoginPage/>} />
@@ -19,4 +18,4 @@ export const Pages = ()=>{
         <Route path="/permission" element={<PermissionPage />} />
       </Routes>
     );
-}
+};

@@ -1,6 +1,5 @@
 import { Contexts} from './components/Contexts';
-import { Pages} from './pages';
-
+import { Pages} from './pages/Pages'
 
 function App() {
   return (
