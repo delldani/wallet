@@ -11,7 +11,7 @@ export const Pages = ()=>{
 
     return(
        <Routes>
-        <Route path="/login" element={<LoginPage/>} />
+        <Route path="/" element={<LoginPage/>} />
         <Route path="/registration" element={<RegistrationPage />} />
         <Route path="/list" element={<ListPage />} />
         <Route path="/wallet" element={<WalletPage />} />
