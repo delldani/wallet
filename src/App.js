@@ -1,6 +1,7 @@
 import { ContextWrapper } from "./components/ContextWrapper";
 import { Pages } from "./pages/Pages";
 import { translations } from "./utils/default";
+import { NavBar } from "./components/NavBar";
 
 function App() {
   const contextObject = {
@@ -10,6 +11,7 @@ function App() {
 
   return (
     <ContextWrapper contextObject={contextObject}>
+      <NavBar />
       <Pages />
     </ContextWrapper>
   );

@@ -1,4 +1,5 @@
 export const translations = {
+  title: "Iskolai osztálypénznyilvántartó rendszer",
   login: "Belépés",
   reset: "Törlés",
   Submit: "Mehet",
