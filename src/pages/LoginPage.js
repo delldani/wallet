@@ -14,20 +14,29 @@ import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import { Link } from "react-router-dom";
 import MaterialLink from "@mui/material/Link";
+import InfoIcon from "@mui/icons-material/Info";
+import Tooltip from "@mui/material/Tooltip";
 
 import { UserContext } from "../components/ContextWrapper";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
-    <TextField
-      className="input-field"
-      label={label}
-      variant="outlined"
-      inputProps={{ ...field, ...props }}
-      helperText={meta.touched && meta.error}
-      error={!!(meta.touched && meta.error)}
-    />
+    <div className="username-input">
+      <TextField
+        className="input-field"
+        label={label}
+        variant="outlined"
+        inputProps={{ ...field, ...props }}
+        helperText={meta.touched && meta.error}
+        error={!!(meta.touched && meta.error)}
+      />
+      <Tooltip title={props.tooltipInfo} className="info">
+        <IconButton>
+          <InfoIcon />
+        </IconButton>
+      </Tooltip>
+    </div>
   );
 };
 
@@ -46,37 +55,44 @@ const PasswordInput = ({ label, ...props }) => {
   };
 
   return (
-    <FormControl className="input-field">
-      <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
-      <OutlinedInput
-        error={!!(meta.touched && meta.error)}
-        disabled={field.name === "password2" && !touched.password1}
-        label={label}
-        variant="outlined"
-        inputProps={{
-          ...field,
-          ...props,
-          type: showPassword ? "text" : "password",
-        }}
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
-              edge="end"
-            >
-              {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-            </IconButton>
-          </InputAdornment>
-        }
-      />
-      {!!(meta.touched && meta.error) && (
-        <FormHelperText error id="accountId-error">
-          {meta.error}
-        </FormHelperText>
-      )}
-    </FormControl>
+    <div className="password-input">
+      <FormControl className="input-field">
+        <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
+        <OutlinedInput
+          error={!!(meta.touched && meta.error)}
+          disabled={field.name === "password2" && !touched.password1}
+          label={label}
+          variant="outlined"
+          inputProps={{
+            ...field,
+            ...props,
+            type: showPassword ? "text" : "password",
+          }}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleClickShowPassword}
+                onMouseDown={handleMouseDownPassword}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+        {!!(meta.touched && meta.error) && (
+          <FormHelperText error id="accountId-error">
+            {meta.error}
+          </FormHelperText>
+        )}
+      </FormControl>
+      <Tooltip title={props.tooltipInfo} className="info">
+        <IconButton>
+          <InfoIcon />
+        </IconButton>
+      </Tooltip>
+    </div>
   );
 };
 
@@ -117,13 +133,24 @@ export const LoginPage = () => {
         }}
       >
         <Form className="form">
-          <MyTextInput label="Username" name="username" type="text" />
+          <MyTextInput
+            label="Username"
+            name="username"
+            type="text"
+            tooltipInfo={contextObject.translations.usernameValidationRules}
+          />
 
-          <PasswordInput label="Password" name="password" type="text" />
+          <PasswordInput
+            label="Password"
+            name="password"
+            type="text"
+            tooltipInfo={contextObject.translations.passwordValidationRules}
+          />
 
           <MaterialLink component={Link} to="/registration" underline="none">
             {contextObject.translations.toRegister}
           </MaterialLink>
+
           <div className="buttons">
             <Button type="submit" variant="contained" color="primary" fullWidth>
               {contextObject.translations.login}
@@ -159,5 +186,12 @@ const mainStyle = {
     gap: "10px",
     justifyContent: "space-between",
     width: "100%",
+  },
+  "& .username-input, .password-input": {
+    display: "flex",
+    alignItems: "center",
+  },
+  "& .info": {
+    height: "min-content",
   },
 };
