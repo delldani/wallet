@@ -14,6 +14,9 @@ import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import InfoIcon from "@mui/icons-material/Info";
 import Tooltip from "@mui/material/Tooltip";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Radio from "@mui/material/Radio";
 
 import { UserContext } from "../components/ContextWrapper";
 
@@ -97,7 +100,12 @@ const PasswordInput = ({ label, tooltipInfo, hasTooltip = true, ...props }) => {
 };
 
 export const RegistrationPage = () => {
+  const [valueRadio, setValueRadio] = React.useState("teacher");
   const contextObject = React.useContext(UserContext);
+
+  const handleChangeRadio = (event) => {
+    setValueRadio(event.target.value);
+  };
 
   return (
     <Box sx={mainStyle}>
@@ -162,6 +170,24 @@ export const RegistrationPage = () => {
             hasTooltip={false}
           />
 
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="row-radio-buttons-group"
+            value={valueRadio}
+            onChange={handleChangeRadio}
+          >
+            <FormControlLabel
+              value="teacher"
+              control={<Radio />}
+              label={contextObject.translations.teacher}
+            />
+            <FormControlLabel
+              value="parent"
+              control={<Radio />}
+              label={contextObject.translations.parent}
+            />
+          </RadioGroup>
           <div className="buttons">
             <Button type="submit" variant="contained" color="primary" fullWidth>
               {contextObject.translations.Submit}
