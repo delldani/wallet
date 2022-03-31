@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, Form, useField,useFormikContext } from "formik";
+import { Formik, Form, useField, useFormikContext } from "formik";
 import * as Yup from "yup";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -13,7 +13,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 
-import { UserContext} from '../components/ContextWrapper'
+import { UserContext } from "../components/ContextWrapper";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -34,7 +34,7 @@ const PasswordInput = ({ label, ...props }) => {
 
   const [showPassword, setShowPassword] = React.useState(false);
 
-  const {touched} = useFormikContext();
+  const { touched } = useFormikContext();
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -48,7 +48,7 @@ const PasswordInput = ({ label, ...props }) => {
       <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
       <OutlinedInput
         error={!!(meta.touched && meta.error)}
-        disabled={field.name === 'password2' && !touched.password1}
+        disabled={field.name === "password2" && !touched.password1}
         label={label}
         variant="outlined"
         inputProps={{
@@ -79,12 +79,11 @@ const PasswordInput = ({ label, ...props }) => {
 };
 
 export const RegistrationPage = () => {
-
-  const value = React.useContext(UserContext);  
+  const contextObject = React.useContext(UserContext);
 
   return (
     <Box sx={mainStyle}>
-      <h1>{value.theme}</h1>
+      <h1>{contextObject.theme}</h1>
       <Formik
         initialValues={{
           username: "",
@@ -96,15 +95,26 @@ export const RegistrationPage = () => {
           username: Yup.string()
             .max(20, "Must be 15 characters or less")
             .min(5, "Must be 5 characters or more")
-            .matches(/^[a-zA-Z0-9]+$/,{message:'Must be only letters or numbers',excludeEmptyString: true})
+            .matches(/^[a-zA-Z0-9]+$/, {
+              message: "Must be only letters or numbers",
+              excludeEmptyString: true,
+            })
             .required("Required"),
           password1: Yup.string()
             .min(5, "Must be 5 characters or more")
-            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,{message:'Must contain at least one lowercase letter, one uppercase letter, and one digit',excludeEmptyString: true})
+            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, {
+              message:
+                "Must contain at least one lowercase letter, one uppercase letter, and one digit",
+              excludeEmptyString: true,
+            })
             .required("Required"),
           password2: Yup.string()
             .min(5, "Must be 5 characters or more")
-            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,{message:'Must contain at least one lowercase letter, one uppercase letter, and one digit',excludeEmptyString: true})
+            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, {
+              message:
+                "Must contain at least one lowercase letter, one uppercase letter, and one digit",
+              excludeEmptyString: true,
+            })
             .required("Required")
             .oneOf([Yup.ref("password1"), null], "password must match"),
           email: Yup.string()
@@ -118,7 +128,7 @@ export const RegistrationPage = () => {
           }, 400);
         }}
       >
-        <Form className='form'>
+        <Form className="form">
           <MyTextInput label="Username" name="username" type="text" />
 
           <PasswordInput label="Password" name="password1" type="text" />
@@ -143,27 +153,26 @@ export const RegistrationPage = () => {
   );
 };
 
-
 const mainStyle = {
-  marginTop:'150px',
-  display:'flex',
-  flexDirection:'column',
-  alignItems:'center',
-  '& .form':{
-    display:'flex',
-    flexDirection:'column',
-    alignItems:'center',
+  marginTop: "150px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  "& .form": {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
-  '& .input-field':{
-    width:'300px',
-    marginTop:'20px',
-    marginBottom:'20px',
+  "& .input-field": {
+    width: "300px",
+    marginTop: "20px",
+    marginBottom: "20px",
   },
-  '& .buttons':{
-    display:'flex',
-    marginTop:'20px',
-    gap:'10px',
-    justifyContent:'space-between',
-    width:'100%'
-  }
-}
+  "& .buttons": {
+    display: "flex",
+    marginTop: "20px",
+    gap: "10px",
+    justifyContent: "space-between",
+    width: "100%",
+  },
+};
