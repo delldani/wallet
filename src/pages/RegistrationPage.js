@@ -12,24 +12,33 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
+import InfoIcon from "@mui/icons-material/Info";
+import Tooltip from "@mui/material/Tooltip";
 
 import { UserContext } from "../components/ContextWrapper";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
-    <TextField
-      className="input-field"
-      label={label}
-      variant="outlined"
-      inputProps={{ ...field, ...props }}
-      helperText={meta.touched && meta.error}
-      error={!!(meta.touched && meta.error)}
-    />
+    <div className="username-input">
+      <TextField
+        className="input-field"
+        label={label}
+        variant="outlined"
+        inputProps={{ ...field, ...props }}
+        helperText={meta.touched && meta.error}
+        error={!!(meta.touched && meta.error)}
+      />
+      <Tooltip title={props.tooltipInfo} className="info">
+        <IconButton>
+          <InfoIcon />
+        </IconButton>
+      </Tooltip>
+    </div>
   );
 };
 
-const PasswordInput = ({ label, ...props }) => {
+const PasswordInput = ({ label, tooltipInfo, hasTooltip = true, ...props }) => {
   const [field, meta] = useField(props);
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -44,37 +53,46 @@ const PasswordInput = ({ label, ...props }) => {
   };
 
   return (
-    <FormControl className="input-field">
-      <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
-      <OutlinedInput
-        error={!!(meta.touched && meta.error)}
-        disabled={field.name === "password2" && !touched.password1}
-        label={label}
-        variant="outlined"
-        inputProps={{
-          ...field,
-          ...props,
-          type: showPassword ? "text" : "password",
-        }}
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
-              edge="end"
-            >
-              {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-            </IconButton>
-          </InputAdornment>
-        }
-      />
-      {!!(meta.touched && meta.error) && (
-        <FormHelperText error id="accountId-error">
-          {meta.error}
-        </FormHelperText>
+    <div className="password-input">
+      <FormControl className="input-field">
+        <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
+        <OutlinedInput
+          error={!!(meta.touched && meta.error)}
+          disabled={field.name === "password2" && !touched.password1}
+          label={label}
+          variant="outlined"
+          inputProps={{
+            ...field,
+            ...props,
+            type: showPassword ? "text" : "password",
+          }}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleClickShowPassword}
+                onMouseDown={handleMouseDownPassword}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+        {!!(meta.touched && meta.error) && (
+          <FormHelperText error id="accountId-error">
+            {meta.error}
+          </FormHelperText>
+        )}
+      </FormControl>
+      {hasTooltip && (
+        <Tooltip title={tooltipInfo} className="info">
+          <IconButton>
+            <InfoIcon />
+          </IconButton>
+        </Tooltip>
       )}
-    </FormControl>
+    </div>
   );
 };
 
@@ -89,7 +107,6 @@ export const RegistrationPage = () => {
           username: "",
           password1: "",
           password2: "",
-          email: "",
         }}
         validationSchema={Yup.object({
           username: Yup.string()
@@ -117,9 +134,6 @@ export const RegistrationPage = () => {
             })
             .required("Required")
             .oneOf([Yup.ref("password1"), null], "password must match"),
-          email: Yup.string()
-            .email("Invalid email address")
-            .required("Required"),
         })}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
@@ -129,22 +143,31 @@ export const RegistrationPage = () => {
         }}
       >
         <Form className="form">
-          <MyTextInput label="Username" name="username" type="text" />
-
-          <PasswordInput label="Password" name="password1" type="text" />
-          <PasswordInput label="Confirm Password" name="password2" />
-
           <MyTextInput
-            label="Email Address"
-            name="email"
-            placeholder="jane@formik.com"
+            label="Username"
+            name="username"
+            type="text"
+            tooltipInfo={contextObject.translations.usernameValidationRules}
           />
+
+          <PasswordInput
+            label="Password"
+            name="password1"
+            type="text"
+            tooltipInfo={contextObject.translations.passwordValidationRules}
+          />
+          <PasswordInput
+            label="Confirm Password"
+            name="password2"
+            hasTooltip={false}
+          />
+
           <div className="buttons">
             <Button type="submit" variant="contained" color="primary" fullWidth>
-              Submit
+              {contextObject.translations.login}
             </Button>
             <Button type="reset" variant="contained" color="primary" fullWidth>
-              Reset
+              {contextObject.translations.reset}
             </Button>
           </div>
         </Form>
@@ -174,5 +197,15 @@ const mainStyle = {
     gap: "10px",
     justifyContent: "space-between",
     width: "100%",
+  },
+  "& .username-input, .password-input": {
+    display: "flex",
+    alignItems: "center",
+  },
+  "& .password-input": {
+    marginRight: "auto",
+  },
+  "& .info": {
+    height: "min-content",
   },
 };
