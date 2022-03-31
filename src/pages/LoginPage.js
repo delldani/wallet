@@ -84,7 +84,7 @@ export const LoginPage = () => {
 
   return (
     <Box sx={mainStyle}>
-      <h1>{contextObject.theme}</h1>
+      <h1>{contextObject.translations.login}</h1>
       <Formik
         initialValues={{
           username: "",
@@ -112,13 +112,13 @@ export const LoginPage = () => {
             tooltipInfo={contextObject.translations.passwordValidationRules}
           />
 
-          <MaterialLink component={Link} to="/registration" underline="none">
+          <MaterialLink component={Link} to="/registration" underline="hover">
             {contextObject.translations.toRegister}
           </MaterialLink>
 
           <div className="buttons">
             <Button type="submit" variant="contained" color="primary" fullWidth>
-              {contextObject.translations.login}
+              {contextObject.translations.Submit}
             </Button>
             <Button type="reset" variant="contained" color="primary" fullWidth>
               {contextObject.translations.reset}

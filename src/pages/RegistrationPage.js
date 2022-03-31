@@ -101,7 +101,7 @@ export const RegistrationPage = () => {
 
   return (
     <Box sx={mainStyle}>
-      <h1>{contextObject.theme}</h1>
+      <h1>{contextObject.translations.registration}</h1>
       <Formik
         initialValues={{
           username: "",
@@ -164,7 +164,7 @@ export const RegistrationPage = () => {
 
           <div className="buttons">
             <Button type="submit" variant="contained" color="primary" fullWidth>
-              {contextObject.translations.login}
+              {contextObject.translations.Submit}
             </Button>
             <Button type="reset" variant="contained" color="primary" fullWidth>
               {contextObject.translations.reset}
