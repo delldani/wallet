@@ -1,6 +1,5 @@
 import React from "react";
 import { Formik, Form, useField, useFormikContext } from "formik";
-import * as Yup from "yup";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -14,29 +13,20 @@ import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import { Link } from "react-router-dom";
 import MaterialLink from "@mui/material/Link";
-import InfoIcon from "@mui/icons-material/Info";
-import Tooltip from "@mui/material/Tooltip";
 
 import { UserContext } from "../components/ContextWrapper";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
-    <div className="username-input">
-      <TextField
-        className="input-field"
-        label={label}
-        variant="outlined"
-        inputProps={{ ...field, ...props }}
-        helperText={meta.touched && meta.error}
-        error={!!(meta.touched && meta.error)}
-      />
-      <Tooltip title={props.tooltipInfo} className="info">
-        <IconButton>
-          <InfoIcon />
-        </IconButton>
-      </Tooltip>
-    </div>
+    <TextField
+      className="input-field"
+      label={label}
+      variant="outlined"
+      inputProps={{ ...field, ...props }}
+      helperText={meta.touched && meta.error}
+      error={!!(meta.touched && meta.error)}
+    />
   );
 };
 
@@ -55,44 +45,37 @@ const PasswordInput = ({ label, ...props }) => {
   };
 
   return (
-    <div className="password-input">
-      <FormControl className="input-field">
-        <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
-        <OutlinedInput
-          error={!!(meta.touched && meta.error)}
-          disabled={field.name === "password2" && !touched.password1}
-          label={label}
-          variant="outlined"
-          inputProps={{
-            ...field,
-            ...props,
-            type: showPassword ? "text" : "password",
-          }}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                edge="end"
-              >
-                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-              </IconButton>
-            </InputAdornment>
-          }
-        />
-        {!!(meta.touched && meta.error) && (
-          <FormHelperText error id="accountId-error">
-            {meta.error}
-          </FormHelperText>
-        )}
-      </FormControl>
-      <Tooltip title={props.tooltipInfo} className="info">
-        <IconButton>
-          <InfoIcon />
-        </IconButton>
-      </Tooltip>
-    </div>
+    <FormControl className="input-field">
+      <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
+      <OutlinedInput
+        error={!!(meta.touched && meta.error)}
+        disabled={field.name === "password2" && !touched.password1}
+        label={label}
+        variant="outlined"
+        inputProps={{
+          ...field,
+          ...props,
+          type: showPassword ? "text" : "password",
+        }}
+        endAdornment={
+          <InputAdornment position="end">
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={handleClickShowPassword}
+              onMouseDown={handleMouseDownPassword}
+              edge="end"
+            >
+              {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+            </IconButton>
+          </InputAdornment>
+        }
+      />
+      {!!(meta.touched && meta.error) && (
+        <FormHelperText error id="accountId-error">
+          {meta.error}
+        </FormHelperText>
+      )}
+    </FormControl>
   );
 };
 
@@ -107,24 +90,6 @@ export const LoginPage = () => {
           username: "",
           password: "",
         }}
-        validationSchema={Yup.object({
-          username: Yup.string()
-            .max(20, "Must be 15 characters or less")
-            .min(5, "Must be 5 characters or more")
-            .matches(/^[a-zA-Z0-9]+$/, {
-              message: "Must be only letters or numbers",
-              excludeEmptyString: true,
-            })
-            .required("Required"),
-          password: Yup.string()
-            .min(5, "Must be 5 characters or more")
-            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, {
-              message:
-                "Must contain at least one lowercase letter, one uppercase letter, and one digit",
-              excludeEmptyString: true,
-            })
-            .required("Required"),
-        })}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
@@ -186,10 +151,6 @@ const mainStyle = {
     gap: "10px",
     justifyContent: "space-between",
     width: "100%",
-  },
-  "& .username-input, .password-input": {
-    display: "flex",
-    alignItems: "center",
   },
   "& .info": {
     height: "min-content",
