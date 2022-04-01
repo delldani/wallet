@@ -8,8 +8,13 @@ export const DoLogin = () => {
   const contextObject = React.useContext(UserContext);
   return (
     <Box sx={style}>
-      <h1>Kérem lépjen be</h1>
-      <Link to="/" label={contextObject.translations.login} />
+      <h1>{contextObject.translations.doLogin}</h1>
+      <Link
+        to="/"
+        label={contextObject.translations.login}
+        variant="h5"
+        underline="none"
+      />
     </Box>
   );
 };
@@ -20,5 +25,8 @@ const style = {
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
-  alignItems: "cnter",
+  alignItems: "center",
+  "& h1": {
+    fontSize: "45px",
+  },
 };

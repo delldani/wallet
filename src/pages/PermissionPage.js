@@ -1,11 +1,14 @@
 import React from "react";
+import { UserContext } from "../components/ContextWrapper";
 
-export const PermissionPage  =()=>{
+import { DoLogin } from "../components/DoLogin";
 
-    return(
+export const PermissionPage = () => {
+  const contextObject = React.useContext(UserContext);
 
-        <div>
-            PermissionPage
-        </div>
-    )
-}
+  if (contextObject.token === "") {
+    return <DoLogin />;
+  } else {
+    return <h1>PermissionPage</h1>;
+  }
+};

@@ -1,11 +1,14 @@
 import React from "react";
+import { UserContext } from "../components/ContextWrapper";
 
-export const WalletPage  =()=>{
+import { DoLogin } from "../components/DoLogin";
 
-    return(
+export const WalletPage = () => {
+  const contextObject = React.useContext(UserContext);
 
-        <div>
-            WalletPage
-        </div>
-    )
-}
+  if (contextObject.token === "") {
+    return <DoLogin />;
+  } else {
+    return <h1>WalletPage</h1>;
+  }
+};

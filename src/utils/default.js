@@ -10,4 +10,5 @@ export const translations = {
     "Legalább 5 karakter hosszú, kisbetüt, nagy betüt, számot tartalmaznia kell",
   teacher: "osztályfőnök",
   parent: "szmk tag",
+  doLogin: "Ön nincs bejelentkezve !",
 };
