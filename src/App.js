@@ -7,6 +7,7 @@ function App() {
   const contextObject = {
     translations: translations,
     theme: "dark",
+    token: "",
   };
 
   return (

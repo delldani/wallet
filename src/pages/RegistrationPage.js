@@ -20,7 +20,7 @@ import Radio from "@mui/material/Radio";
 
 import { UserContext } from "../components/ContextWrapper";
 
-const MyTextInput = ({ label, ...props }) => {
+const MyTextInput = ({ label, tooltipInfo, ...props }) => {
   const [field, meta] = useField(props);
   return (
     <div className="username-input">
@@ -32,7 +32,7 @@ const MyTextInput = ({ label, ...props }) => {
         helperText={meta.touched && meta.error}
         error={!!(meta.touched && meta.error)}
       />
-      <Tooltip title={props.tooltipInfo} className="info">
+      <Tooltip title={tooltipInfo} className="info">
         <IconButton>
           <InfoIcon />
         </IconButton>

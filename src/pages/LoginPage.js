@@ -11,9 +11,8 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
-import { Link } from "react-router-dom";
-import MaterialLink from "@mui/material/Link";
 
+import { Link } from "../components/Link";
 import { UserContext } from "../components/ContextWrapper";
 
 const MyTextInput = ({ label, ...props }) => {
@@ -98,23 +97,14 @@ export const LoginPage = () => {
         }}
       >
         <Form className="form">
-          <MyTextInput
-            label="Username"
-            name="username"
-            type="text"
-            tooltipInfo={contextObject.translations.usernameValidationRules}
-          />
+          <MyTextInput label="Username" name="username" type="text" />
 
-          <PasswordInput
-            label="Password"
-            name="password"
-            type="text"
-            tooltipInfo={contextObject.translations.passwordValidationRules}
-          />
+          <PasswordInput label="Password" name="password" type="text" />
 
-          <MaterialLink component={Link} to="/registration" underline="hover">
-            {contextObject.translations.toRegister}
-          </MaterialLink>
+          <Link
+            to="/registration"
+            label={contextObject.translations.toRegister}
+          />
 
           <div className="buttons">
             <Button type="submit" variant="contained" color="primary" fullWidth>

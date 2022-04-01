@@ -1,11 +1,13 @@
 import React from "react";
+import { UserContext } from "../components/ContextWrapper";
 
-export const ListPage  =()=>{
+import { DoLogin } from "../components/DoLogin";
+export const ListPage = () => {
+  const contextObject = React.useContext(UserContext);
 
-    return(
-
-        <div>
-            ListPage
-        </div>
-    )
-}
+  if (contextObject.token === "") {
+    return <DoLogin />;
+  } else {
+    return <h1>ListPage</h1>;
+  }
+};
