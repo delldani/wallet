@@ -11,9 +11,11 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
+import { useNavigate } from "react-router-dom";
 
 import { Link } from "../components/Link";
 import { UserContext } from "../components/ContextWrapper";
+import { handleLogin} from '../utils/db'
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -80,20 +82,20 @@ const PasswordInput = ({ label, ...props }) => {
 
 export const LoginPage = () => {
   const contextObject = React.useContext(UserContext);
+  const { login,toRegister,submit,reset} = contextObject.translations;
+  const {setLoginData} = contextObject;
+  const navigate = useNavigate();
 
   return (
     <Box sx={mainStyle}>
-      <h1>{contextObject.translations.login}</h1>
+      <h1>{login}</h1>
       <Formik
         initialValues={{
           username: "",
           password: "",
         }}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+        onSubmit={(values) => {
+          handleLogin(values,setLoginData,navigate)
         }}
       >
         <Form className="form">
@@ -103,15 +105,15 @@ export const LoginPage = () => {
 
           <Link
             to="/registration"
-            label={contextObject.translations.toRegister}
+            label={toRegister}
           />
 
           <div className="buttons">
             <Button type="submit" variant="contained" color="primary" fullWidth>
-              {contextObject.translations.Submit}
+              {submit}
             </Button>
             <Button type="reset" variant="contained" color="primary" fullWidth>
-              {contextObject.translations.reset}
+              {reset}
             </Button>
           </div>
         </Form>

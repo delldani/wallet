@@ -8,15 +8,11 @@ import Box from "@mui/material/Box";
 function App() {
   const [loginData,setLoginData] = React.useState(undefined)
 
-  const handleLogin = (data)=>{
-    setLoginData(data)
-  };
-
   const contextObject = {
     translations: translations,
     theme: "dark",
     loginData,
-    handleLogin,
+    setLoginData,
   };
 
   

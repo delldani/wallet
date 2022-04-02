@@ -124,7 +124,7 @@ export const DialogTransistion = ({ open, setOpen }) => {
                   color="primary"
                   fullWidth
                 >
-                  {contextObject.translations.Submit}
+                  {contextObject.translations.submit}
                 </Button>
                 <Button
                   type="reset"

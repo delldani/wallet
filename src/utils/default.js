@@ -5,7 +5,7 @@ export const translations = {
   title: "Iskolai osztálypénznyilvántartó rendszer",
   login: "Belépés",
   reset: "Törlés",
-  Submit: "Mehet",
+  submit: "Mehet",
   cancel: "Mégse",
   registration: "Regisztráció",
   toRegister: "Még nem regisztrált ?",

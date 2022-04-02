@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 
 import { UserContext } from "../components/ContextWrapper";
 import { RadioButtons} from '../components/RadioButtons';
-import { dbRegistration,dbLogin} from '../utils/db'
+import { handleRegistration} from '../utils/db'
 import { yupObject} from '../utils/default'
 
 const MyTextInput = ({ label, tooltipInfo, ...props }) => {
@@ -101,15 +101,11 @@ const PasswordInput = ({ label, tooltipInfo, hasTooltip = true, ...props }) => {
 
 export const RegistrationPage = () => {
   const contextObject = React.useContext(UserContext);
-  const { usernameValidationRules,passwordValidationRules,teacher,parent,registration} = contextObject.translations;
-  const {handleLogin} = contextObject;
+  const { usernameValidationRules,passwordValidationRules,teacher,parent,registration,submit,reset} = contextObject.translations;
+  const {setLoginData} = contextObject;
   const navigate = useNavigate();
 
-  const handleRegistration = (values,handleLogin,navigate)=>{
-   
-  };
-
-  return (
+    return (
     <Box sx={mainStyle}>
       <h1>{registration}</h1>
       <Formik
@@ -121,21 +117,7 @@ export const RegistrationPage = () => {
         }}
         validationSchema={yupObject}
         onSubmit={(values) => {
-          // handleRegistration(values,handleLogin,navigate);
-          const {radioGroup,username,password1} = values;
-          const userName = radioGroup === 'teacher' ? 't' + username : 'p' + username ;
-          dbRegistration(userName,password1).then((response)=>{
-
-                  //ha sikerült a regisztráció akkor beloginol
-                  dbLogin(userName,password1).then(response=>{
-                    handleLogin(response.data);
-                    radioGroup === 'teacher' ?  navigate("/list") : navigate("/wallet");
-                  }).catch(error=>console.log(error));
-
-            })
-            .catch(function (error) {
-              console.log(error);
-            })
+          handleRegistration(values,setLoginData,navigate);
         }}
       >
         <Form className="form">
@@ -165,10 +147,10 @@ export const RegistrationPage = () => {
             />
           <div className="buttons">
             <Button type="submit" variant="contained" color="primary" fullWidth>
-              {contextObject.translations.Submit}
+              {submit}
             </Button>
             <Button type="reset" variant="contained" color="primary" fullWidth>
-              {contextObject.translations.reset}
+              {reset}
             </Button>
           </div>
         </Form>
@@ -177,6 +159,8 @@ export const RegistrationPage = () => {
   );
 };
 
+ 
+  
 
 
 const mainStyle = {

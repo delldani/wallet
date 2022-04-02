@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const URL = 'https://wallet-cloudflare.gordongecco.workers.dev/';
 
-export const dbRegistration = (username,password)=>{
+const dbRegistration = (username,password)=>{
     return axios
     .post(URL + "reg",
       {
@@ -12,7 +12,7 @@ export const dbRegistration = (username,password)=>{
     )
     };
     
-    export const dbLogin = (username,password)=>{
+    const dbLogin = (username,password)=>{
       return axios
       .post(URL + "login",
         {
@@ -22,7 +22,35 @@ export const dbRegistration = (username,password)=>{
       )
       };
     
-    // axios
+      export  const handleRegistration = (values,setLoginData,navigate)=>{
+        const {radioGroup,username,password1} = values;
+      const userName = radioGroup === 'teacher' ? 't' + username : 'p' + username ;
+      dbRegistration(userName,password1).then((response)=>{
+    
+              //ha sikerült a regisztráció akkor beloginol
+              dbLogin(userName,password1).then(response=>{
+                setLoginData(response.data);
+                radioGroup === 'teacher' ?  navigate("/list") : navigate("/wallet");
+              }).catch(error=>console.log(error));
+    
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+      };
+
+
+      export const handleLogin =(values,setLoginData,navigate)=>{
+        const {username,password} = values;
+
+                dbLogin(username,password).then(response=>{
+                    setLoginData(response.data);
+                    response.data.username[0] === 't' ?  navigate("/list") : navigate("/wallet");
+                }).catch(error=>console.log(error));
+            }
+
+
+                // axios
     // .post(
     //   "https://wallet-cloudflare.gordongecco.workers.dev/user/search",
     //   {
