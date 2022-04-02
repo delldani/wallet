@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, Form, useField, useFormikContext } from "formik";
+import { Formik, Form, useField, useFormikContext,Field } from "formik";
 import * as Yup from "yup";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -14,11 +14,9 @@ import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import InfoIcon from "@mui/icons-material/Info";
 import Tooltip from "@mui/material/Tooltip";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Radio from "@mui/material/Radio";
 
 import { UserContext } from "../components/ContextWrapper";
+import { RadioButtons} from '../components/RadioButtons';
 
 const MyTextInput = ({ label, tooltipInfo, ...props }) => {
   const [field, meta] = useField(props);
@@ -100,12 +98,8 @@ const PasswordInput = ({ label, tooltipInfo, hasTooltip = true, ...props }) => {
 };
 
 export const RegistrationPage = () => {
-  const [valueRadio, setValueRadio] = React.useState("teacher");
   const contextObject = React.useContext(UserContext);
-
-  const handleChangeRadio = (event) => {
-    setValueRadio(event.target.value);
-  };
+  const { usernameValidationRules,passwordValidationRules,teacher,parent} = contextObject.translations;
 
   return (
     <Box sx={mainStyle}>
@@ -115,6 +109,7 @@ export const RegistrationPage = () => {
           username: "",
           password1: "",
           password2: "",
+          radioGroup: "teacher",
         }}
         validationSchema={Yup.object({
           username: Yup.string()
@@ -155,39 +150,26 @@ export const RegistrationPage = () => {
             label="Username"
             name="username"
             type="text"
-            tooltipInfo={contextObject.translations.usernameValidationRules}
+            tooltipInfo={usernameValidationRules}
           />
 
           <PasswordInput
             label="Password"
             name="password1"
             type="text"
-            tooltipInfo={contextObject.translations.passwordValidationRules}
+            tooltipInfo={passwordValidationRules}
           />
           <PasswordInput
             label="Confirm Password"
             name="password2"
             hasTooltip={false}
           />
-
-          <RadioGroup
-            row
-            aria-labelledby="demo-row-radio-buttons-group-label"
-            name="row-radio-buttons-group"
-            value={valueRadio}
-            onChange={handleChangeRadio}
-          >
-            <FormControlLabel
-              value="teacher"
-              control={<Radio />}
-              label={contextObject.translations.teacher}
+            <Field
+              name="radioGroup"
+              options={['teacher','parent']}
+              labels={[teacher,parent]}
+              component={RadioButtons}
             />
-            <FormControlLabel
-              value="parent"
-              control={<Radio />}
-              label={contextObject.translations.parent}
-            />
-          </RadioGroup>
           <div className="buttons">
             <Button type="submit" variant="contained" color="primary" fullWidth>
               {contextObject.translations.Submit}
