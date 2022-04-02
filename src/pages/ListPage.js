@@ -6,9 +6,9 @@ import { DoLogin } from "../components/DoLogin";
 export const ListPage = () => {
   const contextObject = React.useContext(UserContext);
 
-  if (contextObject.token === "") {
-    return <DoLogin />;
-  } else {
+  if (contextObject.loginData) {
     return <h1>ListPage</h1>;
+  } else {
+    return <DoLogin />;
   }
 };

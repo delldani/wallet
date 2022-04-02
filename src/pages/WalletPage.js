@@ -8,15 +8,15 @@ export const WalletPage = () => {
   const contextObject = React.useContext(UserContext);
   const [open, setOpen] = React.useState(false);
 
-  if (contextObject.token === "") {
+  if (contextObject.loginData) {
+    return <h1>WalletPage</h1>;
+  } else {
     return (
       <div>
         <button onClick={() => setOpen(true)}>dialog</button>
         <DoLogin />;
         <DialogTransistion open={open} setOpen={setOpen} />
       </div>
-    );
-  } else {
-    return <h1>WalletPage</h1>;
+        );
   }
 };

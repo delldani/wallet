@@ -1,6 +1,5 @@
 import React from "react";
 import { Formik, Form, useField, useFormikContext,Field } from "formik";
-import * as Yup from "yup";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -14,9 +13,12 @@ import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import InfoIcon from "@mui/icons-material/Info";
 import Tooltip from "@mui/material/Tooltip";
+import { useNavigate } from "react-router-dom";
 
 import { UserContext } from "../components/ContextWrapper";
 import { RadioButtons} from '../components/RadioButtons';
+import { dbRegistration,dbLogin} from '../utils/db'
+import { yupObject} from '../utils/default'
 
 const MyTextInput = ({ label, tooltipInfo, ...props }) => {
   const [field, meta] = useField(props);
@@ -99,11 +101,17 @@ const PasswordInput = ({ label, tooltipInfo, hasTooltip = true, ...props }) => {
 
 export const RegistrationPage = () => {
   const contextObject = React.useContext(UserContext);
-  const { usernameValidationRules,passwordValidationRules,teacher,parent} = contextObject.translations;
+  const { usernameValidationRules,passwordValidationRules,teacher,parent,registration} = contextObject.translations;
+  const {handleLogin} = contextObject;
+  const navigate = useNavigate();
+
+  const handleRegistration = (values,handleLogin,navigate)=>{
+   
+  };
 
   return (
     <Box sx={mainStyle}>
-      <h1>{contextObject.translations.registration}</h1>
+      <h1>{registration}</h1>
       <Formik
         initialValues={{
           username: "",
@@ -111,38 +119,23 @@ export const RegistrationPage = () => {
           password2: "",
           radioGroup: "teacher",
         }}
-        validationSchema={Yup.object({
-          username: Yup.string()
-            .max(20, "Must be 15 characters or less")
-            .min(5, "Must be 5 characters or more")
-            .matches(/^[a-zA-Z0-9]+$/, {
-              message: "Must be only letters or numbers",
-              excludeEmptyString: true,
+        validationSchema={yupObject}
+        onSubmit={(values) => {
+          // handleRegistration(values,handleLogin,navigate);
+          const {radioGroup,username,password1} = values;
+          const userName = radioGroup === 'teacher' ? 't' + username : 'p' + username ;
+          dbRegistration(userName,password1).then((response)=>{
+
+                  //ha sikerült a regisztráció akkor beloginol
+                  dbLogin(userName,password1).then(response=>{
+                    handleLogin(response.data);
+                    radioGroup === 'teacher' ?  navigate("/list") : navigate("/wallet");
+                  }).catch(error=>console.log(error));
+
             })
-            .required("Required"),
-          password1: Yup.string()
-            .min(5, "Must be 5 characters or more")
-            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, {
-              message:
-                "Must contain at least one lowercase letter, one uppercase letter, and one digit",
-              excludeEmptyString: true,
+            .catch(function (error) {
+              console.log(error);
             })
-            .required("Required"),
-          password2: Yup.string()
-            .min(5, "Must be 5 characters or more")
-            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, {
-              message:
-                "Must contain at least one lowercase letter, one uppercase letter, and one digit",
-              excludeEmptyString: true,
-            })
-            .required("Required")
-            .oneOf([Yup.ref("password1"), null], "password must match"),
-        })}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
         }}
       >
         <Form className="form">
@@ -183,6 +176,8 @@ export const RegistrationPage = () => {
     </Box>
   );
 };
+
+
 
 const mainStyle = {
   marginTop: "150px",
