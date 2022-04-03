@@ -1,17 +1,18 @@
 
-export const showButton = (name, pathname) => {
+export const showButton = (name, pathname,hasToken) => {
   switch (name) {
-    case "login-button":
-      if (pathname === "/") {
+    case "logout-button":
+      if (pathname === "/" || pathname === '/registration') {
         return false;
-      } else if (pathname === "/list") {
-        return false;
-      }
-      break;
-    case "list":
+      } else if ((pathname === "/list" || pathname === "/wallet" || pathname === "/permission" ) && hasToken) {
+        return true;
+      }else return false;
+
+      case "list":
       // code block
       break;
     default:
       return true;
   }
 };
+

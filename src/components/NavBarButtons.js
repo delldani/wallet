@@ -7,12 +7,13 @@ import { UserContext } from "../components/ContextWrapper";
 import { showButton } from "../utils/utils";
 export const NavBarButtons = () => {
   const contextObject = React.useContext(UserContext);
+  const { loginData,setLoginData} = contextObject;
   const { pathname } = useLocation();
 
   return (
     <Box sx={style}>
-      {showButton("login-button", pathname) && (
-        <Button color="inherit"> {contextObject.translations.login}</Button>
+      {showButton("logout-button", pathname,!!loginData) && (
+        <Button color="inherit" onClick={()=>setLoginData(null)}> {contextObject.translations.logout}</Button>
       )}
     </Box>
   );

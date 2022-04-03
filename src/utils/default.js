@@ -4,6 +4,7 @@ import * as Yup from "yup";
 export const translations = {
   title: "Iskolai osztálypénznyilvántartó rendszer",
   login: "Belépés",
+  logout:'Kilépés',
   reset: "Törlés",
   submit: "Mehet",
   cancel: "Mégse",
