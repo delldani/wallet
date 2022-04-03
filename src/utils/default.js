@@ -8,6 +8,8 @@ export const translations = {
   reset: "Törlés",
   submit: "Mehet",
   cancel: "Mégse",
+  walletList:'Wallet lista',
+  permission:'Engedélyezés',
   registration: "Regisztráció",
   toRegister: "Még nem regisztrált ?",
   usernameValidationRules: "5 és 15 karakter közötti, betü vagy szám lehet",

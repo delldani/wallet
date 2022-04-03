@@ -12,6 +12,12 @@ export const NavBarButtons = () => {
 
   return (
     <Box sx={style}>
+       {showButton("permission-button", pathname,!!loginData) && (
+        <Button color="inherit" onClick={()=>{}}> {contextObject.translations.permission}</Button>
+      )}
+       {showButton("walletlist-button", pathname,!!loginData) && (
+        <Button color="inherit" onClick={()=>{}}> {contextObject.translations.walletList}</Button>
+      )}
       {showButton("logout-button", pathname,!!loginData) && (
         <Button color="inherit" onClick={()=>setLoginData(null)}> {contextObject.translations.logout}</Button>
       )}
@@ -21,4 +27,7 @@ export const NavBarButtons = () => {
 
 const style = {
   display: "flex",
+  '& > button':{
+    marginRight:'15px',
+  }
 };

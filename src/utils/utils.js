@@ -8,9 +8,18 @@ export const showButton = (name, pathname,hasToken) => {
         return true;
       }else return false;
 
-      case "list":
-      // code block
-      break;
+      case "permission-button":
+        if (pathname === "/" || pathname === '/registration') {
+          return false;
+        } else if ((pathname === "/list" || pathname === "/wallet" || pathname === "/permission" ) && hasToken) {
+          return true;
+        }else return false;
+      case 'walletlist-button':
+        if (pathname === "/" || pathname === '/registration') {
+          return false;
+        } else if ((pathname === "/list" || pathname === "/wallet" || pathname === "/permission" ) && hasToken) {
+          return true;
+        }else return false;
     default:
       return true;
   }
