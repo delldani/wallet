@@ -8,7 +8,7 @@ export const ContextWrapper = ({ children, contextObject }) => {
   return (
     <BrowserRouter>
       <UserContext.Provider value={contextObject}>
-        <ModalContextComponent>
+        <ModalContextComponent contextObject={contextObject}>
         {children}
         </ModalContextComponent>
       </UserContext.Provider>

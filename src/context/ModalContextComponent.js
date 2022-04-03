@@ -4,13 +4,12 @@ import { RegistrationErrorModal} from './RegistrationErrorModal'
 
  export const ModalContext = React.createContext(null);
 
-export const ModalContextComponent = ({ children }) => {
-  const [modalType,setModalType] = React.useState(null);
+export const ModalContextComponent = ({ children,contextObject }) => {
+  const { modalType,setModalType} = contextObject;
 
-  const handleClose = () => {
+  const handleClose = ()=>{
     setModalType(null);
-  };
-
+  }
   return (
       <ModalContext.Provider value={setModalType}>
         {children}
