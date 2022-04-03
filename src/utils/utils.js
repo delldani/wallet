@@ -15,4 +15,3 @@ export const showButton = (name, pathname,hasToken) => {
       return true;
   }
 };
-

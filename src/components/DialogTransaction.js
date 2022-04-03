@@ -14,7 +14,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import Slide from "@mui/material/Slide";
-import { UserContext } from "../components/ContextWrapper";
+import { UserContext } from "../context";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);

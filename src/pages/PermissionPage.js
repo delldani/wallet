@@ -1,5 +1,5 @@
 import React from "react";
-import { UserContext } from "../components/ContextWrapper";
+import { UserContext } from "../context";
 
 import { DoLogin } from "../components/DoLogin";
 

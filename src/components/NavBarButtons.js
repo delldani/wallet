@@ -2,7 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useLocation } from "react-router-dom";
-import { UserContext } from "../components/ContextWrapper";
+import { UserContext } from "../context";
 
 import { showButton } from "../utils/utils";
 export const NavBarButtons = () => {

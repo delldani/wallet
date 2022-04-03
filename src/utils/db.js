@@ -22,7 +22,7 @@ const dbRegistration = (username,password)=>{
       )
       };
     
-      export  const handleRegistration = (values,setLoginData,navigate)=>{
+      export  const handleRegistration = (values,setLoginData,navigate,setModalType)=>{
         const {radioGroup,username,password1} = values;
       const userName = radioGroup === 'teacher' ? 't' + username : 'p' + username ;
       dbRegistration(userName,password1).then((response)=>{
@@ -36,6 +36,7 @@ const dbRegistration = (username,password)=>{
         })
         .catch(function (error) {
           console.log(error);
+          setModalType('registrationError')
         })
       };
 

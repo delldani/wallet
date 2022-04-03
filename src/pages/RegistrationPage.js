@@ -15,7 +15,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import Tooltip from "@mui/material/Tooltip";
 import { useNavigate } from "react-router-dom";
 
-import { UserContext } from "../components/ContextWrapper";
+import { UserContext,ModalContext } from "../context";
 import { RadioButtons} from '../components/RadioButtons';
 import { handleRegistration} from '../utils/db'
 import { yupObject} from '../utils/default'
@@ -101,6 +101,7 @@ const PasswordInput = ({ label, tooltipInfo, hasTooltip = true, ...props }) => {
 
 export const RegistrationPage = () => {
   const contextObject = React.useContext(UserContext);
+  const setModalType = React.useContext(ModalContext);
   const { usernameValidationRules,passwordValidationRules,teacher,parent,registration,submit,reset} = contextObject.translations;
   const {setLoginData} = contextObject;
   const navigate = useNavigate();
@@ -117,7 +118,7 @@ export const RegistrationPage = () => {
         }}
         validationSchema={yupObject}
         onSubmit={(values) => {
-          handleRegistration(values,setLoginData,navigate);
+          handleRegistration(values,setLoginData,navigate,setModalType);
         }}
       >
         <Form className="form">

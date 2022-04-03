@@ -14,7 +14,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 import { useNavigate } from "react-router-dom";
 
 import { Link } from "../components/Link";
-import { UserContext } from "../components/ContextWrapper";
+import { UserContext } from "../context";
 import { handleLogin} from '../utils/db'
 
 const MyTextInput = ({ label, ...props }) => {

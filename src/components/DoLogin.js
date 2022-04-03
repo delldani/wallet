@@ -2,7 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 
 import { Link } from "./Link";
-import { UserContext } from "../components/ContextWrapper";
+import { UserContext } from "../context";
 
 export const DoLogin = () => {
   const contextObject = React.useContext(UserContext);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ContextWrapper } from "./components/ContextWrapper";
+import { ContextWrapper } from "./context/ContextWrapper";
 import { Pages } from "./pages/Pages";
 import { translations } from "./utils/default";
 import { NavBar } from "./components/NavBar";
