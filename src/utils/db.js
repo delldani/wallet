@@ -40,17 +40,20 @@ export const handleRegistration = (
     });
 };
 
-export const handleLogin = (values, setLoginData, navigate) => {
+export const handleLogin = (values, setLoginData, navigate, setModalType) => {
   const { username, password } = values;
 
   dbLogin(username, password)
     .then((response) => {
       setLoginData(response.data);
-      response.data.username[0] === "t"
+      response.data.user.job === "teacher"
         ? navigate("/list")
         : navigate("/wallet");
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      setModalType("registrationError");
+      console.log(error);
+    });
 };
 
 // axios

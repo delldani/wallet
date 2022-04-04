@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Link } from "../components/Link";
 import { UserContext } from "../context";
-import { handleLogin} from '../utils/db'
+import { handleLogin } from "../utils/db";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -82,8 +82,8 @@ const PasswordInput = ({ label, ...props }) => {
 
 export const LoginPage = () => {
   const contextObject = React.useContext(UserContext);
-  const { login,toRegister,submit,reset} = contextObject.translations;
-  const {setLoginData} = contextObject;
+  const { login, toRegister, submit, reset } = contextObject.translations;
+  const { setLoginData, setModalType } = contextObject;
   const navigate = useNavigate();
 
   return (
@@ -95,7 +95,7 @@ export const LoginPage = () => {
           password: "",
         }}
         onSubmit={(values) => {
-          handleLogin(values,setLoginData,navigate)
+          handleLogin(values, setLoginData, navigate, setModalType);
         }}
       >
         <Form className="form">
@@ -103,10 +103,7 @@ export const LoginPage = () => {
 
           <PasswordInput label="Password" name="password" type="text" />
 
-          <Link
-            to="/registration"
-            label={toRegister}
-          />
+          <Link to="/registration" label={toRegister} />
 
           <div className="buttons">
             <Button type="submit" variant="contained" color="primary" fullWidth>
