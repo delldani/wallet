@@ -14,7 +14,7 @@ export const ListPage = () => {
       dbList().then((res) => setList(res.data.list));
     }
   }, []);
-
+  console.log(contextObject.loginData);
   if (contextObject.loginData) {
     return (
       <div>
@@ -22,13 +22,6 @@ export const ListPage = () => {
         {list.map((item) => (
           <li>{item.name}</li>
         ))}
-        {/* <button
-          onClick={() => {
-           ;
-          }}
-        >
-          list
-        </button> */}
       </div>
     );
   } else {
