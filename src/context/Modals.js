@@ -1,6 +1,6 @@
 import React from "react";
 
-import { RegistrationErrorModal } from "./RegistrationErrorModal";
+import { ErrorModal } from "./ErrorModal";
 
 export const ModalContext = React.createContext(null);
 
@@ -13,8 +13,8 @@ export const Modals = ({ contextObject }) => {
 
   return (
     <div>
-      <RegistrationErrorModal
-        open={modalType === "registrationError"}
+      <ErrorModal
+        modalType={modalType}
         handleClose={handleClose}
         contextObject={contextObject}
       />

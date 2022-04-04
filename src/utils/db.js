@@ -17,6 +17,10 @@ const dbLogin = (username, password) => {
   });
 };
 
+export const dbList = () => {
+  return axios.get(URL + "list", {});
+};
+
 export const handleRegistration = (
   values,
   setLoginData,
@@ -46,12 +50,13 @@ export const handleLogin = (values, setLoginData, navigate, setModalType) => {
   dbLogin(username, password)
     .then((response) => {
       setLoginData(response.data);
-      response.data.user.job === "teacher"
+      response.data.user.job === "teacher" ||
+      response.data.user.job === "director"
         ? navigate("/list")
         : navigate("/wallet");
     })
     .catch((error) => {
-      setModalType("registrationError");
+      setModalType("loginError");
       console.log(error);
     });
 };

@@ -19,6 +19,7 @@ export const translations = {
   parent: "szmk tag",
   doLogin: "Ön nincs bejelentkezve !",
   registrationError: "Nem sikerült a regisztráció !",
+  loginError: "Nem sikerült a belépés !",
 };
 
 export const yupObject = Yup.object({

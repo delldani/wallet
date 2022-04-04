@@ -5,16 +5,17 @@ import DialogContent from "@mui/material/DialogContent";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 
-export const RegistrationErrorModal = ({
-  open,
-  handleClose,
-  contextObject,
-}) => {
+export const ErrorModal = ({ modalType, handleClose, contextObject }) => {
   return (
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog
+      open={modalType === "registrationError" || modalType === "loginError"}
+      onClose={handleClose}
+    >
       <DialogContent>
         <Alert severity="error">
-          {contextObject.translations.registrationError}
+          {modalType === "registrationError"
+            ? contextObject.translations.registrationError
+            : contextObject.translations.loginError}
         </Alert>
       </DialogContent>
       <DialogActions sx={style}>
