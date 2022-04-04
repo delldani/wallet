@@ -21,6 +21,23 @@ export const dbList = () => {
   return axios.get(URL + "list", {});
 };
 
+export const dbCreateWallet = (name, id, token) => {
+  return axios.put(
+    URL + "wallet",
+    {
+      name,
+      id,
+      description: "új wallet",
+      extra: {},
+    },
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+};
+
 export const handleRegistration = (
   values,
   setLoginData,
