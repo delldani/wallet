@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, Form, useField, useFormikContext,Field } from "formik";
+import { Formik, Form, useField, useFormikContext, Field } from "formik";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -15,10 +15,10 @@ import InfoIcon from "@mui/icons-material/Info";
 import Tooltip from "@mui/material/Tooltip";
 import { useNavigate } from "react-router-dom";
 
-import { UserContext,ModalContext } from "../context";
-import { RadioButtons} from '../components/RadioButtons';
-import { handleRegistration} from '../utils/db'
-import { yupObject} from '../utils/default'
+import { UserContext } from "../context";
+import { RadioButtons } from "../components/RadioButtons";
+import { handleRegistration } from "../utils/db";
+import { yupObject } from "../utils/default";
 
 const MyTextInput = ({ label, tooltipInfo, ...props }) => {
   const [field, meta] = useField(props);
@@ -101,12 +101,19 @@ const PasswordInput = ({ label, tooltipInfo, hasTooltip = true, ...props }) => {
 
 export const RegistrationPage = () => {
   const contextObject = React.useContext(UserContext);
-  const setModalType = React.useContext(ModalContext);
-  const { usernameValidationRules,passwordValidationRules,teacher,parent,registration,submit,reset} = contextObject.translations;
-  const {setLoginData} = contextObject;
+  const {
+    usernameValidationRules,
+    passwordValidationRules,
+    teacher,
+    parent,
+    registration,
+    submit,
+    reset,
+  } = contextObject.translations;
+  const { setLoginData, setModalType } = contextObject;
   const navigate = useNavigate();
 
-    return (
+  return (
     <Box sx={mainStyle}>
       <h1>{registration}</h1>
       <Formik
@@ -118,7 +125,7 @@ export const RegistrationPage = () => {
         }}
         validationSchema={yupObject}
         onSubmit={(values) => {
-          handleRegistration(values,setLoginData,navigate,setModalType);
+          handleRegistration(values, setLoginData, navigate, setModalType);
         }}
       >
         <Form className="form">
@@ -140,12 +147,12 @@ export const RegistrationPage = () => {
             name="password2"
             hasTooltip={false}
           />
-            <Field
-              name="radioGroup"
-              options={['teacher','parent']}
-              labels={[teacher,parent]}
-              component={RadioButtons}
-            />
+          <Field
+            name="radioGroup"
+            options={["teacher", "parent"]}
+            labels={[teacher, parent]}
+            component={RadioButtons}
+          />
           <div className="buttons">
             <Button type="submit" variant="contained" color="primary" fullWidth>
               {submit}
@@ -159,10 +166,6 @@ export const RegistrationPage = () => {
     </Box>
   );
 };
-
- 
-  
-
 
 const mainStyle = {
   marginTop: "150px",
