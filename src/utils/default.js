@@ -1,15 +1,15 @@
 import * as Yup from "yup";
 
-
 export const translations = {
   title: "Iskolai osztálypénznyilvántartó rendszer",
   login: "Belépés",
-  logout:'Kilépés',
+  logout: "Kilépés",
   reset: "Törlés",
   submit: "Mehet",
+  close: "Bezár",
   cancel: "Mégse",
-  walletList:'Wallet lista',
-  permission:'Engedélyezés',
+  walletList: "Wallet lista",
+  permission: "Engedélyezés",
   registration: "Regisztráció",
   toRegister: "Még nem regisztrált ?",
   usernameValidationRules: "5 és 15 karakter közötti, betü vagy szám lehet",
@@ -18,6 +18,7 @@ export const translations = {
   teacher: "osztályfőnök",
   parent: "szmk tag",
   doLogin: "Ön nincs bejelentkezve !",
+  registrationError: "Nem sikerült a regisztráció !",
 };
 
 export const yupObject = Yup.object({
@@ -46,4 +47,4 @@ export const yupObject = Yup.object({
     })
     .required("Required")
     .oneOf([Yup.ref("password1"), null], "password must match"),
-})
+});

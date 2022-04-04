@@ -24,11 +24,10 @@ export const handleRegistration = (
   setModalType
 ) => {
   const { radioGroup, username, password1 } = values;
-  const userName = radioGroup === "teacher" ? "t" + username : "p" + username;
-  dbRegistration(userName, password1, radioGroup)
+  dbRegistration(username, password1, radioGroup)
     .then((response) => {
       //ha sikerült a regisztráció akkor beloginol
-      dbLogin(userName, password1)
+      dbLogin(username, password1)
         .then((response) => {
           setLoginData(response.data);
           radioGroup === "teacher" ? navigate("/list") : navigate("/wallet");
