@@ -15,14 +15,22 @@ function App() {
   const [createdWallets, setCreatedWallets] = React.useState([]);
 
   React.useEffect(() => {
-    //beregisztráltak listálya
-    dbList().then((res) => setUserList(res.data.list));
     if (contextObject.loginData) {
-      //KInek hozott létre wallet-et az adott user
-      const ownerList = contextObject.loginData.user.wallets.map((item) => {
-        return item.name;
+      //beregisztráltak listálya
+      dbList().then((res) => {
+        const teachers = res.data.list.filter((item) => item.job === "teacher");
+        const parents = res.data.list.filter((item) => item.job === "parent");
+        setUserList(
+          contextObject.loginData.user.job === "director" ? teachers : parents
+        );
       });
-      setWalletOwnerList(ownerList);
+      //KInek hozott létre wallet-et az adott user
+      const walletOwnerList = contextObject.loginData.user.wallets.map(
+        (item) => {
+          return item.name;
+        }
+      );
+      setWalletOwnerList(walletOwnerList);
       setCreatedWallets(contextObject.loginData.user.wallets);
     }
   }, [loginData]);
@@ -39,6 +47,7 @@ function App() {
     translations: translations,
     theme: "dark",
     loginData,
+    job: loginData && loginData.user.job,
     modalType,
     userList,
     walletOwnerList,
@@ -59,3 +68,51 @@ function App() {
 }
 
 export default App;
+
+//  **************LOGINDATA
+//
+// {
+//   "token": "MTAyODQ1MzI3NDAxNDkwODg_MDE2NjI3NTQ5NjczOTQ2MzA3_15618321916111452471131031221315129115105162981458723023013244157816314824083241111",
+//   "user": {
+//       "id": "MTAyODQ1MzI3NDAxNDkwODg",
+//       "name": "igazgato",
+//       "job": "director",
+//       "wallets": [
+//           {
+//               "id": "NDEwMDk4NTMwMjMwMjI1MzY",
+//               "name": "nagynatalia"
+//           }
+//       ]
+//   }
+// }
+//
+//USERLIST
+//
+//[
+//   {
+//     "id": "MzcxNTY5MzE4OTc5MTE0Nw",
+//     "name": "nagynatalia",
+//     "job": "teacher"
+// },
+// {
+//     "id": "MTQ3MDMyOTY1MDgxMjA0NTY",
+//     "name": "KisBela",
+//     "job": "teacher"
+// }
+// ]
+//
+//  ****************   WALLETOWNERLIST
+//
+// [
+//   "nagynatalia"
+// ]
+//
+//
+//  ***************************  createdWallets
+//
+// [
+//   {
+//       "id": "NDEwMDk4NTMwMjMwMjI1MzY",
+//       "name": "nagynatalia"
+//   }
+// ]

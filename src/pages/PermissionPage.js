@@ -3,16 +3,18 @@ import { UserContext } from "../context";
 import Button from "@mui/material/Button";
 
 import { DoLogin } from "../components/DoLogin";
-import { dbCreateWallet } from "../utils/db";
+import { dbCreateWallet, addAccessToWallet } from "../utils/db";
 
 export const PermissionPage = () => {
   const contextObject = React.useContext(UserContext);
-  const { userList, handleAddWallet, walletOwnerList } = contextObject;
+  const { userList, handleAddWallet, walletOwnerList, job } = contextObject;
 
   const handleClick = (name, userId) => {
     dbCreateWallet(name, userId, contextObject.loginData.token).then((item) => {
-      console.log(item);
-      handleAddWallet(name, item.data.id);
+      if (job === "director") {
+        handleAddWallet(name, item.data.id);
+      } else {
+      }
     });
   };
 

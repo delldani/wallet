@@ -17,6 +17,6 @@ export const WalletPage = () => {
         <DoLogin />;
         <DialogTransistion open={open} setOpen={setOpen} />
       </div>
-        );
+    );
   }
 };

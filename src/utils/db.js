@@ -10,6 +10,12 @@ const dbRegistration = (username, password, radioGroup) => {
   });
 };
 
+/**
+ *
+ * @param {string} username
+ * @param {string} password
+ * @returns
+ */
 const dbLogin = (username, password) => {
   return axios.post(URL + "login", {
     name: username,
@@ -30,6 +36,21 @@ export const dbCreateWallet = (name, id, token) => {
       id,
       description: "új wallet",
       extra: {},
+    },
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+};
+
+export const addAccessToWallet = (wallet_id, user_id, token) => {
+  return axios.put(
+    URL + "wallet/" + wallet_id + "/grant_access",
+    {
+      wallet_id,
+      user_id,
     },
     {
       headers: {
