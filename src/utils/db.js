@@ -17,6 +17,7 @@ const dbLogin = (username, password) => {
   });
 };
 
+//**az összes személy listálya akik beregisztráltak */
 export const dbList = () => {
   return axios.get(URL + "list", {});
 };

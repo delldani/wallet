@@ -3,38 +3,28 @@ import { UserContext } from "../context";
 import Button from "@mui/material/Button";
 
 import { DoLogin } from "../components/DoLogin";
-import { dbList, dbCreateWallet } from "../utils/db";
+import { dbCreateWallet } from "../utils/db";
 
 export const PermissionPage = () => {
   const contextObject = React.useContext(UserContext);
-  const [list, setList] = React.useState([]);
-  let teacherNames = [];
-  React.useEffect(() => {
-    if (contextObject.loginData) {
-      dbList().then((res) => setList(res.data.list));
-    }
-  }, []);
+  const { userList, handleAddWallet, walletOwnerList } = contextObject;
 
-  const handleClick = (name, id) => {
-    dbCreateWallet(name, id, contextObject.loginData.token).then((item) =>
-      console.log(item)
-    );
+  const handleClick = (name, userId) => {
+    dbCreateWallet(name, userId, contextObject.loginData.token).then((item) => {
+      console.log(item);
+      handleAddWallet(name, item.data.id);
+    });
   };
 
-  if (contextObject.loginData) {
-    teacherNames = contextObject.loginData.user.wallets.map((item) => {
-      return item.name;
-    });
-  }
-
-  const teacherList = list.map((item) => {
+  const teacherList = userList.map((item) => {
     return (
       <li key={item.id}>
         {item.name}
+        {" : " + item.job}
         <Button
           color="primary"
           variant="contained"
-          disabled={teacherNames.includes(item.name)}
+          disabled={walletOwnerList.includes(item.name)}
           onClick={() => {
             handleClick(item.name, item.id);
           }}
