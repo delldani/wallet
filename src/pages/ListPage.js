@@ -16,12 +16,14 @@ export const ListPage = () => {
   const wallets = contextObject.loginData
     ? createdWallets.map((item) => {
         return (
-          <Card sx={{ minWidth: 275 }}>
-            <CardContent>ID: {item.id}</CardContent>
-            <CardActions>
-              <Button variant="contained">Megnyit</Button>
-            </CardActions>
-          </Card>
+          <div key={item.id}>
+            <Card sx={{ minWidth: 275 }}>
+              <CardContent>ID: {item.id}</CardContent>
+              <CardActions>
+                <Button variant="contained">Megnyit</Button>
+              </CardActions>
+            </Card>
+          </div>
         );
       })
     : null;
