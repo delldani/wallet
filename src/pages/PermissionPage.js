@@ -17,9 +17,14 @@ export const PermissionPage = () => {
         }
       );
     } else if (job === "teacher") {
-      // addAccessToWallet("OTExOTU4OTM5NTMzOTAyNQ", userId, token).then((res) =>
-      //   console.log(res)
-      // );
+      //Ha van wallett-je a teacher nek(igazgató létrehozott neki)
+      if (contextObject.loginData.user.wallets) {
+        addAccessToWallet(
+          contextObject.loginData.user.wallets[0].id,
+          userId,
+          token
+        ).then((res) => console.log(res));
+      }
     } else {
       //do nothing
     }
