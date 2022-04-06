@@ -7,15 +7,23 @@ import { dbCreateWallet, addAccessToWallet } from "../utils/db";
 
 export const PermissionPage = () => {
   const contextObject = React.useContext(UserContext);
-  const { userList, handleAddWallet, walletOwnerList, job } = contextObject;
+  const { userList, handleAddWallet, walletOwnerList, job, token } =
+    contextObject;
 
   const handleClick = (name, userId) => {
-    dbCreateWallet(name, userId, contextObject.loginData.token).then((item) => {
-      if (job === "director") {
-        handleAddWallet(name, item.data.id);
-      } else {
-      }
-    });
+    if (job === "director") {
+      dbCreateWallet(name, userId, contextObject.loginData.token).then(
+        (item) => {
+          handleAddWallet(name, item.data.id);
+        }
+      );
+    } else if (job === "teacher") {
+      // addAccessToWallet("OTExOTU4OTM5NTMzOTAyNQ", userId, token).then((res) =>
+      //   console.log(res)
+      // );
+    } else {
+      //do nothing
+    }
   };
 
   const teacherList = userList.map((item) => {

@@ -24,7 +24,7 @@ function App() {
           contextObject.loginData.user.job === "director" ? teachers : parents
         );
       });
-      //KInek hozott létre wallet-et az adott user
+      //KInek hozott létre wallet-et az adott user, ez csak az igazgató lehet
       const walletOwnerList = contextObject.loginData.user.wallets.map(
         (item) => {
           return item.name;
@@ -34,6 +34,8 @@ function App() {
       setCreatedWallets(contextObject.loginData.user.wallets);
     }
   }, [loginData]);
+
+  //TODO kell ez akettő ???????
 
   const handleAddWallet = (name, id) => {
     const array = [...walletOwnerList, name];
@@ -47,6 +49,7 @@ function App() {
     translations: translations,
     theme: "dark",
     loginData,
+    token: loginData && loginData.token,
     job: loginData && loginData.user.job,
     modalType,
     userList,

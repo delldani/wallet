@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const URL = "https://wallet-cloudflare.gordongecco.workers.dev/";
+// const URL = "https://wallet-cloudflare.gordongecco.workers.dev/";
+const URL = "http://127.0.0.1:8787/";
 
 const dbRegistration = (username, password, radioGroup) => {
   return axios.post(URL + "reg", {
@@ -45,8 +46,15 @@ export const dbCreateWallet = (name, id, token) => {
   );
 };
 
+/**
+ * Hozzáférést ad egy wallet-hoz egy user-nek
+ * @param {string} wallet_id
+ * @param {string} user_id
+ * @param {string} token
+ * @returns
+ */
 export const addAccessToWallet = (wallet_id, user_id, token) => {
-  return axios.put(
+  return axios.post(
     URL + "wallet/" + wallet_id + "/grant_access",
     {
       wallet_id,
