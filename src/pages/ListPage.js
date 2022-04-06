@@ -6,13 +6,20 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
 import { UserContext } from "../context";
-
+import { dbGetAllTransaction } from "../utils/db";
 import { DoLogin } from "../components/DoLogin";
 
 export const ListPage = () => {
   const contextObject = React.useContext(UserContext);
 
-  const { myWallets } = contextObject;
+  const { myWallets, translations, token } = contextObject;
+
+  const handleclick = (wallet_id) => {
+    dbGetAllTransaction(wallet_id, token).then((res) => {
+      console.log(res);
+    });
+  };
+
   const wallets = contextObject.loginData
     ? myWallets.map((item) => {
         return (
@@ -22,7 +29,14 @@ export const ListPage = () => {
                 ID: {item.id} Name: {item.name}
               </CardContent>
               <CardActions>
-                <Button variant="contained">Megnyit</Button>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    handleclick(item.id);
+                  }}
+                >
+                  {translations.open}
+                </Button>
               </CardActions>
             </Card>
           </div>

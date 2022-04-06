@@ -123,24 +123,18 @@ export const handleLogin = (values, setLoginData, navigate, setModalType) => {
     });
 };
 
-// axios
-// .post(
-//   "https://wallet-cloudflare.gordongecco.workers.dev/user/search",
-//   {
-//     name: "dani2",
-//     // password: "dani2",
-//   },
-//   {
-//     headers: {
-//       Authorization:
-//         "Bearer " +
-//         "NzEwOTYwMjQ3MTc5MTA5_MTY4MDQ1NDgyNTA4OTAyMTc_1857815512510722617816717181253223200173197721671581620078146639175421261382435245",
-//     },
-//   }
-// )
-// .then(function (response) {
-//   console.log(response);
-// })
-// .catch(function (error) {
-//   console.log(error);
-// });
+export const dbGetAllTransaction = (wallet_id, token) => {
+  return axios.post(
+    URL + "transactions",
+    {
+      wallet_id,
+      limit: "1000",
+      cursor: "",
+    },
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+};

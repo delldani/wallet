@@ -9,6 +9,7 @@ export const translations = {
   close: "Bezár",
   cancel: "Mégse",
   wallet: "Tárca",
+  open: "Megnyit",
   walletList: "Wallet lista",
   permission: "Engedélyezés",
   registration: "Regisztráció",
