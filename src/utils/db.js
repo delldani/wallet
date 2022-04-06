@@ -113,8 +113,8 @@ export const handleLogin = (values, setLoginData, navigate, setModalType) => {
     .then((response) => {
       setLoginData(response.data);
       response.data.user.job === "teacher" ||
-      response.data.user.job === "director"
-        ? navigate("/list")
+      response.data.user.job !== "parent"
+        ? navigate("/permission")
         : navigate("/wallet");
     })
     .catch((error) => {

@@ -8,13 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { showButton } from "../utils/utils";
 export const NavBarButtons = () => {
   const contextObject = React.useContext(UserContext);
+  const { translations, job } = contextObject;
   const navigate = useNavigate();
   const { loginData, setLoginData } = contextObject;
   const { pathname } = useLocation();
 
   return (
     <Box sx={style}>
-      {showButton("permission-button", pathname, !!loginData) && (
+      {showButton("permission-button", pathname, !!loginData, job) && (
         <Button
           color="inherit"
           onClick={() => {
@@ -22,10 +23,10 @@ export const NavBarButtons = () => {
           }}
         >
           {" "}
-          {contextObject.translations.permission}
+          {translations.permission}
         </Button>
       )}
-      {showButton("walletlist-button", pathname, !!loginData) && (
+      {showButton("walletlist-button", pathname, !!loginData, job) && (
         <Button
           color="inherit"
           onClick={() => {
@@ -33,13 +34,24 @@ export const NavBarButtons = () => {
           }}
         >
           {" "}
-          {contextObject.translations.walletList}
+          {translations.walletList}
         </Button>
       )}
-      {showButton("logout-button", pathname, !!loginData) && (
+      {showButton("wallet-button", pathname, !!loginData, job) && (
+        <Button
+          color="inherit"
+          onClick={() => {
+            navigate("/wallet");
+          }}
+        >
+          {" "}
+          {translations.wallet}
+        </Button>
+      )}
+      {showButton("logout-button", pathname, !!loginData, job) && (
         <Button color="inherit" onClick={() => setLoginData(null)}>
           {" "}
-          {contextObject.translations.logout}
+          {translations.logout}
         </Button>
       )}
     </Box>

@@ -17,12 +17,12 @@ export const Pages = () => {
       <Route path="/" element={<LoginPage />} />
       <Route path="/registration" element={<RegistrationPage />} />
       {job !== "parent" && (
-        <>
-          <Route path="/permission" element={<PermissionPage />} />
-          <Route path="/list" element={<ListPage />} />
-        </>
+        <Route path="/permission" element={<PermissionPage />} />
       )}
-      <Route path="/wallet" element={<WalletPage />} />
+
+      {job === "director" && <Route path="/list" element={<ListPage />} />}
+
+      {job !== "director" && <Route path="/wallet" element={<WalletPage />} />}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

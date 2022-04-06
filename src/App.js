@@ -42,7 +42,6 @@ function App() {
             //kiszúri a tanárt a listából
             const array = res.data.access.filter((item) => item.name !== name);
             setAccessToWallet(array);
-            console.log(array);
           });
         }
       }
