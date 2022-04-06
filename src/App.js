@@ -5,27 +5,42 @@ import { translations } from "./utils/default";
 import { NavBar } from "./components/NavBar";
 import Box from "@mui/material/Box";
 
-import { dbList } from "./utils/db";
+import { dbList, dbAccessList } from "./utils/db";
 
 function App() {
   const [loginData, setLoginData] = React.useState(undefined);
   const [modalType, setModalType] = React.useState(null);
   const [userList, setUserList] = React.useState([]);
+
   const [myWallets, setMyWallets] = React.useState([]);
+  //Csak tanár esetén, kiknek adott hozzáférést a wallet-hoz(csak egy lejhet neki)
+  const [accessToWallet, setAccessToWallet] = React.useState([]);
 
   React.useEffect(() => {
     if (contextObject.loginData) {
+      const { job, wallets, name } = contextObject.loginData.user;
+      const { token } = contextObject.loginData;
       //beregisztráltak listálya
       dbList().then((res) => {
         const teachers = res.data.list.filter((item) => item.job === "teacher");
         const parents = res.data.list.filter((item) => item.job === "parent");
-        setUserList(
-          contextObject.loginData.user.job === "director" ? teachers : parents
-        );
+        setUserList(job === "director" ? teachers : parents);
       });
       //KInek hozott létre wallet-et az adott user, ez csak az igazgató lehet
       //vagy kinek adott hoozáférést,tanár esetében
+
       setMyWallets(contextObject.loginData.user.wallets);
+
+      //lekéri csak tanár esetén, hogy kinek adott hozzáférést eddig
+      if (job === "teacher" && wallets) {
+        // mivel 1 tanárnak csak 1 wallet lehet
+        dbAccessList(wallets[0].id, token).then((res) => {
+          //kiszúri a tanárt a listából
+          const array = res.data.access.filter((item) => item.name !== name);
+          setAccessToWallet(array);
+          console.log(array);
+        });
+      }
     }
   }, [loginData]);
 
@@ -43,6 +58,7 @@ function App() {
     modalType,
     userList,
     myWallets,
+    accessToWallet,
     setModalType,
     setLoginData,
     handleAddWallet,
@@ -107,3 +123,29 @@ export default App;
 //       "name": "nagynatalia"
 //   }
 // ]
+//
+// Wallet adatok
+// {
+//   "data": {
+//       "id": "NzYyNzg1MTg1NTA5MDk3Mg",
+//       "name": "nagynatalia",
+//       "description": "új wallet",
+//       "access": [
+//           {
+//               "id": "OTY4NDkwNzkwNzUyNzEzMg",
+//               "name": "nagynatalia"
+//           },
+//           {
+//               "id": "NTIxMDQ2NTEwOTUyODg3NQ",
+//               "name": "TakacsAndor"
+//           }
+//       ],
+//       "extra": {},
+//       "balance": 0,
+//       "created_by": {
+//           "id": "MjI4OTY2MzEyNzY3NzA4NA",
+//           "name": "igazgato"
+//       },
+//       "created_at": "2022-04-06T09:04:06.799Z"
+//   },
+//

@@ -68,6 +68,21 @@ export const addAccessToWallet = (wallet_id, user_id, token) => {
   );
 };
 
+/**
+ * Lekéri egy wallet adatait
+ * @param {string} wallet_id
+ * @param {string} token
+ * @returns
+ */
+export const dbAccessList = (wallet_id, token) => {
+  console.log(token);
+  return axios.get(URL + "wallet/" + wallet_id, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+};
+
 export const handleRegistration = (
   values,
   setLoginData,
