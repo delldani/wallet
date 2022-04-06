@@ -11,8 +11,7 @@ function App() {
   const [loginData, setLoginData] = React.useState(undefined);
   const [modalType, setModalType] = React.useState(null);
   const [userList, setUserList] = React.useState([]);
-  const [walletOwnerList, setWalletOwnerList] = React.useState([]);
-  const [createdWallets, setCreatedWallets] = React.useState([]);
+  const [myWallets, setMyWallets] = React.useState([]);
 
   React.useEffect(() => {
     if (contextObject.loginData) {
@@ -25,24 +24,14 @@ function App() {
         );
       });
       //KInek hozott létre wallet-et az adott user, ez csak az igazgató lehet
-      const walletOwnerList = contextObject.loginData.user.wallets.map(
-        (item) => {
-          return item.name;
-        }
-      );
-      setWalletOwnerList(walletOwnerList);
-      setCreatedWallets(contextObject.loginData.user.wallets);
+      //vagy kinek adott hoozáférést,tanár esetében
+      setMyWallets(contextObject.loginData.user.wallets);
     }
   }, [loginData]);
 
-  //TODO kell ez akettő ???????
-
   const handleAddWallet = (name, id) => {
-    const array = [...walletOwnerList, name];
-    setWalletOwnerList(array);
-
-    const newWallets = [...createdWallets, { id, name }];
-    setCreatedWallets(newWallets);
+    const newWallets = [...myWallets, { id, name }];
+    setMyWallets(newWallets);
   };
 
   const contextObject = {
@@ -53,8 +42,7 @@ function App() {
     job: loginData && loginData.user.job,
     modalType,
     userList,
-    walletOwnerList,
-    createdWallets,
+    myWallets,
     setModalType,
     setLoginData,
     handleAddWallet,

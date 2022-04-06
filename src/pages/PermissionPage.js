@@ -7,8 +7,7 @@ import { dbCreateWallet, addAccessToWallet } from "../utils/db";
 
 export const PermissionPage = () => {
   const contextObject = React.useContext(UserContext);
-  const { userList, handleAddWallet, walletOwnerList, job, token } =
-    contextObject;
+  const { userList, handleAddWallet, myWallets, job, token } = contextObject;
 
   const handleClick = (name, userId) => {
     if (job === "director") {
@@ -34,7 +33,7 @@ export const PermissionPage = () => {
         <Button
           color="primary"
           variant="contained"
-          disabled={walletOwnerList.includes(item.name)}
+          disabled={myWallets.map((wallet) => wallet.name).includes(item.name)}
           onClick={() => {
             handleClick(item.name, item.id);
           }}

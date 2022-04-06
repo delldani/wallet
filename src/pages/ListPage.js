@@ -12,13 +12,15 @@ import { DoLogin } from "../components/DoLogin";
 export const ListPage = () => {
   const contextObject = React.useContext(UserContext);
 
-  const { createdWallets } = contextObject;
+  const { myWallets } = contextObject;
   const wallets = contextObject.loginData
-    ? createdWallets.map((item) => {
+    ? myWallets.map((item) => {
         return (
           <div key={item.id}>
             <Card sx={{ minWidth: 275 }}>
-              <CardContent>ID: {item.id}</CardContent>
+              <CardContent>
+                ID: {item.id} Name: {item.name}
+              </CardContent>
               <CardActions>
                 <Button variant="contained">Megnyit</Button>
               </CardActions>
