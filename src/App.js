@@ -11,7 +11,8 @@ function App() {
   const [loginData, setLoginData] = React.useState(undefined);
   const [modalType, setModalType] = React.useState(null);
   const [userList, setUserList] = React.useState([]);
-
+  //igazgató esetén, azok a walletek amiket létrehozott a tanároknak
+  //tanár esetén csak egy elem vane benne, a saját wallet-je (csak egy lehet)
   const [myWallets, setMyWallets] = React.useState([]);
   //Csak tanár esetén, kiknek adott hozzáférést a wallet-hoz(csak egy lejhet neki)
   const [accessToWallet, setAccessToWallet] = React.useState([]);
@@ -20,26 +21,30 @@ function App() {
     if (contextObject.loginData) {
       const { job, wallets, name } = contextObject.loginData.user;
       const { token } = contextObject.loginData;
-      //beregisztráltak listálya
-      dbList().then((res) => {
-        const teachers = res.data.list.filter((item) => item.job === "teacher");
-        const parents = res.data.list.filter((item) => item.job === "parent");
-        setUserList(job === "director" ? teachers : parents);
-      });
-      //KInek hozott létre wallet-et az adott user, ez csak az igazgató lehet
-      //vagy kinek adott hoozáférést,tanár esetében
-
-      setMyWallets(contextObject.loginData.user.wallets);
-
-      //lekéri csak tanár esetén, hogy kinek adott hozzáférést eddig
-      if (job === "teacher" && wallets) {
-        // mivel 1 tanárnak csak 1 wallet lehet
-        dbAccessList(wallets[0].id, token).then((res) => {
-          //kiszúri a tanárt a listából
-          const array = res.data.access.filter((item) => item.name !== name);
-          setAccessToWallet(array);
-          console.log(array);
+      if (job !== "parent") {
+        //beregisztráltak listálya
+        dbList().then((res) => {
+          const teachers = res.data.list.filter(
+            (item) => item.job === "teacher"
+          );
+          const parents = res.data.list.filter((item) => item.job === "parent");
+          setUserList(job === "director" ? teachers : parents);
         });
+        //KInek hozott létre wallet-et az adott user, ez csak az igazgató lehet
+        //vagy kinek adott hoozáférést,tanár esetében
+
+        setMyWallets(contextObject.loginData.user.wallets);
+
+        //lekéri csak tanár esetén, hogy kinek adott hozzáférést eddig
+        if (job === "teacher" && wallets) {
+          // mivel 1 tanárnak csak 1 wallet lehet
+          dbAccessList(wallets[0].id, token).then((res) => {
+            //kiszúri a tanárt a listából
+            const array = res.data.access.filter((item) => item.name !== name);
+            setAccessToWallet(array);
+            console.log(array);
+          });
+        }
       }
     }
   }, [loginData]);
