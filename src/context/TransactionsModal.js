@@ -1,16 +1,8 @@
 import React from "react";
-import { Formik, Form, useField, useFormikContext } from "formik";
+import { Formik, Form, useField } from "formik";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import Slide from "@mui/material/Slide";
@@ -22,6 +14,7 @@ const MyTextInput = ({ label, ...props }) => {
   return (
     <TextField
       className="input-field"
+      defaultValue=""
       label={label}
       variant="outlined"
       inputProps={{ ...field, ...props }}
