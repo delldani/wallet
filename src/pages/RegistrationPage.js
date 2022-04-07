@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context";
 import { RadioButtons } from "../components/RadioButtons";
 import { handleRegistration } from "../utils/db";
-import { yupObject } from "../utils/default";
+import { validationForRegistration } from "../utils/default";
 
 const MyTextInput = ({ label, tooltipInfo, ...props }) => {
   const [field, meta] = useField(props);
@@ -123,7 +123,7 @@ export const RegistrationPage = () => {
           password2: "",
           radioGroup: "teacher",
         }}
-        validationSchema={yupObject}
+        validationSchema={validationForRegistration}
         onSubmit={(values) => {
           handleRegistration(values, setLoginData, navigate, setModalType);
         }}

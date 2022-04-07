@@ -6,6 +6,9 @@ export const translations = {
   logout: "Kilépés",
   reset: "Törlés",
   submit: "Mehet",
+  save: "Mentés",
+  transactionType: "Tranzakció típusa",
+  amount: "Összeg",
   close: "Bezár",
   cancel: "Mégse",
   wallet: "Tárca",
@@ -25,7 +28,17 @@ export const translations = {
   loginError: "Nem sikerült a belépés !",
 };
 
-export const yupObject = Yup.object({
+export const validationForTransactionModal = Yup.object({
+  transaction: Yup.string().required("Szükséges megadni !"),
+  amount: Yup.string()
+    .required("Szükséges megadni !")
+    .matches(/^[-0-9][0-9]+$/, {
+      message: "Csak pozitív vagy negatív szám lehet, tizedes nélkül !",
+      excludeEmptyString: true,
+    }),
+});
+
+export const validationForRegistration = Yup.object({
   username: Yup.string()
     .max(20, "Must be 15 characters or less")
     .min(5, "Must be 5 characters or more")

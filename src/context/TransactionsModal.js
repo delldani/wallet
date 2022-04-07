@@ -15,6 +15,8 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import Slide from "@mui/material/Slide";
 
+import { validationForTransactionModal } from "../utils/default";
+
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
@@ -29,60 +31,12 @@ const MyTextInput = ({ label, ...props }) => {
   );
 };
 
-const PasswordInput = ({ label, ...props }) => {
-  const [field, meta] = useField(props);
-
-  const [showPassword, setShowPassword] = React.useState(false);
-
-  const { touched } = useFormikContext();
-
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-  return (
-    <FormControl className="input-field">
-      <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
-      <OutlinedInput
-        error={!!(meta.touched && meta.error)}
-        disabled={field.name === "password2" && !touched.password1}
-        label={label}
-        variant="outlined"
-        inputProps={{
-          ...field,
-          ...props,
-          type: showPassword ? "text" : "password",
-        }}
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
-              edge="end"
-            >
-              {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-            </IconButton>
-          </InputAdornment>
-        }
-      />
-      {!!(meta.touched && meta.error) && (
-        <FormHelperText error id="accountId-error">
-          {meta.error}
-        </FormHelperText>
-      )}
-    </FormControl>
-  );
-};
-
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
 export const TransactionsModal = ({ open, handleClose, contextObject }) => {
+  const { translations } = contextObject;
   return (
     <Dialog
       open={open}
@@ -95,9 +49,10 @@ export const TransactionsModal = ({ open, handleClose, contextObject }) => {
         <Box sx={mainStyle}>
           <Formik
             initialValues={{
-              username: "",
-              password: "",
+              transaction: "",
+              amount: "",
             }}
+            validationSchema={validationForTransactionModal}
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(() => {
                 alert(JSON.stringify(values, null, 2));
@@ -106,9 +61,16 @@ export const TransactionsModal = ({ open, handleClose, contextObject }) => {
             }}
           >
             <Form className="form">
-              <MyTextInput label="Username" name="username" type="text" />
-
-              <PasswordInput label="Password" name="password" type="text" />
+              <MyTextInput
+                name="transaction"
+                label={translations.transactionType}
+                type="text"
+              />
+              <MyTextInput
+                name="amount"
+                label={translations.amount}
+                type="text"
+              />
 
               <div className="buttons">
                 <Button
@@ -117,7 +79,7 @@ export const TransactionsModal = ({ open, handleClose, contextObject }) => {
                   color="primary"
                   fullWidth
                 >
-                  {contextObject.translations.submit}
+                  {translations.save}
                 </Button>
                 <Button
                   type="reset"
@@ -126,7 +88,7 @@ export const TransactionsModal = ({ open, handleClose, contextObject }) => {
                   fullWidth
                   onClick={handleClose}
                 >
-                  {contextObject.translations.cancel}
+                  {translations.cancel}
                 </Button>
               </div>
             </Form>

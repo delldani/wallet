@@ -83,6 +83,14 @@ export const dbAccessList = (wallet_id, token) => {
   });
 };
 
+/**
+ * Beregisztrál, ha sikerül a regisztráció, akkor beloginol és átirányít a megfelelő
+ * rout-ra, hiba esetén Modalt mutat
+ * @param {*} values
+ * @param {*} setLoginData
+ * @param {*} navigate
+ * @param {*} setModalType
+ */
 export const handleRegistration = (
   values,
   setLoginData,
