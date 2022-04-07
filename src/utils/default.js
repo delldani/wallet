@@ -27,6 +27,7 @@ export const translations = {
   doLogin: "Ön nincs bejelentkezve !",
   registrationError: "Nem sikerült a regisztráció !",
   loginError: "Nem sikerült a belépés !",
+  deleteError: "A törlés sikertelen !",
 };
 
 export const validationForTransactionModal = Yup.object({
