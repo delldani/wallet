@@ -53,8 +53,9 @@ export const TransactionsModal = ({ open, handleClose, contextObject }) => {
               amount: "",
             }}
             validationSchema={validationForTransactionModal}
-            onSubmit={(values, { setSubmitting }) => {
+            onSubmit={(values) => {
               addTransaction(values.transaction, values.amount);
+              handleClose();
             }}
           >
             <Form className="form">

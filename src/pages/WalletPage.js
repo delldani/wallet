@@ -15,12 +15,12 @@ export const WalletPage = () => {
     setModalType,
     deleteTransaction,
     getTransactionList,
+    transactions,
   } = contextObject;
-  const [transactions, setTransactions] = React.useState([]);
 
   React.useEffect(() => {
     if ((actualWallet, token)) {
-      getTransactionList(setTransactions);
+      getTransactionList();
     }
   }, []);
 
@@ -71,8 +71,6 @@ export const WalletPage = () => {
     );
   }
 };
-
-const upDateTransactionList = () => {};
 
 const style = {
   display: "flex",

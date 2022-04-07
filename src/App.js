@@ -23,6 +23,7 @@ function App() {
   //Csak tanár esetén, kiknek adott hozzáférést a wallet-hoz(csak egy lejhet neki)
   const [accessToWallet, setAccessToWallet] = React.useState([]);
   const [actualWallet, setActualWallet] = React.useState(null);
+  const [transactions, setTransactions] = React.useState([]);
 
   React.useEffect(() => {
     if (contextObject.loginData) {
@@ -63,15 +64,21 @@ function App() {
   const addTransaction = (title, amount) => {
     dbAddTransaction(actualWallet, title, amount, loginData.token).then(
       (res) => {
-        console.log(res);
+        const newTransactions = [...transactions, res.data];
+        console.log(newTransactions);
+
+        setTransactions(newTransactions);
       }
     );
   };
   const deleteTransaction = (id) => {
-    dbDeleteTransaction(id, loginData.token).then((res) => console.log(res));
+    dbDeleteTransaction(id, loginData.token).then((res) => {
+      setTransactions(transactions.filter((item) => item.id !== id));
+      console.log(res);
+    });
   };
 
-  const getTransactionList = (setTransactions) => {
+  const getTransactionList = () => {
     dbGetAllTransaction(actualWallet, loginData.token).then((res) => {
       console.log(res);
       setTransactions(res.data.transactions);
@@ -89,6 +96,7 @@ function App() {
     myWallets,
     accessToWallet,
     actualWallet,
+    transactions,
     getTransactionList,
     deleteTransaction,
     addTransaction,
