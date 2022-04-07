@@ -4,20 +4,20 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import { useNavigate } from "react-router-dom";
 
 import { UserContext } from "../context";
-import { dbGetAllTransaction } from "../utils/db";
 import { DoLogin } from "../components/DoLogin";
 
 export const ListPage = () => {
   const contextObject = React.useContext(UserContext);
+  const navigate = useNavigate();
 
-  const { myWallets, translations, token } = contextObject;
+  const { myWallets, translations, setActualWallet } = contextObject;
 
   const handleclick = (wallet_id) => {
-    dbGetAllTransaction(wallet_id, token).then((res) => {
-      console.log(res);
-    });
+    setActualWallet(wallet_id);
+    navigate("/wallet");
   };
 
   const wallets = contextObject.loginData

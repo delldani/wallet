@@ -1,6 +1,7 @@
 import React from "react";
 
 import { ErrorModal } from "./ErrorModal";
+import { TransactionsModal } from "./TransactionsModal";
 
 export const ModalContext = React.createContext(null);
 
@@ -15,6 +16,11 @@ export const Modals = ({ contextObject }) => {
     <div>
       <ErrorModal
         modalType={modalType}
+        handleClose={handleClose}
+        contextObject={contextObject}
+      />
+      <TransactionsModal
+        open={modalType === "transactions"}
         handleClose={handleClose}
         contextObject={contextObject}
       />

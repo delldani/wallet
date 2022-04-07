@@ -14,7 +14,6 @@ import FormHelperText from "@mui/material/FormHelperText";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import Slide from "@mui/material/Slide";
-import { UserContext } from "../context";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -83,13 +82,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-export const DialogTransistion = ({ open, setOpen }) => {
-  const contextObject = React.useContext(UserContext);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+export const TransactionsModal = ({ open, handleClose, contextObject }) => {
   return (
     <Dialog
       open={open}

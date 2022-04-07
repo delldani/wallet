@@ -16,7 +16,7 @@ function App() {
   const [myWallets, setMyWallets] = React.useState([]);
   //Csak tanár esetén, kiknek adott hozzáférést a wallet-hoz(csak egy lejhet neki)
   const [accessToWallet, setAccessToWallet] = React.useState([]);
-  const [actualWallet, setActualWallet] = React.useState("");
+  const [actualWallet, setActualWallet] = React.useState(null);
 
   React.useEffect(() => {
     if (contextObject.loginData) {
@@ -64,6 +64,7 @@ function App() {
     userList,
     myWallets,
     accessToWallet,
+    actualWallet,
     setActualWallet,
     setModalType,
     setLoginData,
