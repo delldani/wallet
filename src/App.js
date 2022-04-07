@@ -5,7 +5,12 @@ import { translations } from "./utils/default";
 import { NavBar } from "./components/NavBar";
 import Box from "@mui/material/Box";
 
-import { dbList, dbAccessList } from "./utils/db";
+import {
+  dbList,
+  dbAccessList,
+  dbAddTransaction,
+  dbDeleteTransaction,
+} from "./utils/db";
 
 function App() {
   const [loginData, setLoginData] = React.useState(undefined);
@@ -54,6 +59,17 @@ function App() {
     setMyWallets(newWallets);
   };
 
+  const addTransaction = (title, amount) => {
+    dbAddTransaction(actualWallet, title, amount, loginData.token).then(
+      (res) => {
+        console.log(res);
+      }
+    );
+  };
+  const deleteTransaction = (id) => {
+    dbDeleteTransaction(id, loginData.token).then((res) => console.log(res));
+  };
+
   const contextObject = {
     translations: translations,
     theme: "dark",
@@ -65,6 +81,8 @@ function App() {
     myWallets,
     accessToWallet,
     actualWallet,
+    deleteTransaction,
+    addTransaction,
     setActualWallet,
     setModalType,
     setLoginData,
@@ -155,4 +173,15 @@ export default App;
 //       },
 //       "created_at": "2022-04-06T09:04:06.799Z"
 //   },
+//Transaction
 //
+// id: string;
+// amount: number;
+// title: string;
+// extra: any;
+// wallet_id: any;
+// created_by: {
+//     id: any;
+//     name: any;
+// };
+// created_at: string;

@@ -3,7 +3,7 @@ import axios from "axios";
 // const URL = "https://wallet-cloudflare.gordongecco.workers.dev/";
 const URL = "http://127.0.0.1:8787/";
 
-const dbRegistration = (username, password, radioGroup) => {
+export const dbRegistration = (username, password, radioGroup) => {
   return axios.post(URL + "reg", {
     name: username,
     password: password,
@@ -17,7 +17,7 @@ const dbRegistration = (username, password, radioGroup) => {
  * @param {string} password
  * @returns
  */
-const dbLogin = (username, password) => {
+export const dbLogin = (username, password) => {
   return axios.post(URL + "login", {
     name: username,
     password: password,
@@ -75,7 +75,6 @@ export const addAccessToWallet = (wallet_id, user_id, token) => {
  * @returns
  */
 export const dbAccessList = (wallet_id, token) => {
-  console.log(token);
   return axios.get(URL + "wallet/" + wallet_id, {
     headers: {
       Authorization: "Bearer " + token,
@@ -84,51 +83,43 @@ export const dbAccessList = (wallet_id, token) => {
 };
 
 /**
- * Beregisztrál, ha sikerül a regisztráció, akkor beloginol és átirányít a megfelelő
- * rout-ra, hiba esetén Modalt mutat
- * @param {*} values
- * @param {*} setLoginData
- * @param {*} navigate
- * @param {*} setModalType
+ * Új transaction hozzáadása
+ * @param {*} wallet_id
+ * @param {*} title
+ * @param {*} amount
+ * @param {*} token
+ * @returns
  */
-export const handleRegistration = (
-  values,
-  setLoginData,
-  navigate,
-  setModalType
-) => {
-  const { radioGroup, username, password1 } = values;
-  dbRegistration(username, password1, radioGroup)
-    .then((response) => {
-      //ha sikerült a regisztráció akkor beloginol
-      dbLogin(username, password1)
-        .then((response) => {
-          setLoginData(response.data);
-          radioGroup === "teacher" ? navigate("/list") : navigate("/wallet");
-        })
-        .catch((error) => console.log(error));
-    })
-    .catch(function (error) {
-      console.log(error);
-      setModalType("registrationError");
-    });
+export const dbAddTransaction = (wallet_id, title, amount, token) => {
+  return axios.put(
+    URL + "transactions",
+    {
+      wallet_id,
+      title,
+      amount,
+    },
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
 };
 
-export const handleLogin = (values, setLoginData, navigate, setModalType) => {
-  const { username, password } = values;
-
-  dbLogin(username, password)
-    .then((response) => {
-      setLoginData(response.data);
-      response.data.user.job === "teacher" ||
-      response.data.user.job !== "parent"
-        ? navigate("/permission")
-        : navigate("/wallet");
-    })
-    .catch((error) => {
-      setModalType("loginError");
-      console.log(error);
-    });
+/**
+ *  transaction törlése
+ * @param {*} wallet_id
+ * @param {*} title
+ * @param {*} amount
+ * @param {*} token
+ * @returns
+ */
+export const dbDeleteTransaction = (id, token) => {
+  return axios.delete(URL + "transaction/" + id, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
 };
 
 export const dbGetAllTransaction = (wallet_id, token) => {

@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Link } from "../components/Link";
 import { UserContext } from "../context";
-import { handleLogin } from "../utils/db";
+import { dbLogin } from "../utils/db";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -117,6 +117,23 @@ export const LoginPage = () => {
       </Formik>
     </Box>
   );
+};
+
+const handleLogin = (values, setLoginData, navigate, setModalType) => {
+  const { username, password } = values;
+
+  dbLogin(username, password)
+    .then((response) => {
+      setLoginData(response.data);
+      response.data.user.job === "teacher" ||
+      response.data.user.job !== "parent"
+        ? navigate("/permission")
+        : navigate("/wallet");
+    })
+    .catch((error) => {
+      setModalType("loginError");
+      console.log(error);
+    });
 };
 
 const mainStyle = {

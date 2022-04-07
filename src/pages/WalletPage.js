@@ -8,8 +8,9 @@ import { dbGetAllTransaction } from "../utils/db";
 
 export const WalletPage = () => {
   const contextObject = React.useContext(UserContext);
-  const { actualWallet, token, translations, setModalType } = contextObject;
-  const [transactions, setTransactions] = React.useState(null);
+  const { actualWallet, token, translations, setModalType, deleteTransaction } =
+    contextObject;
+  const [transactions, setTransactions] = React.useState([]);
 
   React.useEffect(() => {
     if ((actualWallet, token)) {
@@ -24,11 +25,37 @@ export const WalletPage = () => {
     setModalType("transactions");
   };
 
+  const onTransactionDelete = (id) => {
+    deleteTransaction(id);
+  };
+  const transactionsTable = transactions.map((item) => {
+    return (
+      <div>
+        {item.title}---{item.amount}---{item.created_by.name}
+        <Button
+          variant="contained"
+          onClick={() => onTransactionDelete(item.id)}
+        >
+          {translations.delete}{" "}
+        </Button>
+      </div>
+    );
+  });
+
   if (contextObject.loginData) {
     return (
       <Box sx={style}>
         <h1>WalletPage</h1>
-        <Button variant="contained" onClick={onTransactions}>
+        {transactions ? (
+          <div>{transactionsTable}</div>
+        ) : (
+          <h2>NIncs megjeleníthető tranzakció</h2>
+        )}
+        <Button
+          variant="contained"
+          onClick={onTransactions}
+          className="transaction-button"
+        >
           {translations.newTransaction}{" "}
         </Button>
       </Box>
@@ -36,7 +63,7 @@ export const WalletPage = () => {
   } else {
     return (
       <div>
-        <DoLogin />;
+        <DoLogin />
       </div>
     );
   }
@@ -45,4 +72,7 @@ export const WalletPage = () => {
 const style = {
   display: "flex",
   flexDirection: "column",
+  "& .transaction-button": {
+    width: "200px",
+  },
 };

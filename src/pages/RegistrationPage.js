@@ -17,8 +17,8 @@ import { useNavigate } from "react-router-dom";
 
 import { UserContext } from "../context";
 import { RadioButtons } from "../components/RadioButtons";
-import { handleRegistration } from "../utils/db";
 import { validationForRegistration } from "../utils/default";
+import { dbLogin, dbRegistration } from "../utils/db";
 
 const MyTextInput = ({ label, tooltipInfo, ...props }) => {
   const [field, meta] = useField(props);
@@ -167,6 +167,23 @@ export const RegistrationPage = () => {
   );
 };
 
+const handleRegistration = (values, setLoginData, navigate, setModalType) => {
+  const { radioGroup, username, password1 } = values;
+  dbRegistration(username, password1, radioGroup)
+    .then((response) => {
+      //ha sikerült a regisztráció akkor beloginol
+      dbLogin(username, password1)
+        .then((response) => {
+          setLoginData(response.data);
+          radioGroup === "teacher" ? navigate("/list") : navigate("/wallet");
+        })
+        .catch((error) => console.log(error));
+    })
+    .catch(function (error) {
+      console.log(error);
+      setModalType("registrationError");
+    });
+};
 const mainStyle = {
   marginTop: "150px",
   display: "flex",

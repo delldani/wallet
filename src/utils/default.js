@@ -7,6 +7,7 @@ export const translations = {
   reset: "Törlés",
   submit: "Mehet",
   save: "Mentés",
+  delete: "Töröl",
   transactionType: "Tranzakció típusa",
   amount: "Összeg",
   close: "Bezár",

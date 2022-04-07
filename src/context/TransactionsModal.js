@@ -36,7 +36,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export const TransactionsModal = ({ open, handleClose, contextObject }) => {
-  const { translations } = contextObject;
+  const { translations, addTransaction } = contextObject;
   return (
     <Dialog
       open={open}
@@ -54,10 +54,7 @@ export const TransactionsModal = ({ open, handleClose, contextObject }) => {
             }}
             validationSchema={validationForTransactionModal}
             onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
-                setSubmitting(false);
-              }, 400);
+              addTransaction(values.transaction, values.amount);
             }}
           >
             <Form className="form">
