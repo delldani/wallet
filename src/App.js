@@ -10,6 +10,7 @@ import {
   dbAccessList,
   dbAddTransaction,
   dbDeleteTransaction,
+  dbGetAllTransaction,
 } from "./utils/db";
 
 function App() {
@@ -70,6 +71,13 @@ function App() {
     dbDeleteTransaction(id, loginData.token).then((res) => console.log(res));
   };
 
+  const getTransactionList = (setTransactions) => {
+    dbGetAllTransaction(actualWallet, loginData.token).then((res) => {
+      console.log(res);
+      setTransactions(res.data.transactions);
+    });
+  };
+
   const contextObject = {
     translations: translations,
     theme: "dark",
@@ -81,6 +89,7 @@ function App() {
     myWallets,
     accessToWallet,
     actualWallet,
+    getTransactionList,
     deleteTransaction,
     addTransaction,
     setActualWallet,

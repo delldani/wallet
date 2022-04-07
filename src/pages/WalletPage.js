@@ -8,16 +8,19 @@ import { dbGetAllTransaction } from "../utils/db";
 
 export const WalletPage = () => {
   const contextObject = React.useContext(UserContext);
-  const { actualWallet, token, translations, setModalType, deleteTransaction } =
-    contextObject;
+  const {
+    actualWallet,
+    token,
+    translations,
+    setModalType,
+    deleteTransaction,
+    getTransactionList,
+  } = contextObject;
   const [transactions, setTransactions] = React.useState([]);
 
   React.useEffect(() => {
     if ((actualWallet, token)) {
-      dbGetAllTransaction(actualWallet, token).then((res) => {
-        console.log(res);
-        setTransactions(res.data.transactions);
-      });
+      getTransactionList(setTransactions);
     }
   }, []);
 
@@ -68,6 +71,8 @@ export const WalletPage = () => {
     );
   }
 };
+
+const upDateTransactionList = () => {};
 
 const style = {
   display: "flex",
