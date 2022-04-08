@@ -6,8 +6,14 @@ import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import Slide from "@mui/material/Slide";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import { validationForTransactionModal } from "../utils/default";
+import {
+  dbUpdateTransaction,
+  dbGetAllTransaction,
+  dbAddTransaction,
+} from "../utils/db";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -32,7 +38,61 @@ export const TransactionsModal = ({
   handleClose,
   contextObject,
 }) => {
-  const { translations, addTransaction } = contextObject;
+  const {
+    translations,
+    addTransaction,
+    loginData,
+    actualWallet,
+    setTransactions,
+    openModal,
+    transactions,
+  } = contextObject;
+  const [showProgress, setShowProgress] = React.useState(false);
+
+  const onSubmit = (values) => {
+    setShowProgress(true);
+    if (modalType?.data) {
+      //csak update-nél van, egyébként data
+      dbUpdateTransaction(
+        modalType.data.id,
+        values.transaction,
+        values.amount,
+        loginData.token
+      ).then((res) => {
+        console.log(res);
+        dbGetAllTransaction(actualWallet, loginData.token)
+          .then((res) => {
+            console.log(res);
+            setTransactions(res.data.transactions);
+            setShowProgress(false);
+            handleClose();
+          })
+          .catch((err) => {
+            console.log(err);
+            openModal("updateError");
+          });
+      });
+    } else {
+      addTransaction(values.transaction, values.amount);
+      dbAddTransaction(
+        actualWallet,
+        values.transaction,
+        values.amount,
+        loginData.token
+      )
+        .then((res) => {
+          const newTransactions = [...transactions, res.data];
+          console.log(newTransactions);
+          setTransactions(newTransactions);
+          setShowProgress(false);
+          handleClose();
+        })
+        .catch((err) => {
+          console.log(err);
+          openModal("addError");
+        });
+    }
+  };
 
   const open = modalType && modalType.type === "transactions";
   return (
@@ -52,10 +112,7 @@ export const TransactionsModal = ({
               amount: modalType?.data ? modalType.data.amount : "",
             }}
             validationSchema={validationForTransactionModal}
-            onSubmit={(values) => {
-              addTransaction(values.transaction, values.amount);
-              handleClose();
-            }}
+            onSubmit={onSubmit}
           >
             <Form className="form">
               <MyTextInput
@@ -68,7 +125,7 @@ export const TransactionsModal = ({
                 label={translations.amount}
                 type="text"
               />
-
+              {showProgress && <CircularProgress />}
               <div className="buttons">
                 <Button
                   type="submit"

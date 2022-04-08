@@ -137,3 +137,26 @@ export const dbGetAllTransaction = (wallet_id, token) => {
     }
   );
 };
+
+/**
+ * frissíti a tranzakció értékét
+ * @param {*} id
+ * @param {*} title
+ * @param {*} amount
+ * @param {*} token
+ * @returns
+ */
+export const dbUpdateTransaction = (id, title, amount, token) => {
+  return axios.patch(
+    URL + "transaction/" + id,
+    {
+      title,
+      amount,
+    },
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+};

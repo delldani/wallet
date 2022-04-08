@@ -35,6 +35,8 @@ export const translations = {
   registrationError: "Nem sikerült a regisztráció !",
   loginError: "Nem sikerült a belépés !",
   deleteError: "A törlés sikertelen !",
+  updateError: "A Frissítés sikertelen !",
+  addError: "A hozzáadás sikertelen !",
 };
 
 export const validationForTransactionModal = Yup.object({

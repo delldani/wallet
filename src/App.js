@@ -11,6 +11,7 @@ import {
   dbAddTransaction,
   dbDeleteTransaction,
   dbGetAllTransaction,
+  dbUpdateTransaction,
 } from "./utils/db";
 
 function App() {
@@ -103,6 +104,7 @@ function App() {
     accessToWallet,
     actualWallet,
     transactions,
+    setTransactions,
     getTransactionList,
     deleteTransaction,
     addTransaction,
