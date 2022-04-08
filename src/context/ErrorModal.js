@@ -4,30 +4,11 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
+import { errorMessage, errors } from "../utils/default";
 
 export const ErrorModal = ({ modalType, handleClose, contextObject }) => {
-  const {
-    close,
-    registrationError,
-    loginError,
-    deleteError,
-    addError,
-    updateError,
-  } = contextObject.translations;
-  const errorMessage = {
-    registrationError,
-    loginError,
-    deleteError,
-    addError,
-    updateError,
-  };
-  const errors = [
-    "addError",
-    "updateError",
-    "registrationError",
-    "loginError",
-    "deleteError",
-  ];
+  const { close } = contextObject.translations;
+
   const open = modalType && errors.includes(modalType.type);
 
   return (

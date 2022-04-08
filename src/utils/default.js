@@ -39,6 +39,20 @@ export const translations = {
   addError: "A hozzáadás sikertelen !",
 };
 
+export const errorMessage = {
+  registrationError: translations.registrationError,
+  loginError: translations.loginError,
+  deleteError: translations.deleteError,
+  addError: translations.addError,
+  updateError: translations.updateError,
+};
+export const errors = [
+  "addError",
+  "updateError",
+  "registrationError",
+  "loginError",
+  "deleteError",
+];
 export const validationForTransactionModal = Yup.object({
   transaction: Yup.string().required("Szükséges megadni !"),
   amount: Yup.string()
