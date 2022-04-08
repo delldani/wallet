@@ -14,7 +14,6 @@ const MyTextInput = ({ label, ...props }) => {
   return (
     <TextField
       className="input-field"
-      defaultValue=""
       label={label}
       variant="outlined"
       inputProps={{ ...field, ...props }}

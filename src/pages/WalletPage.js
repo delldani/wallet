@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 
 import { DoLogin } from "../components/DoLogin";
 import { dbGetAllTransaction } from "../utils/db";
+import { TransactionsTable } from "../components/TransactionsTable";
 
 export const WalletPage = () => {
   const contextObject = React.useContext(UserContext);
@@ -50,7 +51,9 @@ export const WalletPage = () => {
       <Box sx={style}>
         <h1>WalletPage</h1>
         {transactions ? (
-          <div>{transactionsTable}</div>
+          <div>
+            <TransactionsTable />
+          </div>
         ) : (
           <h2>NIncs megjeleníthető tranzakció</h2>
         )}

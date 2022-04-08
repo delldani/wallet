@@ -37,7 +37,7 @@ export const showButton = (buttonName, pathname, hasToken, job) => {
           pathname === "/wallet" ||
           pathname === "/permission") &&
         hasToken &&
-        job === "director"
+        job !== "parent"
       ) {
         return true;
       } else return false;

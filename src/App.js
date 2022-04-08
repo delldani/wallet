@@ -27,7 +27,7 @@ function App() {
 
   React.useEffect(() => {
     if (contextObject.loginData) {
-      const { job, wallets, name } = contextObject.loginData.user;
+      const { job, wallets, name, id } = contextObject.loginData.user;
       const { token } = contextObject.loginData;
       if (job !== "parent") {
         //beregisztráltak listálya
