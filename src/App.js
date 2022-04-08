@@ -65,23 +65,6 @@ function App() {
     setMyWallets(newWallets);
   };
 
-  const addTransaction = (title, amount) => {
-    dbAddTransaction(actualWallet, title, amount, loginData.token).then(
-      (res) => {
-        const newTransactions = [...transactions, res.data];
-        console.log(newTransactions);
-
-        setTransactions(newTransactions);
-      }
-    );
-  };
-  const deleteTransaction = (id) => {
-    dbDeleteTransaction(id, loginData.token).then((res) => {
-      setTransactions(transactions.filter((item) => item.id !== id));
-      console.log(res);
-    });
-  };
-
   const getTransactionList = () => {
     dbGetAllTransaction(actualWallet, loginData.token).then((res) => {
       console.log(res);
@@ -106,7 +89,6 @@ function App() {
     transactions,
     setTransactions,
     getTransactionList,
-    deleteTransaction,
     setActualWallet,
     openModal,
     setLoginData,

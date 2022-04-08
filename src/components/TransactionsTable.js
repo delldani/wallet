@@ -27,19 +27,19 @@ export const TransactionsTable = () => {
 
   const { amount, created, transaction, action, deleteLabel, upDate } =
     translations;
-  const [showProgress, setShowProgress] = React.useState(false);
+  const [showProgress, setShowProgress] = React.useState(null);
 
   const onTransactionDelete = (id) => {
-    setShowProgress(true);
+    setShowProgress(id);
     dbDeleteTransaction(id, token)
       .then((res) => {
         setTransactions(transactions.filter((item) => item.id !== id));
         console.log(res);
-        setShowProgress(false);
+        setShowProgress(null);
       })
       .catch((err) => {
         console.log(err);
-        setShowProgress(false);
+        setShowProgress(null);
         openModal("deleteError");
       });
   };
@@ -87,7 +87,7 @@ export const TransactionsTable = () => {
                 >
                   {deleteLabel}{" "}
                 </Button>
-                {showProgress && <CircularProgress />}
+                {showProgress === item.id && <CircularProgress />}
               </TableCell>
             </TableRow>
           ))}

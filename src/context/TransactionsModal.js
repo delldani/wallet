@@ -73,7 +73,6 @@ export const TransactionsModal = ({
           });
       });
     } else {
-      addTransaction(values.transaction, values.amount);
       dbAddTransaction(
         actualWallet,
         values.transaction,
