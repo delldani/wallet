@@ -107,7 +107,6 @@ function App() {
     setTransactions,
     getTransactionList,
     deleteTransaction,
-    addTransaction,
     setActualWallet,
     openModal,
     setLoginData,

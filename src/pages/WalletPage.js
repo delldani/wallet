@@ -14,7 +14,6 @@ export const WalletPage = () => {
     token,
     translations,
     openModal,
-    deleteTransaction,
     getTransactionList,
     transactions,
   } = contextObject;
@@ -28,23 +27,6 @@ export const WalletPage = () => {
   const onTransactions = () => {
     openModal("transactions");
   };
-
-  const onTransactionDelete = (id) => {
-    deleteTransaction(id);
-  };
-  const transactionsTable = transactions.map((item) => {
-    return (
-      <div>
-        {item.title}---{item.amount}---{item.created_by.name}
-        <Button
-          variant="contained"
-          onClick={() => onTransactionDelete(item.id)}
-        >
-          {translations.delete}{" "}
-        </Button>
-      </div>
-    );
-  });
 
   if (contextObject.loginData) {
     return (

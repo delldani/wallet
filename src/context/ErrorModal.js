@@ -9,12 +9,13 @@ import { errorMessage, errors } from "../utils/default";
 export const ErrorModal = ({ modalType, handleClose, contextObject }) => {
   const { close } = contextObject.translations;
 
-  const open = modalType && errors.includes(modalType.type);
+  const type = modalType && modalType.type;
+  const open = errors.includes(type);
 
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogContent>
-        <Alert severity="error">{errorMessage[modalType.type]}</Alert>
+        <Alert severity="error">{errorMessage[type]}</Alert>
       </DialogContent>
       <DialogActions sx={style}>
         <Button onClick={handleClose} color="error" variant="contained">

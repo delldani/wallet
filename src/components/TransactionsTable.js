@@ -9,7 +9,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import CircularProgress from "@mui/material/CircularProgress";
 
+import { dbDeleteTransaction } from "../utils/db";
 export const TransactionsTable = () => {
   const contextObject = React.useContext(UserContext);
   const {
@@ -20,12 +22,26 @@ export const TransactionsTable = () => {
     deleteTransaction,
     getTransactionList,
     transactions,
+    setTransactions,
   } = contextObject;
 
   const { amount, created, transaction, action, deleteLabel, upDate } =
     translations;
+  const [showProgress, setShowProgress] = React.useState(false);
+
   const onTransactionDelete = (id) => {
-    deleteTransaction(id);
+    setShowProgress(true);
+    dbDeleteTransaction(id, token)
+      .then((res) => {
+        setTransactions(transactions.filter((item) => item.id !== id));
+        console.log(res);
+        setShowProgress(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setShowProgress(false);
+        openModal("deleteError");
+      });
   };
 
   return (
@@ -71,6 +87,7 @@ export const TransactionsTable = () => {
                 >
                   {deleteLabel}{" "}
                 </Button>
+                {showProgress && <CircularProgress />}
               </TableCell>
             </TableRow>
           ))}
