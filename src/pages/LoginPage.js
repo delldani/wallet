@@ -83,7 +83,7 @@ const PasswordInput = ({ label, ...props }) => {
 export const LoginPage = () => {
   const contextObject = React.useContext(UserContext);
   const { login, toRegister, submit, reset } = contextObject.translations;
-  const { setLoginData, setModalType } = contextObject;
+  const { setLoginData, openModal } = contextObject;
   const navigate = useNavigate();
 
   return (
@@ -95,7 +95,7 @@ export const LoginPage = () => {
           password: "",
         }}
         onSubmit={(values) => {
-          handleLogin(values, setLoginData, navigate, setModalType);
+          handleLogin(values, setLoginData, navigate, openModal);
         }}
       >
         <Form className="form">
@@ -119,7 +119,7 @@ export const LoginPage = () => {
   );
 };
 
-const handleLogin = (values, setLoginData, navigate, setModalType) => {
+const handleLogin = (values, setLoginData, navigate, openModal) => {
   const { username, password } = values;
 
   dbLogin(username, password)
@@ -131,7 +131,7 @@ const handleLogin = (values, setLoginData, navigate, setModalType) => {
         : navigate("/wallet");
     })
     .catch((error) => {
-      setModalType("loginError");
+      openModal("loginError");
       console.log(error);
     });
 };

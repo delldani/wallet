@@ -7,7 +7,7 @@ import Alert from "@mui/material/Alert";
 
 export const ErrorModal = ({ modalType, handleClose, contextObject }) => {
   let label;
-  switch (modalType) {
+  switch (modalType && modalType.type) {
     case "registrationError":
       label = contextObject.translations.registrationError;
       break;
@@ -21,15 +21,14 @@ export const ErrorModal = ({ modalType, handleClose, contextObject }) => {
       label = "Error";
   }
 
+  const open =
+    modalType &&
+    (modalType.type === "registrationError" ||
+      modalType.type === "loginError" ||
+      modalType.type === "deleteError");
+
   return (
-    <Dialog
-      open={
-        modalType === "registrationError" ||
-        modalType === "loginError" ||
-        modalType === "deleteError"
-      }
-      onClose={handleClose}
-    >
+    <Dialog open={open} onClose={handleClose}>
       <DialogContent>
         <Alert severity="error">{label}</Alert>
       </DialogContent>

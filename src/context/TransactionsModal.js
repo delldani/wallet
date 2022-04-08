@@ -27,8 +27,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-export const TransactionsModal = ({ open, handleClose, contextObject }) => {
+export const TransactionsModal = ({
+  modalType,
+  handleClose,
+  contextObject,
+}) => {
   const { translations, addTransaction } = contextObject;
+  console.log(modalType);
+  const open = modalType && modalType.type === "transactions";
   return (
     <Dialog
       open={open}

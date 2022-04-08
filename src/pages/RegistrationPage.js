@@ -110,7 +110,7 @@ export const RegistrationPage = () => {
     submit,
     reset,
   } = contextObject.translations;
-  const { setLoginData, setModalType } = contextObject;
+  const { setLoginData, openModal } = contextObject;
   const navigate = useNavigate();
 
   return (
@@ -125,7 +125,7 @@ export const RegistrationPage = () => {
         }}
         validationSchema={validationForRegistration}
         onSubmit={(values) => {
-          handleRegistration(values, setLoginData, navigate, setModalType);
+          handleRegistration(values, setLoginData, navigate, openModal);
         }}
       >
         <Form className="form">
@@ -167,7 +167,7 @@ export const RegistrationPage = () => {
   );
 };
 
-const handleRegistration = (values, setLoginData, navigate, setModalType) => {
+const handleRegistration = (values, setLoginData, navigate, openModal) => {
   const { radioGroup, username, password1 } = values;
   dbRegistration(username, password1, radioGroup)
     .then((response) => {
@@ -181,7 +181,7 @@ const handleRegistration = (values, setLoginData, navigate, setModalType) => {
     })
     .catch(function (error) {
       console.log(error);
-      setModalType("registrationError");
+      openModal("registrationError");
     });
 };
 const mainStyle = {

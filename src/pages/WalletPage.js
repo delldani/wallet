@@ -13,7 +13,7 @@ export const WalletPage = () => {
     actualWallet,
     token,
     translations,
-    setModalType,
+    openModal,
     deleteTransaction,
     getTransactionList,
     transactions,
@@ -26,7 +26,7 @@ export const WalletPage = () => {
   }, []);
 
   const onTransactions = () => {
-    setModalType("transactions");
+    openModal("transactions");
   };
 
   const onTransactionDelete = (id) => {

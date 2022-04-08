@@ -16,13 +16,14 @@ export const TransactionsTable = () => {
     actualWallet,
     token,
     translations,
-    setModalType,
+    openModal,
     deleteTransaction,
     getTransactionList,
     transactions,
   } = contextObject;
 
-  const { amount, created, transaction, action, deleteLabel } = translations;
+  const { amount, created, transaction, action, deleteLabel, upDate } =
+    translations;
   const onTransactionDelete = (id) => {
     deleteTransaction(id);
   };
@@ -52,6 +53,18 @@ export const TransactionsTable = () => {
 
               <TableCell align="right">
                 {" "}
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    openModal("transactions", {
+                      id: item.id,
+                      title: item.title,
+                      amount: item.amount,
+                    });
+                  }}
+                >
+                  {upDate}{" "}
+                </Button>
                 <Button
                   variant="contained"
                   onClick={() => onTransactionDelete(item.id)}

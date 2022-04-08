@@ -6,11 +6,12 @@ import { TransactionsModal } from "./TransactionsModal";
 export const ModalContext = React.createContext(null);
 
 export const Modals = ({ contextObject }) => {
-  const { modalType, setModalType } = contextObject;
+  const { modalType, openModal } = contextObject;
 
   const handleClose = () => {
-    setModalType(null);
+    openModal(null);
   };
+  console.log(modalType);
 
   return (
     <div>
@@ -20,7 +21,7 @@ export const Modals = ({ contextObject }) => {
         contextObject={contextObject}
       />
       <TransactionsModal
-        open={modalType === "transactions"}
+        modalType={modalType}
         handleClose={handleClose}
         contextObject={contextObject}
       />

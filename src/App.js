@@ -88,9 +88,12 @@ function App() {
     });
   };
 
+  const openModal = (type, data) => {
+    setModalType({ type, data });
+  };
+
   const contextObject = {
     translations: translations,
-    theme: "dark",
     loginData,
     token: loginData && loginData.token,
     job: loginData && loginData.user.job,
@@ -104,7 +107,7 @@ function App() {
     deleteTransaction,
     addTransaction,
     setActualWallet,
-    setModalType,
+    openModal,
     setLoginData,
     handleAddWallet,
   };
