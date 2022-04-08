@@ -16,6 +16,8 @@ export const translations = {
   open: "Megnyit",
   amount: "Összeg",
   created: "Létrehozta",
+  name: "Név",
+  role: "Szerep",
   transaction: "Tranzakció",
   action: "Művelet",
   walletList: "Wallet lista",

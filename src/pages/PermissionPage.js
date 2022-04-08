@@ -3,12 +3,20 @@ import { UserContext } from "../context";
 import Button from "@mui/material/Button";
 
 import { DoLogin } from "../components/DoLogin";
+import { PermissionTable } from "../components/PermissionTable";
 import { dbCreateWallet, addAccessToWallet } from "../utils/db";
 
 export const PermissionPage = () => {
   const contextObject = React.useContext(UserContext);
-  const { userList, handleAddWallet, myWallets, job, token, accessToWallet } =
-    contextObject;
+  const {
+    userList,
+    handleAddWallet,
+    myWallets,
+    job,
+    token,
+    accessToWallet,
+    translations,
+  } = contextObject;
 
   const handleClick = (name, userId) => {
     if (job === "director") {
@@ -30,35 +38,19 @@ export const PermissionPage = () => {
       //do nothing
     }
   };
-  const teacherList = userList.map((item) => {
-    const hasAccess =
-      job === "director"
-        ? myWallets.map((wallet) => wallet.name).includes(item.name)
-        : accessToWallet.map((wallet) => wallet.name).includes(item.name);
-
-    return (
-      <li key={item.id}>
-        {item.name}
-        {" : " + item.job}
-        <Button
-          color="primary"
-          variant="contained"
-          disabled={hasAccess}
-          onClick={() => {
-            handleClick(item.name, item.id);
-          }}
-        >
-          {contextObject.translations.permission}
-        </Button>
-      </li>
-    );
-  });
 
   if (contextObject.loginData) {
     return (
       <div>
         <h1>PermissionPage</h1>
-        <ul>{teacherList}</ul>
+        <PermissionTable
+          userList={userList}
+          handleClick={handleClick}
+          myWallets={myWallets}
+          translations={translations}
+          accessToWallet={accessToWallet}
+          job={job}
+        />
       </div>
     );
   } else {

@@ -35,8 +35,11 @@ function App() {
           const teachers = res.data.list.filter(
             (item) => item.job === "teacher"
           );
-          const parents = res.data.list.filter((item) => item.job === "parent");
-          setUserList(job === "director" ? teachers : parents);
+          const teachersAndParents = res.data.list.filter(
+            (item) => item.job !== "director" && item.id !== id
+          );
+          //Az igazgató csak a tanároknak hozhat létre tárcát, a tanárok adhatnak engedélyt tanárnak és szülőnek is
+          setUserList(job === "director" ? teachers : teachersAndParents);
         });
         //KInek hozott létre wallet-et az adott user, ez csak az igazgató lehet
         //vagy kinek adott hoozáférést,tanár esetében
