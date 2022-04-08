@@ -11,7 +11,6 @@ export const Modals = ({ contextObject }) => {
   const handleClose = () => {
     openModal(null);
   };
-  console.log(modalType);
 
   return (
     <div>

@@ -33,7 +33,7 @@ export const TransactionsModal = ({
   contextObject,
 }) => {
   const { translations, addTransaction } = contextObject;
-  console.log(modalType);
+
   const open = modalType && modalType.type === "transactions";
   return (
     <Dialog
@@ -46,9 +46,10 @@ export const TransactionsModal = ({
       <DialogContent>
         <Box sx={mainStyle}>
           <Formik
+            enableReinitialize
             initialValues={{
-              transaction: "",
-              amount: "",
+              transaction: modalType?.data ? modalType.data.title : "",
+              amount: modalType?.data ? modalType.data.amount : "",
             }}
             validationSchema={validationForTransactionModal}
             onSubmit={(values) => {
