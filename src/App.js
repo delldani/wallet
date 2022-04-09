@@ -13,6 +13,7 @@ import {
   dbGetAllTransaction,
   dbUpdateTransaction,
 } from "./utils/db";
+import { getMyWallet} from './utils/utils'
 
 function App() {
   const [loginData, setLoginData] = React.useState(undefined);
@@ -44,17 +45,19 @@ function App() {
         });
         //igazgató esetén, kinek hozott létre wallet-eket
         //tanár esetén melyik wallet-hez van hozzáférése, melyikbe írhat bele stb
-        //a lista első eleme a sajátja, amit az igazgató elösször neki létrehozott, a többi amihez hozzáférést adtak neki
         setMyWallets(contextObject.loginData.user.wallets);
 
         //lekéri csak tanár esetén, hogy kinek adott hozzáférést eddig
-        if (job === "teacher" && wallets) {
-          // mivel 1 tanárnak csak 1 wallet lehet
-          dbAccessList(wallets[0].id, token).then((res) => {
+        if (job === "teacher" && wallets.length) {
+          // kikeresi, hogy a natárnak van e saját wallet-ja, ha nincs return null
+          const myWallet = getMyWallet(wallets,name);
+          if(myWallet){
+             dbAccessList(myWallet.id, token).then((res) => {
             //kiszúri a tanárt a listából
             const array = res.data.access.filter((item) => item.name !== name);
             setAccessToWallet(array);
           });
+          }
         }
       }
     }

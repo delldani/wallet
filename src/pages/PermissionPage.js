@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import { DoLogin } from "../components/DoLogin";
 import { PermissionTable } from "../components/PermissionTable";
 import { dbCreateWallet, ddAddAccessToWallet, dbRemoveAccessToWallet,dbDeleteWallet } from "../utils/db";
+import { getMyWallet}from '../utils/utils'
 
 export const PermissionPage = () => {
   const contextObject = React.useContext(UserContext);
@@ -29,10 +30,12 @@ export const PermissionPage = () => {
         }
       );
     } else if (job === "teacher") {
-      //Ha van wallett-je a teacher nek(igazgató létrehozott neki)
-      if (contextObject.loginData.user.wallets) {
+      //Ha van wallett-je a teacher nek(igazgató létrehozott-e neki)
+      const myWallet = getMyWallet(contextObject.loginData.user.wallets,contextObject.loginData.user.name);
+      console.log(myWallet);
+      if (myWallet) {
         ddAddAccessToWallet(
-          contextObject.loginData.user.wallets[0].id,
+          myWallet.id,
           userId,
           token
         ).then((item) => {
@@ -53,18 +56,21 @@ export const PermissionPage = () => {
       })
       
     }else if (job === "teacher") {
-      dbRemoveAccessToWallet( contextObject.loginData.user.wallets[0].id,user.id,token).then(res=>{
+      const myWallet = getMyWallet(contextObject.loginData.user.wallets,contextObject.loginData.user.name);
+      dbRemoveAccessToWallet( myWallet.id,user.id,token).then(res=>{
         console.log(res)
         handleRemoveAccessTodWallet(user.id)
       })
     }
   };
 
+  const hasMyWallet = job === 'teacher' ? !!getMyWallet(contextObject.loginData.user.wallets,contextObject.loginData.user.name) : true;
 
   if (contextObject.loginData) {
     return (
       <div>
         <h1>PermissionPage</h1>
+       {hasMyWallet &&
         <PermissionTable
           userList={userList}
           onCreateWallet={createWallet}
@@ -73,7 +79,7 @@ export const PermissionPage = () => {
           accessToWallet={accessToWallet}
           job={job}
           onDeleteWallet={deleteWallet}
-        />
+        />}
       </div>
     );
   } else {

@@ -57,3 +57,9 @@ export const showButton = (buttonName, pathname, hasToken, job) => {
       return true;
   }
 };
+
+export const getMyWallet = (wallets,userNmae)=>{
+const newWallets = wallets.filter((wallet)=>wallet.name === userNmae);
+const myWallet = newWallets.length ?  newWallets[0] : null;
+return myWallet;
+}
