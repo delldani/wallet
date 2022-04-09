@@ -16,7 +16,7 @@ const { loginData, translations} = contextObject;
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {translations.title}
-           <span className="user-name"> {loginData.user.name}</span>
+           <span className="user-name"> {loginData?.user?.name}</span>
           </Typography>
           <NavBarButtons />
         </Toolbar>

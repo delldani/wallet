@@ -46,6 +46,18 @@ export const dbCreateWallet = (name, id, token) => {
   );
 };
 
+
+export const dbDeleteWallet = ( id, token) => {
+  return axios.delete(
+    URL + "wallet/" + id ,
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+};
+
 /**
  * Hozzáférést ad egy wallet-hoz egy user-nek
  * @param {string} wallet_id
@@ -53,9 +65,24 @@ export const dbCreateWallet = (name, id, token) => {
  * @param {string} token
  * @returns
  */
-export const addAccessToWallet = (wallet_id, user_id, token) => {
+export const ddAddAccessToWallet = (wallet_id, user_id, token) => {
   return axios.post(
     URL + "wallet/" + wallet_id + "/grant_access",
+    {
+      wallet_id,
+      user_id,
+    },
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+};
+
+export const dbRemoveAccessToWallet = (wallet_id, user_id, token) => {
+  return axios.post(
+    URL + "wallet/" + wallet_id + "/remove_access",
     {
       wallet_id,
       user_id,

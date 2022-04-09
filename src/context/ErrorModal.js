@@ -13,7 +13,7 @@ export const ErrorModal = ({ modalType, handleClose, contextObject }) => {
   const open = errors.includes(type);
 
   return (
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog open={!!open} onClose={handleClose}>
       <DialogContent>
         <Alert severity="error">{errorMessage[type]}</Alert>
       </DialogContent>

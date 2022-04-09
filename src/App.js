@@ -16,7 +16,7 @@ import {
 
 function App() {
   const [loginData, setLoginData] = React.useState(undefined);
-  const [modalType, setModalType] = React.useState(null);
+  const [modalType, setModalType] = React.useState({type:'',data:{}});
   const [userList, setUserList] = React.useState([]);
   //igazgató esetén, azok a walletek amiket létrehozott a tanároknak
   //tanár esetén csak egy elem vane benne, a saját wallet-je (csak egy lehet)
@@ -65,9 +65,19 @@ function App() {
     setMyWallets(newWallets);
   };
 
-  
+  const handleDeleteWallet = (id) => {
+    const newWallets = myWallets.filter((wallet)=>wallet.id !== id)
+    setMyWallets(newWallets);
+  };
+
   const handleAddAccessTodWallet = (name, id) => {
     const newWallets = [...accessToWallet, { id, name }];
+    setAccessToWallet(newWallets);
+  };
+
+  
+  const handleRemoveAccessTodWallet = ( id) => {
+    const newWallets = accessToWallet.filter((item)=>item.id !== id)
     setAccessToWallet(newWallets);
   };
 
@@ -99,7 +109,9 @@ function App() {
     openModal,
     setLoginData,
     handleAddWallet,
-    handleAddAccessTodWallet
+    handleAddAccessTodWallet,
+    handleRemoveAccessTodWallet,
+    handleDeleteWallet
   };
 
   return (
