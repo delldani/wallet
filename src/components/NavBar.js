@@ -9,13 +9,14 @@ import { NavBarButtons } from "./NavBarButtons";
 
 export const NavBar = () => {
   const contextObject = React.useContext(UserContext);
-
+const { loginData, translations} = contextObject;
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={style}>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {contextObject.translations.title}
+            {translations.title}
+           <span className="user-name"> {loginData.user.name}</span>
           </Typography>
           <NavBarButtons />
         </Toolbar>
@@ -23,3 +24,10 @@ export const NavBar = () => {
     </Box>
   );
 };
+
+const style = {
+  flexGrow: 1,
+  '& .user-name':{
+    marginLeft:'30px',
+  }
+}
