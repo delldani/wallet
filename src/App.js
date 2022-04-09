@@ -31,6 +31,9 @@ function App() {
     if (contextObject.loginData) {
       const { job, wallets, name, id } = contextObject.loginData.user;
       const { token } = contextObject.loginData;
+      if(job === 'parent'){
+        setMyWallets(contextObject.loginData.user.wallets);
+      }
       if (job !== "parent") {
         //beregisztráltak listálya
         dbList().then((res) => {
@@ -47,11 +50,11 @@ function App() {
         //tanár esetén melyik wallet-hez van hozzáférése, melyikbe írhat bele stb
         setMyWallets(contextObject.loginData.user.wallets);
 
-        //lekéri csak tanár esetén, hogy kinek adott hozzáférést eddig
         if (job === "teacher" && wallets.length) {
           // kikeresi, hogy a natárnak van e saját wallet-ja, ha nincs return null
           const myWallet = getMyWallet(wallets,name);
           if(myWallet){
+            //lekéri csak tanár esetén, hogy kinek adott hozzáférést eddig
              dbAccessList(myWallet.id, token).then((res) => {
             //kiszúri a tanárt a listából
             const array = res.data.access.filter((item) => item.name !== name);
@@ -128,88 +131,3 @@ function App() {
 }
 
 export default App;
-
-//  **************LOGINDATA
-//
-// {
-//   "token": "MTAyODQ1MzI3NDAxNDkwODg_MDE2NjI3NTQ5NjczOTQ2MzA3_15618321916111452471131031221315129115105162981458723023013244157816314824083241111",
-//   "user": {
-//       "id": "MTAyODQ1MzI3NDAxNDkwODg",
-//       "name": "igazgato",
-//       "job": "director",
-//       "wallets": [
-//           {
-//               "id": "NDEwMDk4NTMwMjMwMjI1MzY",
-//               "name": "nagynatalia"
-//           }
-//       ]
-//   }
-// }
-//
-//USERLIST
-//
-//[
-//   {
-//     "id": "MzcxNTY5MzE4OTc5MTE0Nw",
-//     "name": "nagynatalia",
-//     "job": "teacher"
-// },
-// {
-//     "id": "MTQ3MDMyOTY1MDgxMjA0NTY",
-//     "name": "KisBela",
-//     "job": "teacher"
-// }
-// ]
-//
-//  ****************   WALLETOWNERLIST
-//
-// [
-//   "nagynatalia"
-// ]
-//
-//
-//  ***************************  createdWallets
-//
-// [
-//   {
-//       "id": "NDEwMDk4NTMwMjMwMjI1MzY",
-//       "name": "nagynatalia"
-//   }
-// ]
-//
-// Wallet adatok
-// {
-//   "data": {
-//       "id": "NzYyNzg1MTg1NTA5MDk3Mg",
-//       "name": "nagynatalia",
-//       "description": "új wallet",
-//       "access": [
-//           {
-//               "id": "OTY4NDkwNzkwNzUyNzEzMg",
-//               "name": "nagynatalia"
-//           },
-//           {
-//               "id": "NTIxMDQ2NTEwOTUyODg3NQ",
-//               "name": "TakacsAndor"
-//           }
-//       ],
-//       "extra": {},
-//       "balance": 0,
-//       "created_by": {
-//           "id": "MjI4OTY2MzEyNzY3NzA4NA",
-//           "name": "igazgato"
-//       },
-//       "created_at": "2022-04-06T09:04:06.799Z"
-//   },
-//Transaction
-//
-// id: string;
-// amount: number;
-// title: string;
-// extra: any;
-// wallet_id: any;
-// created_by: {
-//     id: any;
-//     name: any;
-// };
-// created_at: string;

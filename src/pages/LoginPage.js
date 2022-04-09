@@ -128,7 +128,7 @@ const handleLogin = (values, setLoginData, navigate, openModal) => {
       response.data.user.job === "teacher" ||
       response.data.user.job !== "parent"
         ? navigate("/permission")
-        : navigate("/wallet");
+        : navigate("/list");
     })
     .catch((error) => {
       openModal("loginError");
