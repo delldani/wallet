@@ -31,24 +31,28 @@ function App() {
     if (contextObject.loginData) {
       const { job, wallets, name, id } = contextObject.loginData.user;
       const { token } = contextObject.loginData;
-      if(job === 'parent'){
-        setMyWallets(contextObject.loginData.user.wallets);
-      }
+       //igazgató esetén, kinek hozott létre wallet-eket
+       //tanár esetén melyik wallet-hez van hozzáférése, melyikbe írhat bele stb
+       //szülő esetén melyikhez van hozzáférése
+      setMyWallets(contextObject.loginData.user.wallets);
+
       if (job !== "parent") {
         //beregisztráltak listálya
         dbList().then((res) => {
-          const teachers = res.data.list.filter(
+          let listForPermission;
+          if(job === 'director'){
+            listForPermission = res.data.list.filter(
             (item) => item.job === "teacher"
           );
-          const teachersAndParents = res.data.list.filter(
+          }else{
+            listForPermission = res.data.list.filter(
             (item) => item.job !== "director" && item.id !== id
           );
+          }
           //Az igazgató csak a tanároknak hozhat létre tárcát, a tanárok adhatnak engedélyt tanárnak és szülőnek is
-          setUserList(job === "director" ? teachers : teachersAndParents);
+          setUserList(listForPermission);
         });
-        //igazgató esetén, kinek hozott létre wallet-eket
-        //tanár esetén melyik wallet-hez van hozzáférése, melyikbe írhat bele stb
-        setMyWallets(contextObject.loginData.user.wallets);
+       
 
         if (job === "teacher" && wallets.length) {
           // kikeresi, hogy a natárnak van e saját wallet-ja, ha nincs return null
@@ -87,19 +91,12 @@ function App() {
     setAccessToWallet(newWallets);
   };
 
-  const getTransactionList = () => {
-    dbGetAllTransaction(actualWallet, loginData.token).then((res) => {
-      console.log(res);
-      setTransactions(res.data.transactions);
-    });
-  };
-
   const openModal = (type, data) => {
     setModalType({ type, data });
   };
 
   const contextObject = {
-    translations: translations,
+    translations,
     loginData,
     token: loginData && loginData.token,
     job: loginData && loginData.user.job,
@@ -110,7 +107,6 @@ function App() {
     actualWallet,
     transactions,
     setTransactions,
-    getTransactionList,
     setActualWallet,
     openModal,
     setLoginData,

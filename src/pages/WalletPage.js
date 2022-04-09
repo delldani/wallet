@@ -4,23 +4,26 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
 import { DoLogin } from "../components/DoLogin";
-import { dbGetAllTransaction } from "../utils/db";
 import { TransactionsTable } from "../components/TransactionsTable";
+import { dbGetAllTransaction } from '../utils/db'
 
 export const WalletPage = () => {
   const contextObject = React.useContext(UserContext);
   const {
     actualWallet,
-    token,
     translations,
     openModal,
-    getTransactionList,
+    token,
     transactions,
+    setTransactions
   } = contextObject;
 
   React.useEffect(() => {
-    if ((actualWallet, token)) {
-      getTransactionList();
+    if (actualWallet) {
+      dbGetAllTransaction(actualWallet, token).then((res) => {
+        console.log(res);
+        setTransactions(res.data.transactions);
+      });
     }
   }, []);
 

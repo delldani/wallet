@@ -6,7 +6,6 @@ import { RegistrationPage } from "./RegistrationPage";
 import { ListPage } from "./ListPage";
 import { PermissionPage } from "./PermissionPage";
 import { WalletPage } from "./WalletPage";
-import { UserContext } from "../context";
 import { NotFound } from "./NotFound";
 
 export const Pages = () => {

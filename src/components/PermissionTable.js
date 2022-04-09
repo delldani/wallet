@@ -1,14 +1,11 @@
 import React from "react";
-import { UserContext } from "../context";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 
 export const PermissionTable = ({
   userList,
@@ -32,38 +29,38 @@ export const PermissionTable = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {userList.map((item) => {
+          {userList.map((user) => {
             const hasAccess =
               job === "director"
-                ? myWallets.map((wallet) => wallet.name).includes(item.name)
+                ? myWallets.map((wallet) => wallet.name).includes(user.name)
                 : accessToWallet
                     .map((wallet) => wallet.name)
-                    .includes(item.name);
+                    .includes(user.name);
 
             return (
               <TableRow
-                key={item.id}
+                key={user.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {item.name}
+                  {user.name}
                 </TableCell>
                 <TableCell align="right">
-                  {item.job === "teacher" ? teacher : parent}
+                  {user.job === "teacher" ? teacher : parent}
                 </TableCell>
                 <TableCell align="right">
                   {" "}
                   <Button
                     variant="contained"
                     disabled={hasAccess}
-                    onClick={() => onCreateWallet(item.name, item.id)}
+                    onClick={() => onCreateWallet(user.name, user.id)}
                   >
                     {job === 'teacher' ? permission : create}{" "}
                   </Button>
                   <Button
                     variant="contained"
                     disabled={!hasAccess}
-                    onClick={() => onDeleteWallet(item)}
+                    onClick={() => onDeleteWallet(user)}
                   >
                     {job === 'teacher' ? removeLabel : deleteLabel}{" "}
                   </Button>

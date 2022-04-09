@@ -1,6 +1,5 @@
 import React from "react";
 import { UserContext } from "../context";
-import Button from "@mui/material/Button";
 
 import { DoLogin } from "../components/DoLogin";
 import { PermissionTable } from "../components/PermissionTable";
@@ -64,13 +63,13 @@ export const PermissionPage = () => {
     }
   };
 
-  const hasMyWallet = job === 'teacher' ? !!getMyWallet(contextObject.loginData.user.wallets,contextObject.loginData.user.name) : true;
+  const canGivePermission = job === 'teacher' ? !!getMyWallet(contextObject.loginData.user.wallets,contextObject.loginData.user.name) : true;
 
   if (contextObject.loginData) {
     return (
       <div>
         <h1>PermissionPage</h1>
-       {hasMyWallet &&
+       {canGivePermission &&
         <PermissionTable
           userList={userList}
           onCreateWallet={createWallet}

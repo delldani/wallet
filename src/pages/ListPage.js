@@ -21,18 +21,18 @@ export const ListPage = () => {
   };
 
   const wallets = contextObject.loginData
-    ? myWallets.map((item) => {
+    ? myWallets.map((wallet) => {
         return (
-          <div key={item.id}>
+          <div key={wallet.id}>
             <Card sx={{ minWidth: 275 }}>
               <CardContent>
-                ID: {item.id} Name: {item.name}
+                ID: {wallet.id} Name: {wallet.name}
               </CardContent>
               <CardActions>
                 <Button
                   variant="contained"
                   onClick={() => {
-                    handleclick(item.id);
+                    handleclick(wallet.id);
                   }}
                 >
                   {translations.open}

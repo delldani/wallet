@@ -177,7 +177,9 @@ const handleRegistration = (values, setLoginData, navigate, openModal) => {
           setLoginData(response.data);
           radioGroup === "teacher" ? navigate("/list") : navigate("/wallet");
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          openModal("loginError");
+          console.log(error);});
     })
     .catch(function (error) {
       console.log(error);
