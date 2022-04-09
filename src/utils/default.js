@@ -31,6 +31,8 @@ export const translations = {
   usernameValidationRules: "5 és 15 karakter közötti, betü vagy szám lehet",
   passwordValidationRules:
     "Legalább 5 karakter hosszú, kisbetüt, nagy betüt, számot tartalmaznia kell",
+  noTransactions:'Nincs megjeleníthető tranzakció !',
+  noActualWallet:'Nincs kiválasztva tárca !',
   teacher: "osztályfőnök",
   parent: "szmk tag",
   doLogin: "Ön nincs bejelentkezve !",

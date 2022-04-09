@@ -37,18 +37,19 @@ export const WalletPage = () => {
         <h1>WalletPage</h1>
         {transactions ? (
           <div>
-            <TransactionsTable />
+           {actualWallet ? <TransactionsTable /> : <h2>{translations.noActualWallet}</h2>}
           </div>
         ) : (
-          <h2>NIncs megjeleníthető tranzakció</h2>
+          <h2>{translations.noTransactions}</h2>
         )}
+        {actualWallet && 
         <Button
           variant="contained"
           onClick={onTransactions}
           className="transaction-button"
         >
           {translations.newTransaction}{" "}
-        </Button>
+        </Button>}
       </Box>
     );
   } else {
