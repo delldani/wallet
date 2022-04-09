@@ -12,13 +12,14 @@ import Paper from "@mui/material/Paper";
 
 export const PermissionTable = ({
   userList,
-  handleClick,
+  onCreateWallet,
   myWallets,
   translations,
   accessToWallet,
+  onDeleteWallet,
   job,
 }) => {
-  const { name, role, action, permission, parent, teacher } = translations;
+  const { name, role, action, permission, parent, teacher, create, deleteLabel,removeLabel } = translations;
 
   return (
     <Box sx={style}>
@@ -55,9 +56,16 @@ export const PermissionTable = ({
                   <Button
                     variant="contained"
                     disabled={hasAccess}
-                    onClick={() => handleClick(item.name, item.id)}
+                    onClick={() => onCreateWallet(item.name, item.id)}
                   >
-                    {permission}{" "}
+                    {job === 'teacher' ? permission : create}{" "}
+                  </Button>
+                  <Button
+                    variant="contained"
+                    disabled={!hasAccess}
+                    onClick={() => onDeleteWallet(item)}
+                  >
+                    {job === 'teacher' ? removeLabel : deleteLabel}{" "}
                   </Button>
                 </TableCell>
               </TableRow>

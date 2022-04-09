@@ -8,6 +8,8 @@ export const translations = {
   submit: "Mehet",
   save: "Mentés",
   deleteLabel: "Töröl",
+  removeLabel:'Visszavon',
+  create:'Létrehozás',
   transactionType: "Tranzakció típusa",
   amount: "Összeg",
   close: "Bezár",

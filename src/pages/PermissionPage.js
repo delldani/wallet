@@ -16,9 +16,10 @@ export const PermissionPage = () => {
     token,
     accessToWallet,
     translations,
+    handleAddAccessTodWallet,
   } = contextObject;
 
-  const handleClick = (name, userId) => {
+  const createWallet = (name, userId) => {
     if (job === "director") {
       dbCreateWallet(name, userId, contextObject.loginData.token).then(
         (item) => {
@@ -32,12 +33,23 @@ export const PermissionPage = () => {
           contextObject.loginData.user.wallets[0].id,
           userId,
           token
-        ).then((res) => console.log(res));
+        ).then((item) => {
+          handleAddAccessTodWallet(name, item.data.id);
+          console.log(item)});
       }
     } else {
       //do nothing
     }
   };
+
+  const deleteWallet =(user)=>{
+    if (job === "director"){
+      console.log(user)
+    }else if (job === "teacher") {
+      console.log(user)
+    }
+  };
+
 
   if (contextObject.loginData) {
     return (
@@ -45,11 +57,12 @@ export const PermissionPage = () => {
         <h1>PermissionPage</h1>
         <PermissionTable
           userList={userList}
-          handleClick={handleClick}
+          onCreateWallet={createWallet}
           myWallets={myWallets}
           translations={translations}
           accessToWallet={accessToWallet}
           job={job}
+          onDeleteWallet={deleteWallet}
         />
       </div>
     );

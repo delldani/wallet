@@ -42,9 +42,9 @@ function App() {
           //Az igazgató csak a tanároknak hozhat létre tárcát, a tanárok adhatnak engedélyt tanárnak és szülőnek is
           setUserList(job === "director" ? teachers : teachersAndParents);
         });
-        //KInek hozott létre wallet-et az adott user, ez csak az igazgató lehet
-        //vagy kinek adott hoozáférést,tanár esetében
-
+        //igazgató esetén, kinek hozott létre wallet-eket
+        //tanár esetén melyik wallet-hez van hozzáférése, melyikbe írhat bele stb
+        //a lista első eleme a sajátja, amit az igazgató elösször neki létrehozott, a többi amihez hozzáférést adtak neki
         setMyWallets(contextObject.loginData.user.wallets);
 
         //lekéri csak tanár esetén, hogy kinek adott hozzáférést eddig
@@ -63,6 +63,12 @@ function App() {
   const handleAddWallet = (name, id) => {
     const newWallets = [...myWallets, { id, name }];
     setMyWallets(newWallets);
+  };
+
+  
+  const handleAddAccessTodWallet = (name, id) => {
+    const newWallets = [...accessToWallet, { id, name }];
+    setAccessToWallet(newWallets);
   };
 
   const getTransactionList = () => {
@@ -93,6 +99,7 @@ function App() {
     openModal,
     setLoginData,
     handleAddWallet,
+    handleAddAccessTodWallet
   };
 
   return (
