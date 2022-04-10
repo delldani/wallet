@@ -57,6 +57,10 @@ export const showButton = (buttonName, pathname, hasToken, job) => {
   }
 };
 
+export const isAllow = (job,pathname)=>{
+  return job === 'parent' && pathname === 'permission' ? false : true;
+}
+
 export const getMyWallet = (wallets,userNmae)=>{
 const newWallets = wallets.filter((wallet)=>wallet.name === userNmae);
 const myWallet = newWallets.length ?  newWallets[0] : null;

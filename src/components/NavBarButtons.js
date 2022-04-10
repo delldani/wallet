@@ -49,7 +49,9 @@ export const NavBarButtons = () => {
         </Button>
       )}
       {showButton("logout-button", pathname, !!loginData, job) && (
-        <Button color="inherit" onClick={() => setLoginData(null)}>
+        <Button color="inherit" onClick={() => {
+          setLoginData(null);
+          navigate("/");}}>
           {" "}
           {translations.logout}
         </Button>
