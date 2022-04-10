@@ -34,9 +34,8 @@ export const WalletPage = () => {
   if (contextObject.loginData) {
     return (
       <Box sx={style}>
-        <h1>WalletPage</h1>
         {transactions ? (
-          <div>
+          <div className="table-wrapper">
            {actualWallet ? <TransactionsTable /> : <h2>{translations.noActualWallet}</h2>}
           </div>
         ) : (
@@ -62,9 +61,16 @@ export const WalletPage = () => {
 };
 
 const style = {
+  height: '100%',
   display: "flex",
   flexDirection: "column",
+  alignItems: 'center',
   "& .transaction-button": {
     width: "200px",
   },
+  '& .table-wrapper':{
+    marginTop: '200px',
+    marginBottom: '100px',
+    width: '80%',
+  }
 };

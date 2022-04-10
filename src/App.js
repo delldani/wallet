@@ -114,12 +114,25 @@ function App() {
 
   return (
     <ContextWrapper contextObject={contextObject}>
-      <Box sx={{ height: "100vh" }}>
+      <Box sx={style}>
+        <div>
         <NavBar />
+        </div>
+        <div className="pages">
         <Pages />
+        </div>
       </Box>
     </ContextWrapper>
   );
 }
 
 export default App;
+
+const style = {
+  height: "100vh",
+  display: 'flex',
+  flexDirection: 'column',
+  '& .pages':{
+    flexBasis: '100%',
+  }
+}
