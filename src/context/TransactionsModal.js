@@ -40,7 +40,6 @@ export const TransactionsModal = ({
 }) => {
   const {
     translations,
-    addTransaction,
     loginData,
     actualWallet,
     setTransactions,
@@ -81,7 +80,7 @@ export const TransactionsModal = ({
       )
         .then((res) => {
           const newTransactions = [...transactions, res.data];
-          console.log(newTransactions);
+          console.log(res);
           setTransactions(newTransactions);
           setShowProgress(false);
           handleClose();

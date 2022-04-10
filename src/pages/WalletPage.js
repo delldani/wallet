@@ -61,11 +61,11 @@ export const WalletPage = () => {
 };
 
 const style = {
-  paddingTop:"200px",
   height: '100%',
   display: "flex",
   flexDirection: "column",
   alignItems: 'center',
+  justifyContent:'center',
   "& .transaction-button": {
     width: "200px",
   },
