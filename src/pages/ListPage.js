@@ -44,21 +44,19 @@ export const ListPage = () => {
       })
     : null;
 
-  if (contextObject.loginData) {
     return (
       <Box sx={style}>
         {wallets ? <h1>Tárcák</h1> : <h1>Nincs megjeleníthető tárca</h1>}
         <div className="wallets">{wallets}</div>
       </Box>
     );
-  } else {
-    return <DoLogin />;
-  }
 };
 
 const style = {
+  padding: '50px',
   "& .wallets": {
     display: "flex",
     flexWrap: "wrap",
+    gap: '30px'
   },
 };

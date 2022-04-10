@@ -30,8 +30,7 @@ export const WalletPage = () => {
   const onTransactions = () => {
     openModal("transactions");
   };
-
-  if (contextObject.loginData) {
+console.log(transactions);
     return (
       <Box sx={style}>
         {transactions ? (
@@ -51,13 +50,6 @@ export const WalletPage = () => {
         </Button>}
       </Box>
     );
-  } else {
-    return (
-      <div>
-        <DoLogin />
-      </div>
-    );
-  }
 };
 
 const style = {
@@ -72,5 +64,11 @@ const style = {
     marginTop: '200px',
     marginBottom: '100px',
     width: '80%',
-  }
+    display: 'flex',
+    alignItems:'center',
+    justifyContent: 'center',
+    ['@media (max-width:1200px)']: {
+      width: '100%',
+    }
+  },
 };

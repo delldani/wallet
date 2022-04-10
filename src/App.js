@@ -91,6 +91,12 @@ function App() {
     setModalType({ type, data });
   };
 
+  const logOut = ()=>{
+    setLoginData(null);
+    setActualWallet(null);
+    setTransactions([]);
+  };
+
   const contextObject = {
     translations,
     loginData,
@@ -109,7 +115,8 @@ function App() {
     handleAddWallet,
     handleAddAccessTodWallet,
     handleRemoveAccessTodWallet,
-    handleDeleteWallet
+    handleDeleteWallet,
+    logOut,
   };
 
   return (

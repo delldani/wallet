@@ -75,7 +75,6 @@ export const PermissionTable = ({
 };
 
 const style = {
-  "& .table": {
-    maxWidth: "80%",
-  },
-};
+  width: '80%',
+  marginTop: '200px',
+ }

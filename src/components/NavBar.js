@@ -2,8 +2,8 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import { UserContext } from "../context";
+import Typography from '@mui/material/Typography';
 
 import { NavBarButtons } from "./NavBarButtons";
 
@@ -13,11 +13,13 @@ const { loginData, translations} = contextObject;
   return (
     <Box sx={style}>
       <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {translations.title}
-           <span className="user-name"> {loginData?.user?.name}</span>
+        <Toolbar className="toolbar" >
+          <div>
+          <Typography className="title-wrapper" variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <span className="title">{translations.title}</span>
+          <span className="username">{loginData?.user?.name}</span>
           </Typography>
+          </div>
           <NavBarButtons />
         </Toolbar>
       </AppBar>
@@ -29,5 +31,23 @@ const style = {
   flexGrow: 1,
   '& .user-name':{
     marginLeft:'30px',
-  }
+  },
+  '& .toolbar':{
+    display:'flex',
+    justifyContent:'space-between',
+  },
+  '& .title-wrapper .title ':{
+    ['@media (max-width:1200px)']: {
+      display: 'none',
+    },
+  },
+  '& .title-wrapper .username ':{
+    ['@media (max-width:700px)']: {
+      display: 'none',
+    },
+  },
+  '& .title-wrapper > span':{
+    marginRight:'40px',
+  },
+
 }

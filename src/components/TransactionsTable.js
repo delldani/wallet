@@ -93,7 +93,7 @@ export const TransactionsTable = () => {
 };
 
 const style = {
+  width:'100%',
   "& .table": {
-    maxWidth: "80%",
   },
 };

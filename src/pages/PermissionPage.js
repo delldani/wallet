@@ -1,5 +1,6 @@
 import React from "react";
 import { UserContext } from "../context";
+import Box from "@mui/material/Box";
 
 import { DoLogin } from "../components/DoLogin";
 import { PermissionTable } from "../components/PermissionTable";
@@ -65,10 +66,8 @@ export const PermissionPage = () => {
 
   const canGivePermission = job === 'teacher' ? !!getMyWallet(contextObject.loginData.user.wallets,contextObject.loginData.user.name) : true;
 
-  if (contextObject.loginData) {
     return (
-      <div>
-        <h1>PermissionPage</h1>
+      <Box sx={style}>
        {canGivePermission &&
         <PermissionTable
           userList={userList}
@@ -79,9 +78,11 @@ export const PermissionPage = () => {
           job={job}
           onDeleteWallet={deleteWallet}
         />}
-      </div>
+      </Box>
     );
-  } else {
-    return <DoLogin />;
-  }
 };
+
+const style = {
+  display: 'flex',
+  justifyContent: 'center',
+}

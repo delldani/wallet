@@ -10,7 +10,7 @@ export const NavBarButtons = () => {
   const contextObject = React.useContext(UserContext);
   const { translations, job } = contextObject;
   const navigate = useNavigate();
-  const { loginData, setLoginData } = contextObject;
+  const { loginData, setLoginData, logOut } = contextObject;
   const { pathname } = useLocation();
 
   return (
@@ -50,7 +50,7 @@ export const NavBarButtons = () => {
       )}
       {showButton("logout-button", pathname, !!loginData, job) && (
         <Button color="inherit" onClick={() => {
-          setLoginData(null);
+          logOut();
           navigate("/");}}>
           {" "}
           {translations.logout}
