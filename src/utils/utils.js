@@ -2,6 +2,12 @@
 
 export const showButton = (buttonName, pathname, hasToken, job) => {
   switch (buttonName) {
+    case "username":
+      if (pathname === "/" || pathname === "/registration") {
+        return false;
+      } else{
+        return true;
+      }
     case "logout-button":
       if (pathname === "/" || pathname === "/registration") {
         return false;

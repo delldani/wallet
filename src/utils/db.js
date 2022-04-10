@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const URL = "https://wallet-cloudflare.gordongecco.workers.dev/";
-const URL = "http://127.0.0.1:8787/";
+const URL = "https://wallet-cloudflare.gordongecco.workers.dev/";
+// const URL = "http://127.0.0.1:8787/";
 
 export const dbRegistration = (username, password, radioGroup) => {
   return axios.post(URL + "reg", {

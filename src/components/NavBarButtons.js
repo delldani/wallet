@@ -10,7 +10,7 @@ export const NavBarButtons = () => {
   const contextObject = React.useContext(UserContext);
   const { translations, job } = contextObject;
   const navigate = useNavigate();
-  const { loginData, setLoginData, logOut } = contextObject;
+  const { loginData, logOut } = contextObject;
   const { pathname } = useLocation();
 
   return (
