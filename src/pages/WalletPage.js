@@ -31,6 +31,8 @@ export const WalletPage = () => {
         console.log(res);
         setShowProgress(false);
       });
+    }else{
+      setShowProgress(false);
     }
   }, []);
 

@@ -5,9 +5,9 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
+import Typography from '@mui/material/Typography';
 
 import { UserContext } from "../context";
-import { DoLogin } from "../components/DoLogin";
 
 export const ListPage = () => {
   const contextObject = React.useContext(UserContext);
@@ -24,11 +24,16 @@ export const ListPage = () => {
     ? myWallets.map((wallet) => {
         return (
           <div key={wallet.id}>
-            <Card sx={{ minWidth: 275 }}>
+            <Card >
               <CardContent>
-                ID: {wallet.id} Name: {wallet.name}
+              <Typography variant="h5" component="div">
+                {translations.owner}: {wallet.name}
+              </Typography>
+              <Typography variant="h7" component="div">
+                ID: {wallet.id} 
+                </Typography>
               </CardContent>
-              <CardActions>
+              <CardActions className="card-action">
                 <Button
                   variant="contained"
                   onClick={() => {
@@ -46,17 +51,24 @@ export const ListPage = () => {
 
     return (
       <Box sx={style}>
-        {wallets.length ? <h1>Tárcák</h1> : <h1>Nincs megjeleníthető tárca</h1>}
+        {!wallets.length && <h1>{translations.noWallets}</h1>}
         <div className="wallets">{wallets}</div>
       </Box>
     );
 };
 
 const style = {
-  padding: '50px',
+  display: "flex",
+  justifyContent:'center',
+  alignItems:'center',
+  height:'100%',
   "& .wallets": {
     display: "flex",
     flexWrap: "wrap",
     gap: '30px'
   },
+  '& .card-action':{
+    display: "flex",
+    justifyContent:'center',
+  }
 };
