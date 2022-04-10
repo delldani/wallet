@@ -46,7 +46,7 @@ export const ListPage = () => {
 
     return (
       <Box sx={style}>
-        {wallets ? <h1>Tárcák</h1> : <h1>Nincs megjeleníthető tárca</h1>}
+        {wallets.length ? <h1>Tárcák</h1> : <h1>Nincs megjeleníthető tárca</h1>}
         <div className="wallets">{wallets}</div>
       </Box>
     );

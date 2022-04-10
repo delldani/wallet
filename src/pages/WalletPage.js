@@ -33,12 +33,12 @@ export const WalletPage = () => {
 console.log(transactions);
     return (
       <Box sx={style}>
-        {transactions ? (
+        {transactions.length ? (
           <div className="table-wrapper">
-           {actualWallet ? <TransactionsTable /> : <h2>{translations.noActualWallet}</h2>}
+           {actualWallet ? <TransactionsTable /> : <h1>{translations.noActualWallet}</h1>}
           </div>
         ) : (
-          <h2>{translations.noTransactions}</h2>
+          <h1>{translations.noTransactions}</h1>
         )}
         {actualWallet && 
         <Button
