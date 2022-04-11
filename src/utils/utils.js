@@ -24,7 +24,7 @@ export const showButton = (buttonName, pathname, hasToken, job) => {
       if (
         pathname === "/" ||
         pathname === "/registration" ||
-        job === "parent"
+        job === "parent" && hasToken
       ) {
         return false;
       } else if (

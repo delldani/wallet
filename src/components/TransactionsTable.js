@@ -23,19 +23,19 @@ export const TransactionsTable = () => {
 
   const { amount, created, transaction, action, deleteLabel, upDate,summary,walletOwner } =
     translations;
-  const [showProgress, setShowProgress] = React.useState(null);
+  const [showProgress, setShowProgress] = React.useState(false);
 
   const onTransactionDelete = (id) => {
-    setShowProgress(id);
+    setShowProgress(true);
     dbDeleteTransaction(id, token)
       .then((res) => {
         setTransactions(transactions.filter((item) => item.id !== id));
         console.log(res);
-        setShowProgress(null);
+        setShowProgress(false);
       })
       .catch((err) => {
         console.log(err);
-        setShowProgress(null);
+        setShowProgress(false);
         openModal("deleteError");
       });
   };
@@ -45,7 +45,7 @@ export const TransactionsTable = () => {
   (previousValue, currentValue) => previousValue + currentValue.amount,
   initialValue
 );
-console.log(actualWallet);
+
 return (
     <Box sx={style}>
       <h1>{walletOwner} : {actualWallet.name}</h1>
@@ -91,7 +91,7 @@ return (
                 >
                   {deleteLabel}{" "}
                 </Button>
-                {showProgress === item.id && <CircularProgress />}
+                {showProgress && <CircularProgress />}
               </TableCell>
             </TableRow>
           ))}
