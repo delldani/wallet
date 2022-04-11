@@ -1,18 +1,15 @@
 import React from "react";
-import Box from "@mui/material/Box";
 
-import { ContextWrapper } from "../context/ContextWrapper";
-import { Pages } from "../pages/Pages";
 import { translations } from "../utils/default";
-import { NavBar } from "./NavBar";
-
 import {
   dbList,
   dbAccessList,
 } from "../utils/db";
 import { getMyWallet } from '../utils/utils';
 
-export const WalletMain = ()=>{
+export const UserContext = React.createContext(null);
+
+export const UserProvider = ({ children }) => {
   const [loginData, setLoginData] = React.useState(undefined);
   const [modalType, setModalType] = React.useState({type:'',data:{}});
   const [userList, setUserList] = React.useState([]);
@@ -111,24 +108,8 @@ export const WalletMain = ()=>{
   };
 
   return (
-      <ContextWrapper contextObject={contextObject}>
-        <Box sx={style}>
-          <div>
-          <NavBar />
-          </div>
-          <div className="pages">
-          <Pages />
-          </div>
-        </Box>
-      </ContextWrapper>
+      <UserContext.Provider value={contextObject}>
+        {children}
+      </UserContext.Provider>
   );
-}
-
-const style = {
-  height: "100vh",
-  display: 'flex',
-  flexDirection: 'column',
-  '& .pages':{
-    flexBasis: '100%',
-  }
-}
+};

@@ -2,10 +2,12 @@ import React from "react";
 
 import { ErrorModal } from "./ErrorModal";
 import { TransactionsModal } from "./TransactionsModal";
+import { UserContext } from "../context";
 
 export const ModalContext = React.createContext(null);
 
-export const Modals = ({ contextObject }) => {
+export const Modals = () => {
+  const contextObject = React.useContext(UserContext);
   const { modalType, openModal } = contextObject;
 
   const handleClose = () => {

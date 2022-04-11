@@ -1,15 +1,32 @@
 import React from "react";
-import {ErrorBoundary} from 'react-error-boundary';
+import Box from "@mui/material/Box";
 
-import { ErrorFallback } from './components/ErrorFallback';
-import { WalletMain } from './components/WalletMain';
+import { Providers } from "./context/Providers";
+import { Pages } from "./pages/Pages";
+import { NavBar } from "./components/NavBar";
 
-function App() {
+const App = ()=>{
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-     <WalletMain/>
-    </ErrorBoundary>
+      <Providers >
+        <Box sx={style}>
+          <div>
+          <NavBar />
+          </div>
+          <div className="pages">
+          <Pages />
+          </div>
+        </Box>
+      </Providers>
   );
 }
 
 export default App;
+
+const style = {
+  height: "100vh",
+  display: 'flex',
+  flexDirection: 'column',
+  '& .pages':{
+    flexBasis: '100%',
+  }
+}
