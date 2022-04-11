@@ -1,66 +1,25 @@
-//TODO egyszerúsíteni
 
-export const showButton = (buttonName, pathname, hasToken, job) => {
-  switch (buttonName) {
-    case "username":
-      if (pathname === "/" || pathname === "/registration") {
-        return false;
-      } else{
-        return true;
-      }
-    case "logout-button":
-      if (pathname === "/" || pathname === "/registration") {
-        return false;
-      } else if (
-        (pathname === "/list" ||
-          pathname === "/wallet" ||
-          pathname === "/permission") &&
-        hasToken
-      ) {
-        return true;
-      } else return false;
-
-    case "permission-button":
-      if (
-        pathname === "/" ||
-        pathname === "/registration" ||
-        job === "parent" && hasToken
-      ) {
-        return false;
-      } else if (
-        (pathname === "/list" ||
-          pathname === "/wallet" ||
-          pathname === "/permission") &&
-        hasToken
-      ) {
-        return true;
-      } else return false;
-    case "walletlist-button":
-      if (pathname === "/" || pathname === "/registration") {
-        return false;
-      } else if (
-        (pathname === "/list" ||
-          pathname === "/wallet" ||
-          pathname === "/permission") &&
-        hasToken
-      ) {
-        return true;
-      } else return false;
-    case "wallet-button":
-      if (pathname === "/" || pathname === "/registration") {
-        return false;
-      } else if (
-        (pathname === "/list" ||
-          pathname === "/wallet" ||
-          pathname === "/permission") &&
-        hasToken
-      ) {
-        return true;
-      } else return false;
-    default:
-      return true;
+export const showButton = (pathname,hasToken,job = '',buttonName = '')=>{
+  if(!hasToken){
+    return false;
+  };
+  if(job === 'parent' && buttonName === 'permission'){
+    return false;
   }
-};
+  switch (pathname) {
+      case "/":
+        return false;
+      case "/registration":
+        return false;
+      case "/permission":
+         return true;
+      case "/list":
+          return true;
+      case "/wallet":
+          return true;
+      default : return true;
+      }  
+}
 
 export const isAllow = (job,pathname)=>{
   return job === 'parent' && pathname === 'permission' ? false : true;

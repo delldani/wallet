@@ -8,12 +8,12 @@ import { showButton } from "../utils/utils";
 
 export const UserLabel = () => {
   const contextObject = React.useContext(UserContext);
-  const { translations, user } = contextObject;
+  const { translations, user, token, job} = contextObject;
   const { pathname } = useLocation();
 
   return (
     <Box sx={style}>
-      {showButton("username", pathname) && (
+      {showButton( pathname,!!token) && (
          <div>
          <Typography className="title-wrapper" variant="h6" component="div" sx={{ flexGrow: 1 }}>
          <span className="title">{translations.title}</span>

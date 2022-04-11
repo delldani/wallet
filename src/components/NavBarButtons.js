@@ -15,7 +15,7 @@ export const NavBarButtons = () => {
 
   return (
     <Box sx={style}>
-      {showButton("permission-button", pathname, !!token, job) && (
+      {showButton(pathname, !!token,job,'permission') && (
         <Button
           color="inherit"
           onClick={() => {
@@ -26,7 +26,7 @@ export const NavBarButtons = () => {
           {translations.permission}
         </Button>
       )}
-      {showButton("walletlist-button", pathname, !!token, job) && (
+      {showButton( pathname, !!token) && (
         <Button
           color="inherit"
           onClick={() => {
@@ -37,7 +37,7 @@ export const NavBarButtons = () => {
           {translations.walletList}
         </Button>
       )}
-      {showButton("wallet-button", pathname, !!token, job) && (
+      {showButton( pathname, !!token) && (
         <Button
           color="inherit"
           onClick={() => {
@@ -48,7 +48,7 @@ export const NavBarButtons = () => {
           {translations.wallet}
         </Button>
       )}
-      {showButton("logout-button", pathname, !!token, job) && (
+      {showButton( pathname, !!token) && (
         <Button color="inherit" onClick={() => {
           logOut();
           navigate("/");}}>
