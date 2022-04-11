@@ -59,7 +59,7 @@ export const TransactionsModal = ({
         loginData.token
       ).then((res) => {
         console.log(res);
-        dbGetAllTransaction(actualWallet, loginData.token)
+        dbGetAllTransaction(actualWallet.id, loginData.token)
           .then((res) => {
             console.log(res);
             setTransactions(res.data.transactions);
@@ -73,7 +73,7 @@ export const TransactionsModal = ({
       });
     } else {
       dbAddTransaction(
-        actualWallet,
+        actualWallet.id,
         values.transaction,
         values.amount,
         loginData.token

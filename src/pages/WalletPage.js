@@ -23,7 +23,7 @@ export const WalletPage = () => {
 
   React.useEffect(() => {
     if (actualWallet) {
-      dbGetAllTransaction(actualWallet, token).then((res) => {
+      dbGetAllTransaction(actualWallet.id, token).then((res) => {
         console.log(res);
         setTransactions(res.data.transactions);
         setShowProgress(false);

@@ -15,8 +15,8 @@ export const ListPage = () => {
 
   const { myWallets, translations, setActualWallet } = contextObject;
 
-  const handleclick = (wallet_id) => {
-    setActualWallet(wallet_id);
+  const handleclick = (wallet) => {
+    setActualWallet(wallet);
     navigate("/wallet");
   };
 
@@ -37,7 +37,7 @@ export const ListPage = () => {
                 <Button
                   variant="contained"
                   onClick={() => {
-                    handleclick(wallet.id);
+                    handleclick(wallet);
                   }}
                 >
                   {translations.open}
