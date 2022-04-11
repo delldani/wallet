@@ -93,6 +93,10 @@ export const TransactionsModal = ({
   };
 
   const open = modalType && modalType.type === "transactions";
+
+  const transaction = modalType?.data?.title ? modalType.data.title : "";
+  const amount = modalType?.data?.amount ? modalType.data.amount : "";
+
   return (
     <Dialog
       open={open}
@@ -106,8 +110,8 @@ export const TransactionsModal = ({
           <Formik
             enableReinitialize
             initialValues={{
-              transaction: modalType?.data ? modalType.data.title : "",
-              amount: modalType?.data ? modalType.data.amount : "",
+              transaction,
+              amount,
             }}
             validationSchema={validationForTransactionModal}
             onSubmit={onSubmit}
