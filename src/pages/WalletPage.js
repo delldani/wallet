@@ -4,7 +4,6 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import { TransactionsTable } from "../components/TransactionsTable";
 import { dbGetAllTransaction } from '../utils/db'
 import {TransactionsTableWrapper } from '../components/TransactionsTableWrapper'
 
@@ -15,7 +14,6 @@ export const WalletPage = () => {
     translations,
     openModal,
     token,
-    transactions,
     setTransactions
   } = contextObject;
 

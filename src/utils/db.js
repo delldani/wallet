@@ -11,12 +11,6 @@ export const dbRegistration = (username, password, radioGroup) => {
   });
 };
 
-/**
- *
- * @param {string} username
- * @param {string} password
- * @returns
- */
 export const dbLogin = (username, password) => {
   return axios.post(URL + "login", {
     name: username,
@@ -24,7 +18,7 @@ export const dbLogin = (username, password) => {
   });
 };
 
-//**az összes személy listálya akik beregisztráltak */
+//az összes személy listálya akik beregisztráltak 
 export const dbList = () => {
   return axios.get(URL + "list", {});
 };
@@ -58,13 +52,6 @@ export const dbDeleteWallet = ( id, token) => {
   );
 };
 
-/**
- * Hozzáférést ad egy wallet-hoz egy user-nek
- * @param {string} wallet_id
- * @param {string} user_id
- * @param {string} token
- * @returns
- */
 export const ddAddAccessToWallet = (wallet_id, user_id, token) => {
   return axios.post(
     URL + "wallet/" + wallet_id + "/grant_access",
@@ -95,12 +82,6 @@ export const dbRemoveAccessToWallet = (wallet_id, user_id, token) => {
   );
 };
 
-/**
- * Lekéri egy wallet adatait
- * @param {string} wallet_id
- * @param {string} token
- * @returns
- */
 export const dbAccessList = (wallet_id, token) => {
   return axios.get(URL + "wallet/" + wallet_id, {
     headers: {
@@ -109,14 +90,6 @@ export const dbAccessList = (wallet_id, token) => {
   });
 };
 
-/**
- * Új transaction hozzáadása
- * @param {*} wallet_id
- * @param {*} title
- * @param {*} amount
- * @param {*} token
- * @returns
- */
 export const dbAddTransaction = (wallet_id, title, amount, token) => {
   return axios.put(
     URL + "transactions",
@@ -133,14 +106,6 @@ export const dbAddTransaction = (wallet_id, title, amount, token) => {
   );
 };
 
-/**
- *  transaction törlése
- * @param {*} wallet_id
- * @param {*} title
- * @param {*} amount
- * @param {*} token
- * @returns
- */
 export const dbDeleteTransaction = (id, token) => {
   return axios.delete(URL + "transaction/" + id, {
     headers: {
@@ -165,14 +130,6 @@ export const dbGetAllTransaction = (wallet_id, token) => {
   );
 };
 
-/**
- * frissíti a tranzakció értékét
- * @param {*} id
- * @param {*} title
- * @param {*} amount
- * @param {*} token
- * @returns
- */
 export const dbUpdateTransaction = (id, title, amount, token) => {
   return axios.patch(
     URL + "transaction/" + id,

@@ -15,10 +15,7 @@ function App() {
   const [loginData, setLoginData] = React.useState(undefined);
   const [modalType, setModalType] = React.useState({type:'',data:{}});
   const [userList, setUserList] = React.useState([]);
-  //igazgató esetén, azok a walletek amiket létrehozott a tanároknak
-  //tanár esetén csak egy elem vane benne, a saját wallet-je (csak egy lehet)
   const [myWallets, setMyWallets] = React.useState([]);
-  //Csak tanár esetén, kiknek adott hozzáférést a wallet-hoz(csak egy lejhet neki)
   const [accessToWallet, setAccessToWallet] = React.useState([]);
   const [actualWallet, setActualWallet] = React.useState(null);
   const [transactions, setTransactions] = React.useState([]);
@@ -27,13 +24,9 @@ function App() {
     if (contextObject.loginData) {
       const { job, wallets, name, id } = contextObject.loginData.user;
       const { token } = contextObject.loginData;
-       //igazgató esetén, kinek hozott létre wallet-eket
-       //tanár esetén melyik wallet-hez van hozzáférése, melyikbe írhat bele stb
-       //szülő esetén melyikhez van hozzáférése
       setMyWallets(contextObject.loginData.user.wallets);
 
       if (job !== "parent") {
-        //beregisztráltak listálya
         dbList().then((res) => {
           let listForPermission;
           if(job === 'director'){
@@ -45,18 +38,14 @@ function App() {
             (item) => item.job !== "director" && item.id !== id
           );
           }
-          //Az igazgató csak a tanároknak hozhat létre tárcát, a tanárok adhatnak engedélyt tanárnak és szülőnek is
           setUserList(listForPermission);
         });
        
 
         if (job === "teacher" && wallets.length) {
-          // kikeresi, hogy a natárnak van e saját wallet-ja, ha nincs return null
           const myWallet = getMyWallet(wallets,name);
           if(myWallet){
-            //lekéri csak tanár esetén, hogy kinek adott hozzáférést eddig
              dbAccessList(myWallet.id, token).then((res) => {
-            //kiszúri a tanárt a listából
             const array = res.data.access.filter((item) => item.name !== name);
             setAccessToWallet(array);
           });

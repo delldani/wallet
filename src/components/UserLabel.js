@@ -8,7 +8,7 @@ import { showButton } from "../utils/utils";
 
 export const UserLabel = () => {
   const contextObject = React.useContext(UserContext);
-  const { translations, job,loginData } = contextObject;
+  const { translations, loginData } = contextObject;
   const { pathname } = useLocation();
 
   return (

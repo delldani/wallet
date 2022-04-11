@@ -2,7 +2,6 @@ import React from "react";
 import { UserContext } from "../context";
 import Box from "@mui/material/Box";
 
-import { DoLogin } from "../components/DoLogin";
 import { PermissionTable } from "../components/PermissionTable";
 import { dbCreateWallet, ddAddAccessToWallet, dbRemoveAccessToWallet,dbDeleteWallet } from "../utils/db";
 import { getMyWallet}from '../utils/utils'
@@ -42,9 +41,7 @@ export const PermissionPage = () => {
           handleAddAccessTodWallet(name, item.data.id);
           console.log(item)});
       }
-    } else {
-      //do nothing
-    }
+    } 
   };
 
   const deleteWallet =(user)=>{
@@ -68,6 +65,7 @@ export const PermissionPage = () => {
 
     return (
       <Box sx={style}>
+        <h1>{job === 'director' ? translations.permissionDirector: translations.permissionTeacher}</h1>
        {canGivePermission &&
         <PermissionTable
           userList={userList}
@@ -87,4 +85,8 @@ const style = {
   display: 'flex',
   justifyContent: 'center',
   alignItems:'center',
+  flexDirection:'column',
+  '& h1':{
+    marginBottom:'100px',
+  }
 }
