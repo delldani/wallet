@@ -18,6 +18,7 @@ export const TransactionsTable = () => {
     openModal,
     transactions,
     setTransactions,
+    actualWallet,
   } = contextObject;
 
   const { amount, created, transaction, action, deleteLabel, upDate,summary } =
@@ -44,16 +45,17 @@ export const TransactionsTable = () => {
   (previousValue, currentValue) => previousValue + currentValue.amount,
   initialValue
 );
-
+console.log(actualWallet);
 return (
     <Box sx={style}>
+      <h1>{actualWallet.name}</h1>
       <Table className="table" size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell>{transaction}</TableCell>
-            <TableCell align="right">{created}</TableCell>
-            <TableCell align="right">{amount}</TableCell>
-            <TableCell align="right">{action}</TableCell>
+            <TableCell><span className='bold' >{transaction}</span></TableCell>
+            <TableCell align="right"><span className='bold' >{created}</span></TableCell>
+            <TableCell align="right"><span className='bold' >{amount}</span></TableCell>
+            <TableCell align="right"><span className='bold' >{action}</span></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -71,6 +73,7 @@ return (
               <TableCell align="right">
                 {" "}
                 <Button
+                  className="button"
                   variant="contained"
                   onClick={() => {
                     openModal("transactions", {
@@ -96,10 +99,10 @@ return (
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row" colSpan={2} >
-              {summary}
+              <span className='bold' >{summary}</span>
               </TableCell>
               <TableCell component="th" scope="row" align='right'>
-              {sum}
+              <span className='bold' >{sum}</span>
               </TableCell>
               </TableRow>
         </TableBody>
@@ -110,6 +113,15 @@ return (
 
 const style = {
   width:'100%',
-  "& .table": {
+  display:'flex',
+  flexDirection:'column',
+  justifyContent:'center',
+  alignItems:'center',
+  "& .bold": {
+    fontSize:'23px',
+    fontWeight:'bold',
   },
+  '& .button':{
+    marginRight:'5px',
+  }
 };

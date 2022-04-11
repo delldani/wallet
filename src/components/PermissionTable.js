@@ -23,9 +23,9 @@ export const PermissionTable = ({
       <Table className="table" size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell>{name}</TableCell>
-            <TableCell align="right">{role}</TableCell>
-            <TableCell align="right">{action}</TableCell>
+            <TableCell><span className="bold">{name}</span></TableCell>
+            <TableCell align="right"><span className="bold">{role}</span></TableCell>
+            <TableCell align="right"><span className="bold">{action}</span></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -51,6 +51,7 @@ export const PermissionTable = ({
                 <TableCell align="right">
                   {" "}
                   <Button
+                    className="button"
                     variant="contained"
                     disabled={hasAccess}
                     onClick={() => onCreateWallet(user.name, user.id)}
@@ -79,5 +80,11 @@ const style = {
   ['@media (max-width:1200px)']: {
     width: '100%',
   },
-  marginTop: '200px',
+  '& .bold':{
+    fontSize:'23px',
+    fontWeight:'bold',
+  },
+  '& .button':{
+    marginRight:'5px',
+  }
  }

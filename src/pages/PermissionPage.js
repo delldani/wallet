@@ -83,6 +83,8 @@ export const PermissionPage = () => {
 };
 
 const style = {
+  height:'100%',
   display: 'flex',
   justifyContent: 'center',
+  alignItems:'center',
 }
