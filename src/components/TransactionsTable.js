@@ -21,7 +21,7 @@ export const TransactionsTable = () => {
     actualWallet,
   } = contextObject;
 
-  const { amount, created, transaction, action, deleteLabel, upDate,summary } =
+  const { amount, created, transaction, action, deleteLabel, upDate,summary,walletOwner } =
     translations;
   const [showProgress, setShowProgress] = React.useState(null);
 
@@ -48,7 +48,7 @@ export const TransactionsTable = () => {
 console.log(actualWallet);
 return (
     <Box sx={style}>
-      <h1>{actualWallet.name}</h1>
+      <h1>{walletOwner} : {actualWallet.name}</h1>
       <Table className="table" size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
@@ -117,6 +117,9 @@ const style = {
   flexDirection:'column',
   justifyContent:'center',
   alignItems:'center',
+  '& h1':{
+    marginBottom:'100px',
+  },
   "& .bold": {
     fontSize:'23px',
     fontWeight:'bold',

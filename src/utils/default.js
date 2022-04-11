@@ -20,6 +20,7 @@ export const translations = {
   created: "Létrehozta",
   name: "Név",
   owner:'birtokos',
+  walletOwner:'Tárca tulajdonos',
   role: "Szerep",
   upDate: "Módosít",
   transaction: "Tranzakció",
