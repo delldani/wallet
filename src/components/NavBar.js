@@ -2,7 +2,6 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import { UserContext } from "../context";
 
 import { NavBarButtons } from "./NavBarButtons";
 import { UserLabel} from '../components/UserLabel'
