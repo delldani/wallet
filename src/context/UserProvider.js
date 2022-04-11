@@ -83,6 +83,7 @@ export const UserProvider = ({ children }) => {
     setLoginData(null);
     setActualWallet(null);
     setTransactions([]);
+    setUserList([]);
   };
 
   const contextObject = {

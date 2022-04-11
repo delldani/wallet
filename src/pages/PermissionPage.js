@@ -64,9 +64,15 @@ export const PermissionPage = () => {
 
   const canGivePermission = job === 'teacher' ? !!getMyWallet(myWallets,user.name) : true;
 
+  let text = '';
+  if(job === 'director' ){
+    text = translations.permissionDirector
+  }else{
+    text = canGivePermission ? translations.permissionTeacher : translations.hasNoWallet;
+  }
     return (
       <Box sx={style}>
-        <h1>{job === 'director' ? translations.permissionDirector: translations.permissionTeacher}</h1>
+        <h1>{text}</h1>
        {canGivePermission &&
         <PermissionTable
           userList={userList}

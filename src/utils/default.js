@@ -31,6 +31,7 @@ export const translations = {
   permissionTeacher:'Hozzáférés engedélyezése saját tárcához', 
   registration: "Regisztráció",
   toRegister: "Még nem regisztrált ?",
+  listPage:'Tárcák amikhez hozzáférése van',
   newTransaction: "Új tranzakció",
   usernameValidationRules: "5 és 15 karakter közötti, betü vagy szám lehet",
   passwordValidationRules:
@@ -38,6 +39,7 @@ export const translations = {
   noTransactions:'Nincs megjeleníthető tranzakció !',
   noActualWallet:'Nincs kiválasztva tárca !',
   noWallets:'Nincs megjeleníthető tárca !',
+  hasNoWallet:'Nem rendelkezik saját tárcával !',
   teacher: "osztályfőnök",
   parent: "szmk tag",
   doLogin: "Ön nincs bejelentkezve !",

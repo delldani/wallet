@@ -51,7 +51,7 @@ export const ListPage = () => {
 
     return (
       <Box sx={style}>
-        {!wallets.length && <h1>{translations.noWallets}</h1>}
+        {!wallets.length ? <h1>{translations.noWallets}</h1> : <h1>{translations.listPage}</h1>}
         <div className="wallets">{wallets}</div>
       </Box>
     );
@@ -61,6 +61,7 @@ const style = {
   display: "flex",
   justifyContent:'center',
   alignItems:'center',
+  flexDirection: 'column',
   height:'100%',
   "& .wallets": {
     display: "flex",

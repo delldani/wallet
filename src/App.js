@@ -9,9 +9,7 @@ const App = ()=>{
   return (
       <Providers >
         <Box sx={style}>
-          <div>
           <NavBar />
-          </div>
           <div className="pages">
           <Pages />
           </div>
