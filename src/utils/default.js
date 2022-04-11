@@ -66,7 +66,7 @@ export const validationForTransactionModal = Yup.object({
   transaction: Yup.string().required("Szükséges megadni !"),
   amount: Yup.string()
     .required("Szükséges megadni !")
-    .matches(/^[-0-9]+$/, {
+    .matches(/^[-0-9]?[0-9]+$/, {
       message: "Csak pozitív vagy negatív szám lehet, tizedes nélkül !",
       excludeEmptyString: true,
     }),
