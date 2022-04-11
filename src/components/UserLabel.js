@@ -8,7 +8,7 @@ import { showButton } from "../utils/utils";
 
 export const UserLabel = () => {
   const contextObject = React.useContext(UserContext);
-  const { translations, loginData } = contextObject;
+  const { translations, user } = contextObject;
   const { pathname } = useLocation();
 
   return (
@@ -17,7 +17,7 @@ export const UserLabel = () => {
          <div>
          <Typography className="title-wrapper" variant="h6" component="div" sx={{ flexGrow: 1 }}>
          <span className="title">{translations.title}</span>
-         <span className="username">{loginData?.user?.name}</span>
+         <span className="username">{user?.name}</span>
          </Typography>
          </div>
       )}

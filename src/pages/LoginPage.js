@@ -85,7 +85,6 @@ export const LoginPage = () => {
   const { login, toRegister, submit, reset } = contextObject.translations;
   const { setLoginData, openModal } = contextObject;
   const navigate = useNavigate();
-
   return (
     <Box sx={mainStyle}>
       <h1>{login}</h1>
@@ -121,9 +120,9 @@ export const LoginPage = () => {
 
 const handleLogin = (values, setLoginData, navigate, openModal) => {
   const { username, password } = values;
-
   dbLogin(username, password)
-    .then((response) => {
+  .then((response) => {
+    console.log(response);
       setLoginData(response.data);
       response.data.user.job === "teacher" ||
       response.data.user.job !== "parent"

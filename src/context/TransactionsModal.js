@@ -40,7 +40,7 @@ export const TransactionsModal = ({
 }) => {
   const {
     translations,
-    loginData,
+    token,
     actualWallet,
     setTransactions,
     openModal,
@@ -56,10 +56,10 @@ export const TransactionsModal = ({
         modalType.data.id,
         values.transaction,
         values.amount,
-        loginData.token
+        token
       ).then((res) => {
         console.log(res);
-        dbGetAllTransaction(actualWallet.id, loginData.token)
+        dbGetAllTransaction(actualWallet.id, token)
           .then((res) => {
             console.log(res);
             setTransactions(res.data.transactions);
@@ -76,7 +76,7 @@ export const TransactionsModal = ({
         actualWallet.id,
         values.transaction,
         values.amount,
-        loginData.token
+        token
       )
         .then((res) => {
           const newTransactions = [...transactions, res.data];

@@ -10,12 +10,12 @@ export const NavBarButtons = () => {
   const contextObject = React.useContext(UserContext);
   const { translations, job } = contextObject;
   const navigate = useNavigate();
-  const { loginData, logOut } = contextObject;
+  const { token, logOut } = contextObject;
   const { pathname } = useLocation();
 
   return (
     <Box sx={style}>
-      {showButton("permission-button", pathname, !!loginData, job) && (
+      {showButton("permission-button", pathname, !!token, job) && (
         <Button
           color="inherit"
           onClick={() => {
@@ -26,7 +26,7 @@ export const NavBarButtons = () => {
           {translations.permission}
         </Button>
       )}
-      {showButton("walletlist-button", pathname, !!loginData, job) && (
+      {showButton("walletlist-button", pathname, !!token, job) && (
         <Button
           color="inherit"
           onClick={() => {
@@ -37,7 +37,7 @@ export const NavBarButtons = () => {
           {translations.walletList}
         </Button>
       )}
-      {showButton("wallet-button", pathname, !!loginData, job) && (
+      {showButton("wallet-button", pathname, !!token, job) && (
         <Button
           color="inherit"
           onClick={() => {
@@ -48,7 +48,7 @@ export const NavBarButtons = () => {
           {translations.wallet}
         </Button>
       )}
-      {showButton("logout-button", pathname, !!loginData, job) && (
+      {showButton("logout-button", pathname, !!token, job) && (
         <Button color="inherit" onClick={() => {
           logOut();
           navigate("/");}}>

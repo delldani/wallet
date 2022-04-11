@@ -13,14 +13,14 @@ export const ListPage = () => {
   const contextObject = React.useContext(UserContext);
   const navigate = useNavigate();
 
-  const { myWallets, translations, setActualWallet } = contextObject;
+  const { myWallets, translations, setActualWallet,token} = contextObject;
 
   const handleclick = (wallet) => {
     setActualWallet(wallet);
     navigate("/wallet");
   };
 
-  const wallets = contextObject.loginData
+  const wallets = token
     ? myWallets.map((wallet) => {
         return (
           <div key={wallet.id}>

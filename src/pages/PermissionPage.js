@@ -14,6 +14,7 @@ export const PermissionPage = () => {
     myWallets,
     job,
     token,
+    user,
     accessToWallet,
     translations,
     handleAddAccessTodWallet,
@@ -23,14 +24,14 @@ export const PermissionPage = () => {
 
   const createWallet = (name, userId) => {
     if (job === "director") {
-      dbCreateWallet(name, userId, contextObject.loginData.token).then(
+      dbCreateWallet(name, userId, token).then(
         (item) => {
           handleAddWallet(name, item.data.id);
         }
       );
     } else if (job === "teacher") {
       //Ha van wallett-je a teacher nek(igazgató létrehozott-e neki)
-      const myWallet = getMyWallet(contextObject.loginData.user.wallets,contextObject.loginData.user.name);
+      const myWallet = getMyWallet(myWallets,user.name);
       console.log(myWallet);
       if (myWallet) {
         ddAddAccessToWallet(
@@ -53,7 +54,7 @@ export const PermissionPage = () => {
       })
       
     }else if (job === "teacher") {
-      const myWallet = getMyWallet(contextObject.loginData.user.wallets,contextObject.loginData.user.name);
+      const myWallet = getMyWallet(myWallets,user.name);
       dbRemoveAccessToWallet( myWallet.id,user.id,token).then(res=>{
         console.log(res)
         handleRemoveAccessTodWallet(user.id)
@@ -61,7 +62,7 @@ export const PermissionPage = () => {
     }
   };
 
-  const canGivePermission = job === 'teacher' ? !!getMyWallet(contextObject.loginData.user.wallets,contextObject.loginData.user.name) : true;
+  const canGivePermission = job === 'teacher' ? !!getMyWallet(myWallets,user.name) : true;
 
     return (
       <Box sx={style}>
