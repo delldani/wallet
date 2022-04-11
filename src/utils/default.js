@@ -46,6 +46,7 @@ export const translations = {
   deleteError: "A törlés sikertelen !",
   updateError: "A Frissítés sikertelen !",
   addError: "A hozzáadás sikertelen !",
+  error:'Valami hiba történt !',
 };
 
 export const errorMessage = {

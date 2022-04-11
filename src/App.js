@@ -4,12 +4,14 @@ import { Pages } from "./pages/Pages";
 import { translations } from "./utils/default";
 import { NavBar } from "./components/NavBar";
 import Box from "@mui/material/Box";
+import {ErrorBoundary} from 'react-error-boundary';
 
 import {
   dbList,
   dbAccessList,
 } from "./utils/db";
-import { getMyWallet} from './utils/utils'
+import { ErrorFallback } from './components/ErrorFallback';
+import { getMyWallet } from './utils/utils';
 
 function App() {
   const [loginData, setLoginData] = React.useState(undefined);
@@ -109,16 +111,18 @@ function App() {
   };
 
   return (
-    <ContextWrapper contextObject={contextObject}>
-      <Box sx={style}>
-        <div>
-        <NavBar />
-        </div>
-        <div className="pages">
-        <Pages />
-        </div>
-      </Box>
-    </ContextWrapper>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <ContextWrapper contextObject={contextObject}>
+        <Box sx={style}>
+          <div>
+          <NavBar />
+          </div>
+          <div className="pages">
+          <Pages />
+          </div>
+        </Box>
+      </ContextWrapper>
+    </ErrorBoundary>
   );
 }
 
