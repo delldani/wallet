@@ -25,6 +25,7 @@ export const translations = {
   transaction: "Tranzakció",
   action: "Művelet",
   walletList: "Tárca lista",
+  summary:'Összesen',
   permission: "Engedélyezés",
   registration: "Regisztráció",
   toRegister: "Még nem regisztrált ?",

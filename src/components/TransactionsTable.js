@@ -20,7 +20,7 @@ export const TransactionsTable = () => {
     setTransactions,
   } = contextObject;
 
-  const { amount, created, transaction, action, deleteLabel, upDate } =
+  const { amount, created, transaction, action, deleteLabel, upDate,summary } =
     translations;
   const [showProgress, setShowProgress] = React.useState(null);
 
@@ -39,14 +39,20 @@ export const TransactionsTable = () => {
       });
   };
 
-  return (
+  const initialValue = 0;
+  const sum = transactions.reduce(
+  (previousValue, currentValue) => previousValue + currentValue.amount,
+  initialValue
+);
+
+return (
     <Box sx={style}>
       <Table className="table" size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
             <TableCell>{transaction}</TableCell>
-            <TableCell align="right">{amount}</TableCell>
             <TableCell align="right">{created}</TableCell>
+            <TableCell align="right">{amount}</TableCell>
             <TableCell align="right">{action}</TableCell>
           </TableRow>
         </TableHead>
@@ -59,8 +65,8 @@ export const TransactionsTable = () => {
               <TableCell component="th" scope="row">
                 {item.title}
               </TableCell>
-              <TableCell align="right">{item.amount}</TableCell>
               <TableCell align="right">{item.created_by.name}</TableCell>
+              <TableCell align="right">{item.amount}</TableCell>
 
               <TableCell align="right">
                 {" "}
@@ -86,6 +92,16 @@ export const TransactionsTable = () => {
               </TableCell>
             </TableRow>
           ))}
+           <TableRow
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <TableCell component="th" scope="row" colSpan={2} >
+              {summary}
+              </TableCell>
+              <TableCell component="th" scope="row" align='right'>
+              {sum}
+              </TableCell>
+              </TableRow>
         </TableBody>
       </Table>
     </Box>
