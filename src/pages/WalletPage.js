@@ -4,8 +4,9 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import { dbGetAllTransaction } from '../utils/db'
-import {TransactionsTableWrapper } from '../components/TransactionsTableWrapper'
+import { dbGetAllTransaction } from '../utils/db';
+import {TransactionsTableWrapper } from '../components/TransactionsTableWrapper';
+import { style } from './WalletPage.style';
 
 export const WalletPage = () => {
   const contextObject = React.useContext(UserContext);
@@ -56,25 +57,4 @@ export const WalletPage = () => {
        
       </Box>
     );
-};
-
-const style = {
-  height: '100%',
-  display: "flex",
-  flexDirection: "column",
-  alignItems: 'center',
-  justifyContent:'center',
-  "& .transaction-button": {
-    width: "200px",
-  },
-  '& .table-wrapper':{
-    marginBottom: '100px',
-    width: '80%',
-    display: 'flex',
-    alignItems:'center',
-    justifyContent: 'center',
-    ['@media (max-width:1200px)']: {
-      width: '100%',
-    }
-  },
 };

@@ -3,6 +3,7 @@ import { UserContext } from "../context";
 import Box from "@mui/material/Box";
 
 import { TransactionsTable } from "../components/TransactionsTable";
+import { style } from './TransactionsTableWrapper.style';
 
 export const TransactionsTableWrapper = () => {
   const contextObject = React.useContext(UserContext);
@@ -23,25 +24,4 @@ export const TransactionsTableWrapper = () => {
            )}
       </Box>
     );
-};
-
-const style = {
-  width:'80%',
-   ['@media (max-width:1200px)']: {
-      width: '100%',
-    },
-  display: "flex",
-  flexDirection: "column",
-  alignItems: 'center',
-  "& .transaction-button": {
-    width: "200px",
-  },
-  '& .table-wrapper':{
-    marginBottom: '100px',
-    width: '100%',
-    display: 'flex',
-    alignItems:'center',
-    justifyContent: 'center',
-   
-  },
 };

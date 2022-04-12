@@ -9,6 +9,7 @@ import Slide from "@mui/material/Slide";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import { validationForTransactionModal } from "../utils/default";
+import { style } from './TransactionsModal.style';
 import {
   dbUpdateTransaction,
   dbGetAllTransaction,
@@ -106,7 +107,7 @@ export const TransactionsModal = ({
       aria-describedby="alert-dialog-slide-description"
     >
       <DialogContent>
-        <Box sx={mainStyle}>
+        <Box sx={style}>
           <Formik
             enableReinitialize
             initialValues={{
@@ -153,30 +154,4 @@ export const TransactionsModal = ({
       </DialogContent>
     </Dialog>
   );
-};
-
-const mainStyle = {
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  "& .form": {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  "& .input-field": {
-    width: "300px",
-    marginTop: "20px",
-    marginBottom: "20px",
-  },
-  "& .buttons": {
-    display: "flex",
-    marginTop: "20px",
-    gap: "10px",
-    justifyContent: "space-between",
-    width: "100%",
-  },
-  "& .info": {
-    height: "min-content",
-  },
 };

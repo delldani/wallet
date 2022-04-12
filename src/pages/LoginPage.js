@@ -1,6 +1,5 @@
 import React from "react";
 import { Formik, Form, useField, useFormikContext } from "formik";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -16,20 +15,8 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "../components/Link";
 import { UserContext } from "../context";
 import { dbLogin } from "../utils/db";
-
-const MyTextInput = ({ label, ...props }) => {
-  const [field, meta] = useField(props);
-  return (
-    <TextField
-      className="input-field"
-      label={label}
-      variant="outlined"
-      inputProps={{ ...field, ...props }}
-      helperText={meta.touched && meta.error}
-      error={!!(meta.touched && meta.error)}
-    />
-  );
-};
+import { TextInput } from "../components/TextInput";
+import { style } from './LoginPage.style';
 
 const PasswordInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -86,7 +73,7 @@ export const LoginPage = () => {
   const { setLoginData, openModal } = contextObject;
   const navigate = useNavigate();
   return (
-    <Box sx={mainStyle}>
+    <Box sx={style}>
       <h1>{login}</h1>
       <Formik
         initialValues={{
@@ -98,7 +85,7 @@ export const LoginPage = () => {
         }}
       >
         <Form className="form">
-          <MyTextInput label="Username" name="username" type="text" />
+          <TextInput label="Username" name="username" type="text" />
 
           <PasswordInput label="Password" name="password" type="text" />
 
@@ -133,31 +120,4 @@ const handleLogin = (values, setLoginData, navigate, openModal) => {
       openModal("loginError");
       console.log(error);
     });
-};
-
-const mainStyle = {
-  marginTop: "150px",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  "& .form": {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  "& .input-field": {
-    width: "300px",
-    marginTop: "20px",
-    marginBottom: "20px",
-  },
-  "& .buttons": {
-    display: "flex",
-    marginTop: "20px",
-    gap: "10px",
-    justifyContent: "space-between",
-    width: "100%",
-  },
-  "& .info": {
-    height: "min-content",
-  },
 };

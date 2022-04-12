@@ -10,6 +10,7 @@ import TableRow from "@mui/material/TableRow";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import { dbDeleteTransaction } from "../utils/db";
+import { style } from './TransactionsTable.style';
 export const TransactionsTable = () => {
   const contextObject = React.useContext(UserContext);
   const {
@@ -111,20 +112,3 @@ return (
   );
 };
 
-const style = {
-  width:'100%',
-  display:'flex',
-  flexDirection:'column',
-  justifyContent:'center',
-  alignItems:'center',
-  '& h1':{
-    marginBottom:'100px',
-  },
-  "& .bold": {
-    fontSize:'23px',
-    fontWeight:'bold',
-  },
-  '& .button':{
-    marginRight:'5px',
-  }
-};

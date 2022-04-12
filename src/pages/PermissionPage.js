@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import { PermissionTable } from "../components/PermissionTable";
 import { dbCreateWallet, ddAddAccessToWallet, dbRemoveAccessToWallet,dbDeleteWallet } from "../utils/db";
 import { getMyWallet}from '../utils/utils'
+import { style } from './PermissionPage.style';
 
 export const PermissionPage = () => {
   const contextObject = React.useContext(UserContext);
@@ -86,14 +87,3 @@ export const PermissionPage = () => {
       </Box>
     );
 };
-
-const style = {
-  height:'100%',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems:'center',
-  flexDirection:'column',
-  '& h1':{
-    marginBottom:'100px',
-  }
-}

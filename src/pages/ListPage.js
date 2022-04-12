@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Typography from '@mui/material/Typography';
 
 import { UserContext } from "../context";
+import { style } from './ListPage.style';
 
 export const ListPage = () => {
   const contextObject = React.useContext(UserContext);
@@ -55,21 +56,4 @@ export const ListPage = () => {
         <div className="wallets">{wallets}</div>
       </Box>
     );
-};
-
-const style = {
-  display: "flex",
-  justifyContent:'center',
-  alignItems:'center',
-  flexDirection: 'column',
-  height:'100%',
-  "& .wallets": {
-    display: "flex",
-    flexWrap: "wrap",
-    gap: '30px'
-  },
-  '& .card-action':{
-    display: "flex",
-    justifyContent:'center',
-  }
 };
