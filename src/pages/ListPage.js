@@ -11,10 +11,9 @@ import { useUserContext } from "../context";
 import { style } from './ListPage.style';
 
 export const ListPage = () => {
-  const contextObject = useUserContext();
   const navigate = useNavigate();
 
-  const { myWallets, translations, setActualWallet,token} = contextObject;
+  const { myWallets, translations, setActualWallet,token} = useUserContext();
 
   const handleclick = (wallet) => {
     setActualWallet(wallet);

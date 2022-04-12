@@ -13,7 +13,7 @@ import { PasswordInput} from '../components/PasswordInput'
 import { style } from './RegistrationPage.style';
 
 export const RegistrationPage = () => {
-  const contextObject = useUserContext();
+  const { setLoginData, openModal,translations } = useUserContext();
   const {
     usernameValidationRules,
     passwordValidationRules,
@@ -22,8 +22,7 @@ export const RegistrationPage = () => {
     registration,
     submit,
     reset,
-  } = contextObject.translations;
-  const { setLoginData, openModal } = contextObject;
+  } = translations;
   const navigate = useNavigate();
 
   return (

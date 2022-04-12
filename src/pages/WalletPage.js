@@ -9,14 +9,13 @@ import {TransactionsTableWrapper } from '../components/TransactionsTableWrapper'
 import { style } from './WalletPage.style';
 
 export const WalletPage = () => {
-  const contextObject = useUserContext();
   const {
     actualWallet,
     translations,
     openModal,
     token,
     setTransactions
-  } = contextObject;
+  } = useUserContext();
 
   const [showProgress,setShowProgress] = React.useState(true);
 

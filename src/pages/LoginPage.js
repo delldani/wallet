@@ -12,9 +12,8 @@ import { style } from './LoginPage.style';
 import { PasswordInput } from '../components/PasswordInput'
 
 export const LoginPage = () => {
-  const contextObject = useUserContext();
-  const { login, toRegister, submit, reset } = contextObject.translations;
-  const { setLoginData, openModal } = contextObject;
+  const { setLoginData, openModal,translations } = useUserContext();
+  const { login, toRegister, submit, reset } = translations;
   const navigate = useNavigate();
   return (
     <Box sx={style}>

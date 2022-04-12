@@ -8,7 +8,6 @@ import { getMyWallet}from '../utils/utils'
 import { style } from './PermissionPage.style';
 
 export const PermissionPage = () => {
-  const contextObject = useUserContext();
   const {
     userList,
     handleAddWallet,
@@ -21,7 +20,7 @@ export const PermissionPage = () => {
     handleAddAccessTodWallet,
     handleRemoveAccessTodWallet,
     handleDeleteWallet
-  } = contextObject;
+  } = useUserContext();
 
   const createWallet = (name, userId) => {
     if (job === "director") {

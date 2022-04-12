@@ -6,7 +6,7 @@ import { useUserContext } from "../context";
 
 export const Modals = () => {
   const contextObject = useUserContext();
-  const {openModal}  = contextObject;
+  const {openModal}  = useUserContext();
 
   const handleClose = () => {
     openModal(null);
