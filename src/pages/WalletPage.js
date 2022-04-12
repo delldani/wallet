@@ -1,5 +1,5 @@
 import React from "react";
-import { UserContext } from "../context";
+import { useUserContext } from "../context";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -9,7 +9,7 @@ import {TransactionsTableWrapper } from '../components/TransactionsTableWrapper'
 import { style } from './WalletPage.style';
 
 export const WalletPage = () => {
-  const contextObject = React.useContext(UserContext);
+  const contextObject = useUserContext();
   const {
     actualWallet,
     translations,

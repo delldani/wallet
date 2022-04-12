@@ -1,5 +1,5 @@
 import React from "react";
-import { UserContext } from "../context";
+import { useUserContext } from "../context";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
@@ -11,8 +11,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import { dbDeleteTransaction } from "../utils/db";
 import { style } from './TransactionsTable.style';
+
 export const TransactionsTable = () => {
-  const contextObject = React.useContext(UserContext);
   const {
     token,
     translations,
@@ -20,23 +20,24 @@ export const TransactionsTable = () => {
     transactions,
     setTransactions,
     actualWallet,
-  } = contextObject;
+  } = useUserContext();
 
   const { amount, created, transaction, action, deleteLabel, upDate,summary,walletOwner } =
     translations;
-  const [showProgress, setShowProgress] = React.useState(false);
+  const [showProgress, setShowProgress] = React.useState(null);
 
   const onTransactionDelete = (id) => {
-    setShowProgress(true);
+    //csak a megfelelő sorban 
+    setShowProgress(id);
     dbDeleteTransaction(id, token)
       .then((res) => {
         setTransactions(transactions.filter((item) => item.id !== id));
         console.log(res);
-        setShowProgress(false);
+        setShowProgress(null);
       })
       .catch((err) => {
         console.log(err);
-        setShowProgress(false);
+        setShowProgress(null);
         openModal("deleteError");
       });
   };
@@ -92,7 +93,7 @@ return (
                 >
                   {deleteLabel}{" "}
                 </Button>
-                {showProgress && <CircularProgress />}
+                {showProgress === item.id && <CircularProgress />}
               </TableCell>
             </TableRow>
           ))}

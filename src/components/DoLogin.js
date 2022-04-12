@@ -2,16 +2,16 @@ import React from "react";
 import Box from "@mui/material/Box";
 
 import { Link } from "./Link";
-import { UserContext } from "../context";
+import { useUserContext } from "../context";
 
 export const DoLogin = () => {
-  const contextObject = React.useContext(UserContext);
+  const {translations} = useUserContext();
   return (
     <Box sx={style}>
-      <h1>{contextObject.translations.doLogin}</h1>
+      <h1>{translations.doLogin}</h1>
       <Link
         to="/"
-        label={contextObject.translations.login}
+        label={translations.login}
         variant="h5"
         underline="none"
       />

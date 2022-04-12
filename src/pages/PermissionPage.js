@@ -1,5 +1,5 @@
 import React from "react";
-import { UserContext } from "../context";
+import { useUserContext } from "../context";
 import Box from "@mui/material/Box";
 
 import { PermissionTable } from "../components/PermissionTable";
@@ -8,7 +8,7 @@ import { getMyWallet}from '../utils/utils'
 import { style } from './PermissionPage.style';
 
 export const PermissionPage = () => {
-  const contextObject = React.useContext(UserContext);
+  const contextObject = useUserContext();
   const {
     userList,
     handleAddWallet,

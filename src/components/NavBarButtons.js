@@ -2,15 +2,14 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useLocation } from "react-router-dom";
-import { UserContext } from "../context";
+import { useUserContext } from "../context";
 import { useNavigate } from "react-router-dom";
 
 import { showButton } from "../utils/utils";
+
 export const NavBarButtons = () => {
-  const contextObject = React.useContext(UserContext);
-  const { translations, job } = contextObject;
+  const { translations, job ,token, logOut } = useUserContext();
   const navigate = useNavigate();
-  const { token, logOut } = contextObject;
   const { pathname } = useLocation();
 
   return (

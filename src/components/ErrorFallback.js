@@ -3,12 +3,11 @@ import Box from "@mui/material/Box";
 import {translations} from '../utils/default'
 
 export const ErrorFallback = ({error})=> {
-    return (
+
+  return (
       <Box sx={style}>
-          <div>
             <p>{translations.error}</p>
-            <pre style={{color: 'red'}}>{error.message}</pre>
-          </div>
+            <div style={{color: 'red',maxWidth: '80%'}}>{error.message}</div>
       </Box>
     )
   }
@@ -16,6 +15,9 @@ export const ErrorFallback = ({error})=> {
   const style={
       width:'100vw',
       height:'100vh',
-      display:'grid',
-      placeItems:'center',
+      display:'flex',
+      justifyContent:'center',
+      alignItems:'center',
+      flexDirection:'column',
+
   }

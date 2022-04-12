@@ -1,74 +1,18 @@
 import React from "react";
-import { Formik, Form, useField, useFormikContext } from "formik";
+import { Formik, Form} from "formik";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
 import { useNavigate } from "react-router-dom";
 
 import { Link } from "../components/Link";
-import { UserContext } from "../context";
+import { useUserContext } from "../context";
 import { dbLogin } from "../utils/db";
 import { TextInput } from "../components/TextInput";
 import { style } from './LoginPage.style';
-
-const PasswordInput = ({ label, ...props }) => {
-  const [field, meta] = useField(props);
-
-  const [showPassword, setShowPassword] = React.useState(false);
-
-  const { touched } = useFormikContext();
-
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-  return (
-    <FormControl className="input-field">
-      <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
-      <OutlinedInput
-        error={!!(meta.touched && meta.error)}
-        disabled={field.name === "password2" && !touched.password1}
-        label={label}
-        variant="outlined"
-        inputProps={{
-          ...field,
-          ...props,
-          type: showPassword ? "text" : "password",
-        }}
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
-              edge="end"
-            >
-              {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-            </IconButton>
-          </InputAdornment>
-        }
-      />
-      {!!(meta.touched && meta.error) && (
-        <FormHelperText error id="accountId-error">
-          {meta.error}
-        </FormHelperText>
-      )}
-    </FormControl>
-  );
-};
+import { PasswordInput } from '../components/PasswordInput'
 
 export const LoginPage = () => {
-  const contextObject = React.useContext(UserContext);
+  const contextObject = useUserContext();
   const { login, toRegister, submit, reset } = contextObject.translations;
   const { setLoginData, openModal } = contextObject;
   const navigate = useNavigate();
@@ -87,7 +31,7 @@ export const LoginPage = () => {
         <Form className="form">
           <TextInput label="Username" name="username" type="text" />
 
-          <PasswordInput label="Password" name="password" type="text" />
+          <PasswordInput label="Password" name="password" type="text" hasTooltip={false} />
 
           <Link to="/registration" label={toRegister} />
 

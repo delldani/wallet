@@ -7,7 +7,7 @@ import {
 } from "../utils/db";
 import { getMyWallet } from '../utils/utils';
 
-export const UserContext = React.createContext(null);
+const UserContext = React.createContext(null);
 
 export const UserProvider = ({ children }) => {
   const [loginData, setLoginData] = React.useState(undefined);
@@ -114,3 +114,7 @@ export const UserProvider = ({ children }) => {
       </UserContext.Provider>
   );
 };
+
+export function useUserContext(){
+  return React.useContext(UserContext);
+}

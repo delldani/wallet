@@ -10,32 +10,32 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import { validationForTransactionModal } from "../utils/default";
 import { style } from './TransactionsModal.style';
+import {TextInput } from '../components/TextInput'
 import {
   dbUpdateTransaction,
   dbGetAllTransaction,
   dbAddTransaction,
 } from "../utils/db";
 
-const MyTextInput = ({ label, ...props }) => {
-  const [field, meta] = useField(props);
-  return (
-    <TextField
-      className="input-field"
-      label={label}
-      variant="outlined"
-      inputProps={{ ...field, ...props }}
-      helperText={meta.touched && meta.error}
-      error={!!(meta.touched && meta.error)}
-    />
-  );
-};
+// const MyTextInput = ({ label, ...props }) => {
+//   const [field, meta] = useField(props);
+//   return (
+//     <TextField
+//       className="input-field"
+//       label={label}
+//       variant="outlined"
+//       inputProps={{ ...field, ...props }}
+//       helperText={meta.touched && meta.error}
+//       error={!!(meta.touched && meta.error)}
+//     />
+//   );
+// };
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
 export const TransactionsModal = ({
-  modalType,
   handleClose,
   contextObject,
 }) => {
@@ -46,6 +46,7 @@ export const TransactionsModal = ({
     setTransactions,
     openModal,
     transactions,
+    modalType,
   } = contextObject;
   const [showProgress, setShowProgress] = React.useState(false);
 
@@ -118,12 +119,12 @@ export const TransactionsModal = ({
             onSubmit={onSubmit}
           >
             <Form className="form">
-              <MyTextInput
+              <TextInput
                 name="transaction"
                 label={translations.transactionType}
                 type="text"
               />
-              <MyTextInput
+              <TextInput
                 name="amount"
                 label={translations.amount}
                 type="text"

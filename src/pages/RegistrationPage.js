@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
 
-import { UserContext } from "../context";
+import { useUserContext } from "../context";
 import { RadioButtons } from "../components/RadioButtons";
 import { validationForRegistration } from "../utils/default";
 import { dbLogin, dbRegistration } from "../utils/db";
@@ -13,7 +13,7 @@ import { PasswordInput} from '../components/PasswordInput'
 import { style } from './RegistrationPage.style';
 
 export const RegistrationPage = () => {
-  const contextObject = React.useContext(UserContext);
+  const contextObject = useUserContext();
   const {
     usernameValidationRules,
     passwordValidationRules,

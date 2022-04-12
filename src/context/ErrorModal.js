@@ -6,8 +6,8 @@ import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import { errorMessage, errors } from "../utils/default";
 
-export const ErrorModal = ({ modalType, handleClose, contextObject }) => {
-  const { close } = contextObject.translations;
+export const ErrorModal = ({ handleClose, contextObject }) => {
+  const { modalType,translations } = contextObject
 
   const type = modalType && modalType.type;
   const open = errors.includes(type);
@@ -19,7 +19,7 @@ export const ErrorModal = ({ modalType, handleClose, contextObject }) => {
       </DialogContent>
       <DialogActions sx={style}>
         <Button onClick={handleClose} color="error" variant="contained">
-          {close}
+          {translations.close}
         </Button>
       </DialogActions>
     </Dialog>

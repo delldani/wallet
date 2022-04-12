@@ -7,11 +7,11 @@ import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
 import Typography from '@mui/material/Typography';
 
-import { UserContext } from "../context";
+import { useUserContext } from "../context";
 import { style } from './ListPage.style';
 
 export const ListPage = () => {
-  const contextObject = React.useContext(UserContext);
+  const contextObject = useUserContext();
   const navigate = useNavigate();
 
   const { myWallets, translations, setActualWallet,token} = contextObject;

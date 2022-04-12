@@ -1,14 +1,13 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { useLocation } from "react-router-dom";
-import { UserContext } from "../context";
+import { useUserContext } from "../context";
 import Typography from '@mui/material/Typography';
 
 import { showButton } from "../utils/utils";
 
 export const UserLabel = () => {
-  const contextObject = React.useContext(UserContext);
-  const { translations, user, token, job} = contextObject;
+  const { translations, user, token} = useUserContext();
   const { pathname } = useLocation();
 
   return (
