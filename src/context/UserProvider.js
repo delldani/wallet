@@ -54,16 +54,6 @@ export const UserProvider = ({ children }) => {
     }
   }, [loginData]);
 
-  const handleAddWallet = (name, id) => {
-    const newWallets = [...myWallets, { id, name }];
-    setMyWallets(newWallets);
-  };
-
-  const handleDeleteWallet = (id) => {
-    const newWallets = myWallets.filter((wallet)=>wallet.id !== id)
-    setMyWallets(newWallets);
-  };
-
   const handleAddAccessTodWallet = (name, id) => {
     const newWallets = [...accessToWallet, { id, name }];
     setAccessToWallet(newWallets);
@@ -101,10 +91,9 @@ export const UserProvider = ({ children }) => {
     setActualWallet,
     openModal,
     setLoginData,
-    handleAddWallet,
     handleAddAccessTodWallet,
     handleRemoveAccessTodWallet,
-    handleDeleteWallet,
+    setMyWallets,
     logOut,
   };
 

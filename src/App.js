@@ -21,8 +21,7 @@ const App = ()=>{
 
 export default App;
 
-//   vagy hogy a UserContext esetén nyugodtan használhatsz hookot hogy ne kelljen a context-et direktben kiajánlani, 
-//   majd ott két lépésben szétszedni az adatait. Amin még megakadt a szemem, 
+
 //   hogy a Modals contactben a UserContext-et használja, ha jól gondolom csak copypaste maradvány.
 //    UserProvider elég komplex lett, azt lehet még széttörném a kezelhetőség miatt kisebb részekre, 
 //    de talán még nem zavaró.

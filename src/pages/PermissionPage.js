@@ -10,7 +10,6 @@ import { style } from './PermissionPage.style';
 export const PermissionPage = () => {
   const {
     userList,
-    handleAddWallet,
     myWallets,
     job,
     token,
@@ -19,14 +18,15 @@ export const PermissionPage = () => {
     translations,
     handleAddAccessTodWallet,
     handleRemoveAccessTodWallet,
-    handleDeleteWallet
+    setMyWallets,
   } = useUserContext();
 
   const createWallet = (name, userId) => {
     if (job === "director") {
       dbCreateWallet(name, userId, token).then(
         (item) => {
-          handleAddWallet(name, item.data.id);
+          const newWallets = [...myWallets, { id:item.data.id, name }];
+          setMyWallets(newWallets);
         }
       );
     } else if (job === "teacher") {
@@ -48,9 +48,11 @@ export const PermissionPage = () => {
   const deleteWallet =(user)=>{
     if (job === "director"){
      const userWallet = myWallets.filter((wallet)=>wallet.name === user.name);
-      dbDeleteWallet(userWallet[0].id,token).then(res=>{
+     const id = userWallet[0].id;
+      dbDeleteWallet(id,token).then(res=>{
         console.log(res);
-        handleDeleteWallet(userWallet[0].id);
+        const newWallets = myWallets.filter((wallet)=>wallet.id !== id)
+        setMyWallets(newWallets);
       })
       
     }else if (job === "teacher") {

@@ -25,8 +25,8 @@ export const isAllow = (job,pathname)=>{
   return job === 'parent' && pathname === 'permission' ? false : true;
 }
 
-export const getMyWallet = (wallets,userNmae)=>{
-const newWallets = wallets.filter((wallet)=>wallet.name === userNmae);
+export const getMyWallet = (wallets,userName)=>{
+const newWallets = wallets.filter((wallet)=>wallet.name === userName);
 const myWallet = newWallets.length ?  newWallets[0] : null;
 return myWallet;
 }
