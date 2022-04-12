@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import { dbGetAllTransaction } from '../utils/db';
+import { apiCall } from '../utils/db';
 import {TransactionsTableWrapper } from '../components/TransactionsTableWrapper';
 import { style } from './WalletPage.style';
 
@@ -21,7 +21,8 @@ export const WalletPage = () => {
 
   React.useEffect(() => {
     if (actualWallet) {
-      dbGetAllTransaction(actualWallet.id, token).then((res) => {
+      apiCall('post',"transactions", {wallet_id:actualWallet.id},token)
+      .then((res) => {
         console.log(res);
         setTransactions(res.data.transactions);
         setShowProgress(false);

@@ -1,10 +1,7 @@
 import React from "react";
 
 import { translations } from "../utils/default";
-import {
-  dbList,
-  dbAccessList,
-} from "../utils/db";
+import {apiCall} from "../utils/db";
 import { getMyWallet } from '../utils/utils';
 
 const UserContext = React.createContext(null);
@@ -25,7 +22,7 @@ export const UserProvider = ({ children }) => {
       setMyWallets(loginData.user.wallets);
 
       if (job !== "parent") {
-        dbList().then((res) => {
+        apiCall('get','list',null,null).then((res) => {
           console.log(res);
           let listForPermission;
           if(job === 'director'){
@@ -44,7 +41,8 @@ export const UserProvider = ({ children }) => {
         if (job === "teacher" && wallets.length) {
           const myWallet = getMyWallet(wallets,name);
           if(myWallet){
-             dbAccessList(myWallet.id, token).then((res) => {
+             apiCall('get',"wallet/" + myWallet.id,null,token)
+             .then((res) => {
             const array = res.data.access.filter((item) => item.name !== name);
             setAccessToWallet(array);
           });

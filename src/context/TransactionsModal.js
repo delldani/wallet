@@ -1,6 +1,5 @@
 import React from "react";
-import { Formik, Form, useField } from "formik";
-import TextField from "@mui/material/TextField";
+import { Formik, Form } from "formik";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
@@ -12,24 +11,8 @@ import { validationForTransactionModal } from "../utils/default";
 import { style } from './TransactionsModal.style';
 import {TextInput } from '../components/TextInput'
 import {
-  dbUpdateTransaction,
-  dbGetAllTransaction,
-  dbAddTransaction,
+  apiCall
 } from "../utils/db";
-
-// const MyTextInput = ({ label, ...props }) => {
-//   const [field, meta] = useField(props);
-//   return (
-//     <TextField
-//       className="input-field"
-//       label={label}
-//       variant="outlined"
-//       inputProps={{ ...field, ...props }}
-//       helperText={meta.touched && meta.error}
-//       error={!!(meta.touched && meta.error)}
-//     />
-//   );
-// };
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -53,15 +36,10 @@ export const TransactionsModal = ({
   const onSubmit = (values) => {
     setShowProgress(true);
     if (modalType?.data) {
-      //csak update-nél van, egyébként data
-      dbUpdateTransaction(
-        modalType.data.id,
-        values.transaction,
-        values.amount,
-        token
-      ).then((res) => {
+      apiCall('patch',"transaction/" + modalType.data.id, {title:values.transaction,amount:values.amount},token)
+      .then((res) => {
         console.log(res);
-        dbGetAllTransaction(actualWallet.id, token)
+        apiCall('post',"transactions", {wallet_id:actualWallet.id},token)
           .then((res) => {
             console.log(res);
             setTransactions(res.data.transactions);
@@ -74,12 +52,7 @@ export const TransactionsModal = ({
           });
       });
     } else {
-      dbAddTransaction(
-        actualWallet.id,
-        values.transaction,
-        values.amount,
-        token
-      )
+      apiCall('put','transactions', {wallet_id:actualWallet.id,title:values.transaction,amount:values.amount},token)
         .then((res) => {
           const newTransactions = [...transactions, res.data];
           console.log(res);

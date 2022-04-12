@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context";
 import { RadioButtons } from "../components/RadioButtons";
 import { validationForRegistration } from "../utils/default";
-import { dbLogin, dbRegistration } from "../utils/db";
+import { apiCall } from "../utils/db";
 import {TextInput} from '../components/TextInput';
 import { PasswordInput} from '../components/PasswordInput'
 import { style } from './RegistrationPage.style';
@@ -81,10 +81,10 @@ export const RegistrationPage = () => {
 
 const handleRegistration = (values, setLoginData, navigate, openModal) => {
   const { radioGroup, username, password1 } = values;
-  dbRegistration(username, password1, radioGroup)
-    .then((response) => {
-      //ha sikerült a regisztráció akkor beloginol
-      dbLogin(username, password1)
+  apiCall('post','reg',{ name:username,password:password1,job:radioGroup,})
+    .then((res) => {
+      console.log(res);
+      apiCall('post','login',{name:username, password:password1})
         .then((response) => {
           setLoginData(response.data);
           radioGroup === "teacher" ? navigate("/list") : navigate("/wallet");

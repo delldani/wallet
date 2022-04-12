@@ -9,7 +9,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import { dbDeleteTransaction } from "../utils/db";
+import { apiCall } from "../utils/db";
 import { style } from './TransactionsTable.style';
 
 export const TransactionsTable = () => {
@@ -29,7 +29,7 @@ export const TransactionsTable = () => {
   const onTransactionDelete = (id) => {
     //csak a megfelelő sorban 
     setShowProgress(id);
-    dbDeleteTransaction(id, token)
+    apiCall('delete',"transaction/" + id,null,token)
       .then((res) => {
         setTransactions(transactions.filter((item) => item.id !== id));
         console.log(res);

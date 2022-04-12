@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Link } from "../components/Link";
 import { useUserContext } from "../context";
-import { dbLogin } from "../utils/db";
+import { apiCall } from "../utils/db";
 import { TextInput } from "../components/TextInput";
 import { style } from './LoginPage.style';
 import { PasswordInput } from '../components/PasswordInput'
@@ -21,7 +21,7 @@ export const LoginPage = () => {
       <Formik
         initialValues={{
           username: "",
-          password: "",
+          password: "Aaaa1",
         }}
         onSubmit={(values) => {
           handleLogin(values, setLoginData, navigate, openModal);
@@ -50,7 +50,7 @@ export const LoginPage = () => {
 
 const handleLogin = (values, setLoginData, navigate, openModal) => {
   const { username, password } = values;
-  dbLogin(username, password)
+  apiCall('post','login',{name:username, password:password})
   .then((response) => {
     console.log(response);
       setLoginData(response.data);
