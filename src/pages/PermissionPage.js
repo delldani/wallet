@@ -16,9 +16,8 @@ export const PermissionPage = () => {
     user,
     accessToWallet,
     translations,
-    handleAddAccessTodWallet,
-    handleRemoveAccessTodWallet,
     setMyWallets,
+    setAccessToWallet,
   } = useUserContext();
 
   const createWallet = (name, userId) => {
@@ -39,15 +38,16 @@ export const PermissionPage = () => {
           userId,
           token
         ).then((item) => {
-          handleAddAccessTodWallet(name, item.data.id);
+          const newWallets = [...accessToWallet, { id : item.data.id, name }];
+          setAccessToWallet(newWallets);
           console.log(item)});
       }
     } 
   };
 
-  const deleteWallet =(user)=>{
+  const deleteWallet =(userToDelete)=>{
     if (job === "director"){
-     const userWallet = myWallets.filter((wallet)=>wallet.name === user.name);
+     const userWallet = myWallets.filter((wallet)=>wallet.name === userToDelete.name);
      const id = userWallet[0].id;
       dbDeleteWallet(id,token).then(res=>{
         console.log(res);
@@ -57,9 +57,10 @@ export const PermissionPage = () => {
       
     }else if (job === "teacher") {
       const myWallet = getMyWallet(myWallets,user.name);
-      dbRemoveAccessToWallet( myWallet.id,user.id,token).then(res=>{
+      dbRemoveAccessToWallet( myWallet.id,userToDelete.id,token).then(res=>{
         console.log(res)
-        handleRemoveAccessTodWallet(user.id)
+        const newWallets = accessToWallet.filter((item)=>item.id !== userToDelete.id)
+        setAccessToWallet(newWallets);
       })
     }
   };

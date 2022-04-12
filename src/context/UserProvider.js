@@ -54,17 +54,6 @@ export const UserProvider = ({ children }) => {
     }
   }, [loginData]);
 
-  const handleAddAccessTodWallet = (name, id) => {
-    const newWallets = [...accessToWallet, { id, name }];
-    setAccessToWallet(newWallets);
-  };
-
-  
-  const handleRemoveAccessTodWallet = ( id) => {
-    const newWallets = accessToWallet.filter((item)=>item.id !== id)
-    setAccessToWallet(newWallets);
-  };
-
   const openModal = (type, data) => {
     setModalType({ type, data });
   };
@@ -91,9 +80,8 @@ export const UserProvider = ({ children }) => {
     setActualWallet,
     openModal,
     setLoginData,
-    handleAddAccessTodWallet,
-    handleRemoveAccessTodWallet,
     setMyWallets,
+    setAccessToWallet,
     logOut,
   };
 
